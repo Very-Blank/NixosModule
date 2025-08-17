@@ -11,5 +11,7 @@
     options = "--delete-older-than 2d";
   };
 
+  time.timeZone = "Europe/Helsinki";
+
   system.stateVersion = "24.11";
 }

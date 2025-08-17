@@ -3,5 +3,6 @@
     # ./terminal
     # ./developer
     # ./graphical
+    ./boot
   ];
 }

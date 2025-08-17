@@ -7,16 +7,18 @@
     };
   };
 
-  config = lib.mkIf lib.options.terminal.zsh.enable {
+  config = lib.mkIf config.terminal.zsh.enable {
     mainUserHome.home.packages = [ pkgs.pure-prompt ];
 
     users.users.${config.mainUser.userName}.shell = pkgs.zsh;
 
     programs.zsh = {
       enable = true;
-      # enableCompletions = true;
-      # autosuggestions.enable = true;
+
+      enableCompletions = true;
+      autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
+
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake .";
         rebuild-home = "home-manager switch --flake .";

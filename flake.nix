@@ -22,15 +22,15 @@
     };
   };
 
-  outputs = inputs: 
+  outputs = inputs:
     let
       inherit (inputs) nixpkgs;
       x86_64System = "x86_64-linux";
-    in 
+    in
     {
       nixosConfigurations = {
         zeus = nixpkgs.lib.nixosSystem {
-          inherit x86_64System;
+          system = x86_64System;
           specialArgs = {
             inherit inputs;
           };

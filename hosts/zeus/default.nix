@@ -1,11 +1,12 @@
-{ pkgs, ... }:
-{
+{ ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../modules
   ];
 
   config = {
-    system.stateVersion = "24.11";
+    boot = {
+      grub = false;
+    };
   };
 }
