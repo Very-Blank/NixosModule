@@ -1,12 +1,12 @@
 { ... }: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules
+    ../../configuration.nix
   ];
 
   config = {
     boot = {
-      grub = false;
+      grub.enable = false;
     };
   };
 }
