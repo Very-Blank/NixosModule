@@ -24,6 +24,7 @@
       mutableUsers = true; # true for now
       users.${config.modules.home.user.userName} = {
         isNormalUser = true;
+        password = "test"; #for VM
         shell = lib.mkOverride 1 pkgs.bash; # This is overwritten by zsh if enabled
         extraGroups = config.modules.home.user.extraGroups ++ [
           "wheel"

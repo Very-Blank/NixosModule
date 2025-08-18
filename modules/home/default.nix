@@ -19,6 +19,7 @@
       home = {
         username = config.modules.home.user.userName;
         homeDirectory = "/home/${config.modules.home.user.userName}";
+
         stateVersion = "24.11";
       };
     };
