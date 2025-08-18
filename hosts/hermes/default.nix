@@ -10,13 +10,15 @@
         hostname = "hermes";
       };
 
+      graphical = {
+        niri = {
+          enable = true;
+        };
+      };
+
       hardware = {
         backlight.enable = true;
         tuxedo.enable = true;
-      };
-
-      boot = {
-        multiboot.enable = false;
       };
     };
   };

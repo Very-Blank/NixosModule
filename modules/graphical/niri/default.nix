@@ -50,6 +50,7 @@
   };
 
   config = lib.mkIf config.modules.graphical.niri.enable {
+    modules.tty.agetty.dm.command = lib.mkIf config.cli.getty.dm.enable "niri-session";
     nixpkgs.overlays = [inputs.niri.overlays.niri];
     programs.niri.package = pkgs.niri-stable;
 
@@ -199,75 +200,75 @@
             }
           ];
 
-          # binds = with config.userHome.lib.niri.actions; let sh = spawn "sh" "-c"; in {
-          #   "Mod+H".action = focus-column-left;
-          #   "Mod+J".action = focus-window-down;
-          #   "Mod+K".action = focus-window-up;
-          #   "Mod+L".action = focus-column-right;
-          #
-          #   "Mod+Shift+H".action = move-column-left;
-          #   "Mod+Shift+J".action = move-window-down;
-          #   "Mod+Shift+K".action = move-window-up;
-          #   "Mod+Shift+L".action = move-column-right;
-          #
-          #   "Mod+Ctrl+H".action = focus-monitor-left;
-          #   "Mod+Ctrl+J".action = focus-monitor-down;
-          #   "Mod+Ctrl+K".action = focus-monitor-up;
-          #   "Mod+Ctrl+L".action = focus-monitor-right;
-          #
-          #   "Mod+Shift+Ctrl+H".action = move-column-to-monitor-left;
-          #   "Mod+Shift+Ctrl+J".action = move-column-to-monitor-down;
-          #   "Mod+Shift+Ctrl+K".action = move-column-to-monitor-up;
-          #   "Mod+Shift+Ctrl+L".action = move-column-to-monitor-right;
-          #
-          #   "Mod+1".action = focus-workspace 1;
-          #   "Mod+2".action = focus-workspace 2;
-          #   "Mod+3".action = focus-workspace 3;
-          #   "Mod+4".action = focus-workspace 4;
-          #   "Mod+5".action = focus-workspace 5;
-          #   "Mod+6".action = focus-workspace 6;
-          #   "Mod+7".action = focus-workspace 7;
-          #   "Mod+8".action = focus-workspace 8;
-          #   "Mod+9".action = focus-workspace 9;
-          #
-          #   # "Mod+Ctrl+1".action = move-column-to-workspace 1;
-          #   # "Mod+Ctrl+2".action = move-column-to-workspace 2;
-          #   # "Mod+Ctrl+3".action = move-column-to-workspace 3;
-          #   # "Mod+Ctrl+4".action = move-column-to-workspace 4;
-          #   # "Mod+Ctrl+5".action = move-column-to-workspace 5;
-          #   # "Mod+Ctrl+6".action = move-column-to-workspace 6;
-          #   # "Mod+Ctrl+7".action = move-column-to-workspace 7;
-          #   # "Mod+Ctrl+8".action = move-column-to-workspace 8;
-          #   # "Mod+Ctrl+9".action = move-column-to-workspace 9;
-          #
-          #   "Mod+Minus".action = set-column-width "-10%";
-          #   "Mod+Equal".action = set-column-width "+10%";
-          #   "Mod+Shift+Minus".action = set-window-height "-10%";
-          #   "Mod+Shift+Equal".action = set-window-height "+10%";
-          #
-          #   "Mod+R".action = switch-preset-column-width;
-          #   "Mod+F".action = maximize-column;
-          #
-          #   "Mod+C".action = center-column;
-          #   "Mod+V".action = toggle-window-floating;
-          #
-          #   "Print".action = screenshot;
-          #   "Mod+Print".action = screenshot-window;
-          #
-          #   "XF86AudioRaiseVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
-          #   "XF86AudioLowerVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-          #   "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          #
-          #   "Mod+Q".action = close-window;
-          #   "Mod+Shift+E".action = quit;
-          #   "Mod+D".action = spawn "fuzzel";
-          #   "Mod+T".action = spawn "ghostty";
-          #
-          #   "Mod+Semicolon".action = spawn ["wtype" "ö"];
-          #   "Mod+Apostrophe".action = spawn ["wtype" "ä"];
-          #   "Mod+Shift+Semicolon".action = spawn ["wtype" "Ö"];
-          #   "Mod+Shift+Apostrophe".action = spawn ["wtype" "Ä"];
-          # };
+          binds = with config.userHome.lib.niri.actions; let sh = spawn "sh" "-c"; in {
+            "Mod+H".action = focus-column-left;
+            "Mod+J".action = focus-window-down;
+            "Mod+K".action = focus-window-up;
+            "Mod+L".action = focus-column-right;
+
+            "Mod+Shift+H".action = move-column-left;
+            "Mod+Shift+J".action = move-window-down;
+            "Mod+Shift+K".action = move-window-up;
+            "Mod+Shift+L".action = move-column-right;
+
+            "Mod+Ctrl+H".action = focus-monitor-left;
+            "Mod+Ctrl+J".action = focus-monitor-down;
+            "Mod+Ctrl+K".action = focus-monitor-up;
+            "Mod+Ctrl+L".action = focus-monitor-right;
+
+            "Mod+Shift+Ctrl+H".action = move-column-to-monitor-left;
+            "Mod+Shift+Ctrl+J".action = move-column-to-monitor-down;
+            "Mod+Shift+Ctrl+K".action = move-column-to-monitor-up;
+            "Mod+Shift+Ctrl+L".action = move-column-to-monitor-right;
+
+            "Mod+1".action = focus-workspace 1;
+            "Mod+2".action = focus-workspace 2;
+            "Mod+3".action = focus-workspace 3;
+            "Mod+4".action = focus-workspace 4;
+            "Mod+5".action = focus-workspace 5;
+            "Mod+6".action = focus-workspace 6;
+            "Mod+7".action = focus-workspace 7;
+            "Mod+8".action = focus-workspace 8;
+            "Mod+9".action = focus-workspace 9;
+
+            # "Mod+Ctrl+1".action = move-column-to-workspace 1;
+            # "Mod+Ctrl+2".action = move-column-to-workspace 2;
+            # "Mod+Ctrl+3".action = move-column-to-workspace 3;
+            # "Mod+Ctrl+4".action = move-column-to-workspace 4;
+            # "Mod+Ctrl+5".action = move-column-to-workspace 5;
+            # "Mod+Ctrl+6".action = move-column-to-workspace 6;
+            # "Mod+Ctrl+7".action = move-column-to-workspace 7;
+            # "Mod+Ctrl+8".action = move-column-to-workspace 8;
+            # "Mod+Ctrl+9".action = move-column-to-workspace 9;
+
+            "Mod+Minus".action = set-column-width "-10%";
+            "Mod+Equal".action = set-column-width "+10%";
+            "Mod+Shift+Minus".action = set-window-height "-10%";
+            "Mod+Shift+Equal".action = set-window-height "+10%";
+
+            "Mod+R".action = switch-preset-column-width;
+            "Mod+F".action = maximize-column;
+
+            "Mod+C".action = center-column;
+            "Mod+V".action = toggle-window-floating;
+
+            "Print".action = screenshot;
+            "Mod+Print".action = screenshot-window;
+
+            "XF86AudioRaiseVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
+            "XF86AudioLowerVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+            "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+
+            "Mod+Q".action = close-window;
+            "Mod+Shift+E".action = quit;
+            "Mod+D".action = spawn "fuzzel";
+            "Mod+T".action = spawn "ghostty";
+
+            "Mod+Semicolon".action = spawn ["wtype" "ö"];
+            "Mod+Apostrophe".action = spawn ["wtype" "ä"];
+            "Mod+Shift+Semicolon".action = spawn ["wtype" "Ö"];
+            "Mod+Shift+Apostrophe".action = spawn ["wtype" "Ä"];
+          };
         };
       };
     };

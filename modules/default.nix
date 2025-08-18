@@ -5,5 +5,6 @@
     ./home
     ./networking
     ./graphical
+    ./tty
   ];
 }
