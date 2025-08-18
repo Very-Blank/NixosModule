@@ -4,6 +4,8 @@
     # ./developer
     # ./graphical
     ./boot
+    ./hardware
     ./home
+		./networking
   ];
 }

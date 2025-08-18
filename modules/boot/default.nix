@@ -21,7 +21,7 @@
       boot.loader.efi.efiSysMountPoint = "/boot";
       boot.loader.efi.canTouchEfiVariables = true;
     })
-    (lib.mkIf (!config.boot.grub.enable) {
+    (lib.mkIf (!config.modules.boot.multiboot.enable) {
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
     })

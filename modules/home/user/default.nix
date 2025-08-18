@@ -1,4 +1,4 @@
-{lib, config, pkgs}: {
+{lib, config, pkgs, ... }: {
   options = {
     modules = {
       home = {
@@ -21,7 +21,7 @@
 
   config = {
     users = {
-      mutableUsers = false;
+      mutableUsers = true; # true for now
       users.${config.modules.home.user.userName} = {
         isNormalUser = true;
         shell = lib.mkOverride 1 pkgs.bash; # This is overwritten by zsh if enabled

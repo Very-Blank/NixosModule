@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
     ./hardware-configuration.nix
-    ../../configuration.nix
+    ../../base.nix
   ];
 
   config = {

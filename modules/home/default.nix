@@ -1,4 +1,4 @@
-{inputs, lib, config}: {
+{inputs, lib, config, ... }: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./user
@@ -7,7 +7,6 @@
 
   config = {
     home-manager = {
-      enable = true;
       useGlobalPkgs = true;
     };
 

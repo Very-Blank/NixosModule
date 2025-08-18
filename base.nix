@@ -12,6 +12,11 @@
     };
   };
 
+  programs = {
+    nano.enable = false;
+    vim.enable = true;
+  };
+
   time.timeZone = "Europe/Helsinki";
 
   system.stateVersion = "24.11";
