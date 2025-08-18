@@ -1,8 +1,8 @@
 {inputs, lib, config}: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    ./user.nix
-    (lib.modules.mkAliasOptionModule [ "mainUserHome" ] [ "home-manager" "users" config.mainUser.userName ])
+    ./user
+    (lib.modules.mkAliasOptionModule [ "userHome" ] [ "home-manager" "users" config.modules.home.user.userName ])
   ];
 
   config = {
@@ -11,15 +11,15 @@
       useGlobalPkgs = true;
     };
 
-    mainUserHome = {
+    userHome = {
       xdg = {
         enable = true;
         userDirs.createDirectories = true;
       };
 
       home = {
-        username = config.mainUser.userName;
-        homeDirectory = "/home/${config.mainUser.userName}";
+        username = config.modules.home.user.userName;
+        homeDirectory = "/home/${config.modules.home.user.userName}";
         stateVersion = "24.11";
       };
     };

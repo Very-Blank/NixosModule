@@ -4,5 +4,6 @@
     # ./developer
     # ./graphical
     ./boot
+    ./home
   ];
 }

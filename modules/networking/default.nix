@@ -1,17 +1,19 @@
 {lib, config, pkgs}: {
   options = {
-    networking = {
-      hostname = lib.mkOption {
-        default = "nixos";
-        description = "Hostname";
-        type = lib.types.nonEmptyStr;
+    modules = {
+      networking = {
+        hostname = lib.mkOption {
+          default = "nixos";
+          description = "Hostname";
+          type = lib.types.nonEmptyStr;
+        };
       };
     };
   };
 
   config = {
     networking = {
-      hostName = config.networking.hostname;
+      hostName = config.modules.networking.hostname;
       networkmanager.enable = true;
     };
   };

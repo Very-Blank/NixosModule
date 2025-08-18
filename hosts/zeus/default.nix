@@ -5,8 +5,14 @@
   ];
 
   config = {
-    boot = {
-      grub.enable = false;
+    modules = {
+      networking = {
+        hostname = "zeus";
+      };
+
+      boot = {
+        multiboot.enable = true;
+      };
     };
   };
 }

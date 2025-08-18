@@ -38,6 +38,16 @@
             ./hosts/zeus
           ];
         };
+
+        hermes = nixpkgs.lib.nixosSystem {
+          system = x86_64System;
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./hosts/hermes
+          ];
+        };
       };
     };
 }

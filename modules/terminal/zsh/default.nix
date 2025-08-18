@@ -1,13 +1,15 @@
 { config, lib, pkgs, ... }: {
   options = {
-    terminal = {
-      zsh = {
-        enable = lib.mkEnableOption "Zsh";
+    modules = {
+      terminal = {
+        zsh = {
+          enable = lib.mkEnableOption "Zsh";
+        };
       };
     };
   };
 
-  config = lib.mkIf config.terminal.zsh.enable {
+  config = lib.mkIf config.modules.terminal.zsh.enable {
     mainUserHome.home.packages = [ pkgs.pure-prompt ];
 
     users.users.${config.mainUser.userName}.shell = pkgs.zsh;
