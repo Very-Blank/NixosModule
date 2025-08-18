@@ -1,6 +1,5 @@
 {
   imports = [
-    ./getty
     ./greetd
   ];
 }

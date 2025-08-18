@@ -50,8 +50,6 @@
   };
 
   config = lib.mkIf config.modules.graphical.niri.enable {
-    modules.tty.getty.enable = true;
-
     nixpkgs.overlays = [inputs.niri.overlays.niri];
     programs.niri.package = pkgs.niri-stable;
 
