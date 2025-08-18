@@ -63,6 +63,8 @@
       };
 
       systemPackages = [
+        pkgs.uwsm
+
         pkgs.xdg-desktop-portal
         pkgs.xdg-desktop-portal-gnome
 
@@ -77,6 +79,11 @@
         pkgs.swaybg
         pkgs.mako
       ];
+    };
+
+    modules.tty.greetd = {
+      enable = lib.mkForce true;
+      cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session";
     };
 
     userHome = let cursorName = "Bibata-Original-Classic"; cursorSize = 16; in {
