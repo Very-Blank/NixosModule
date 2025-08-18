@@ -50,7 +50,8 @@
   };
 
   config = lib.mkIf config.modules.graphical.niri.enable {
-    modules.tty.agetty.dm.command = lib.mkIf config.cli.getty.dm.enable "niri-session";
+    modules.tty.getty.enable = true;
+
     nixpkgs.overlays = [inputs.niri.overlays.niri];
     programs.niri.package = pkgs.niri-stable;
 
