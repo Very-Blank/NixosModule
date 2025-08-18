@@ -16,16 +16,23 @@
   };
 
   config = lib.mkIf config.modules.tty.greetd.enable {
-    services.greetd = {
-      enable = true;
-      settings = {
-        terminal = {
-          vt = 1;
-        };
+    services = {
+      getty = {
+        greetingLine = "<< NixOS ${config.system.nixos.release}, ${config.modules.networking.hostname} at your service >>";
+        helpLine = lib.mkForce "\n";
+      };
 
-        default_session = {
-          command = "${pkgs.greetd}/bin/agreety --cmd ${config.modules.tty.greetd.cmd}";
-          user = "greeter";
+      greetd = {
+        enable = true;
+        settings = {
+          terminal = {
+            vt = 1;
+          };
+
+          default_session = {
+            command = "${pkgs.greetd}/bin/agreety --cmd '${config.modules.tty.greetd.cmd}'";
+            user = "greeter";
+          };
         };
       };
     };

@@ -83,7 +83,7 @@
 
     modules.tty.greetd = {
       enable = lib.mkForce true;
-      cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session";
+      cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
     };
 
     userHome = let cursorName = "Bibata-Original-Classic"; cursorSize = 16; in {

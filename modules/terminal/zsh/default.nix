@@ -12,6 +12,10 @@
   config = lib.mkIf config.modules.terminal.zsh.enable {
     mainUserHome.home.packages = [ pkgs.pure-prompt ];
 
+    modules.tty.greetd = {
+      cmd = lib.mkOverride 1 "${pkgs.zsh}/bin/zsh";
+    };
+
     users.users.${config.mainUser.userName}.shell = pkgs.zsh;
 
     programs.zsh = {
