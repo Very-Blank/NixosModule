@@ -6,6 +6,7 @@
     ./boot
     ./hardware
     ./home
-		./networking
+    ./networking
+    ./graphical
   ];
 }
