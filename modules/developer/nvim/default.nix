@@ -14,6 +14,7 @@
       # Language servers
       home.packages = [
         pkgs.lua-language-server
+        pkgs.zls
       ];
 
       programs.neovim = {
