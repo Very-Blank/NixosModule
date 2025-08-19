@@ -11,6 +11,8 @@
     };
 
     userHome = {
+      accounts.calendar = {}; 
+
       xdg = {
         enable = true;
         userDirs.createDirectories = true;

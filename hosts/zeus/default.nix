@@ -10,9 +10,11 @@
         hostname = "zeus";
       };
 
+      terminal.zsh.enable = true;
+
       graphical = {
         niri = {
-          enable = true;
+          enable = false;
           outputs = {
             "PNP(AOC) 2590G5 0x00002709" = {
               mode = {
