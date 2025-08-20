@@ -19,7 +19,10 @@
       hardware.audio.enable = true;
 
       graphical = {
-        waybar.enable = true;
+        waybar = {
+          enable = true;
+          systemInfo = true;
+        };
 
         niri = {
           enable = true;
