@@ -10,7 +10,7 @@
           enable = lib.mkEnableOption "Niri";
 
           terminalEmulator = {
-            enable = lib.mkEnableOption;
+            enable = lib.mkEnableOption "Terminal emulator";
             path = lib.mkOption {
               default = "${pkgs.ghostty}/bin/ghostty";
               description = "The terminal emulators path";
@@ -19,7 +19,7 @@
           };
 
           dmenu = {
-            enable = lib.mkEnableOption;
+            enable = lib.mkEnableOption "Dmenu";
             path = lib.mkOption {
               default = "${pkgs.fuzzel}/bin/fuzzel";
               description = "The dmenus path";
@@ -87,8 +87,6 @@
 
         pkgs.wayland-utils
         pkgs.xwayland-satellite-unstable
-
-        pkgs.wpctl
 
         pkgs.wtype
         pkgs.wl-clipboard
@@ -273,9 +271,9 @@
             "Print".action = screenshot;
             "Mod+Print".action = screenshot-window;
 
-            "XF86AudioRaiseVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
-            "XF86AudioLowerVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-            "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            "XF86AudioRaiseVolume".action = lib.mkIf config.modules.hardware.audio.enable (sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+");
+            "XF86AudioLowerVolume".action = lib.mkIf config.modules.hardware.audio.enable (sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-");
+            "XF86AudioMute".action = lib.mkIf config.modules.hardware.audio.enable (sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle");
 
             "Mod+Q".action = close-window;
             "Mod+Shift+E".action = quit;

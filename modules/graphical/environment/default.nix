@@ -2,14 +2,14 @@
   options = {
     modules = {
       graphical = {
-        enviroment = {
-          enable = lib.mkEnableOption;
+        environment = {
+          enable = lib.mkEnableOption "Enables a fully working graphical environment.";
         };
       };
     };
   };
 
-  config = lib.mkIf config.modules.graphical.enviroment.enable {
+  config = lib.mkIf config.modules.graphical.environment.enable {
     environment = {
       systemPackages = [
         pkgs.uwsm
