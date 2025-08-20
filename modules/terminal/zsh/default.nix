@@ -26,7 +26,13 @@
         enable = true;
 
         autosuggestion.enable = true;
-        autosuggestion.highlight = "fg=#383838,bg=#a1d8fc,bold,underline";
+        autosuggestion.highlight = lib.mkMerge [
+          (lib.mkIf config.modules.graphical.stylix.enable
+            "fg=#383838,bg=#a1d8fc,bold,underline")
+          (lib.mkIf (!config.modules.graphical.stylix.enable)
+            "fg=#${config.lib.stylix.colors.base0D},bg=#${config.lib.stylix.colors.base0B},bold,underline")
+        ];
+
         syntaxHighlighting.enable = true;
 
         shellAliases = {

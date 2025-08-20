@@ -280,8 +280,8 @@
 
             "Mod+Q".action = close-window;
             "Mod+Shift+E".action = quit;
-            "Mod+D".action = spawn "fuzzel";
-            "Mod+T".action = spawn "ghostty";
+            "Mod+D".action = lib.mkIf config.modules.graphical.fuzzel.enable (spawn "fuzzel");
+            "Mod+T".action = lib.mkIf config.modules.terminal.ghostty.enable (spawn "ghostty");
 
             "Mod+Semicolon".action = spawn ["wtype" "ö"];
             "Mod+Apostrophe".action = spawn ["wtype" "ä"];
