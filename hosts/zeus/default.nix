@@ -24,8 +24,9 @@
           systemInfo.enable = true;
         };
 
+        environment.enable = true;
+
         niri = {
-          enable = true;
           outputs = {
             "PNP(AOC) 2590G5 0x00002709" = {
               mode = {

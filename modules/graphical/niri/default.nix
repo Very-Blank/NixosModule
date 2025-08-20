@@ -8,6 +8,25 @@
       graphical = {
         niri = {
           enable = lib.mkEnableOption "Niri";
+
+          terminalEmulator = {
+            enable = lib.mkEnableOption;
+            path = lib.mkOption {
+              default = "${pkgs.ghostty}/bin/ghostty";
+              description = "The terminal emulators path";
+              type = lib.types.nonEmptyStr;
+            };
+          };
+
+          dmenu = {
+            enable = lib.mkEnableOption;
+            path = lib.mkOption {
+              default = "${pkgs.fuzzel}/bin/fuzzel";
+              description = "The dmenus path";
+              type = lib.types.nonEmptyStr;
+            };
+          };
+
           outputs = lib.mkOption {
             type = lib.types.attrsOf (lib.types.submodule {
               options = {
@@ -63,40 +82,20 @@
       };
 
       systemPackages = [
-        pkgs.uwsm
-
         pkgs.xdg-desktop-portal
         pkgs.xdg-desktop-portal-gnome
 
         pkgs.wayland-utils
         pkgs.xwayland-satellite-unstable
 
+        pkgs.wpctl
+
         pkgs.wtype
         pkgs.wl-clipboard
         pkgs.libsecret
         pkgs.cage
         pkgs.gamescope
-        pkgs.swaybg
-        pkgs.mako
       ];
-    };
-
-    #"NEEDED" NIRI MODULES
-    modules.tty.greetd = {
-      enable = lib.mkForce true;
-      cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
-    };
-
-    modules = {
-      graphical = {
-        mako.enable = lib.mkForce true;
-        swaybg.enable = lib.mkForce true;
-        fuzzel.enable = lib.mkForce true;
-        firefox.enable = lib.mkForce true;
-        stylix.enable = lib.mkForce true;
-      };
-
-      terminal.ghostty.enable = lib.mkForce true;
     };
 
     userHome = let cursorName = "Bibata-Original-Classic"; cursorSize = 16; in {
@@ -280,8 +279,8 @@
 
             "Mod+Q".action = close-window;
             "Mod+Shift+E".action = quit;
-            "Mod+D".action = lib.mkIf config.modules.graphical.fuzzel.enable (spawn "fuzzel");
-            "Mod+T".action = lib.mkIf config.modules.terminal.ghostty.enable (spawn "ghostty");
+            "Mod+D".action = lib.mkIf config.modules.graphical.niri.dmenu.enable (spawn config.modules.graphical.niri.dmenu.path);
+            "Mod+T".action = lib.mkIf config.modules.graphical.niri.terminalEmulator.enable (spawn config.modules.graphical.niri.terminalEmulator.path);
 
             "Mod+Semicolon".action = spawn ["wtype" "ö"];
             "Mod+Apostrophe".action = spawn ["wtype" "ä"];

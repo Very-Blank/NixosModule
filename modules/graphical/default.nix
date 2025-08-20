@@ -1,5 +1,6 @@
 {
   imports = [
+    ./environment
     ./niri
     ./firefox
     ./fuzzel
