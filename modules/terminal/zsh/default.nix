@@ -48,7 +48,7 @@
           hibernate = "systemctl hibernate";
         };
 
-        history.size = 1000;
+        history.size = 10000;
 
         initContent = ''
           fpath+=(${pkgs.pure-prompt}/share/zsh/site-functions)
