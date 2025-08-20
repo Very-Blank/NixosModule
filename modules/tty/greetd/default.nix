@@ -18,8 +18,8 @@
   config = lib.mkIf config.modules.tty.greetd.enable {
     services = {
       getty = {
-        greetingLine = "<< NixOS ${config.system.nixos.release} >>\n";
-        helpLine = lib.mkForce "${(lib.strings.toUpper (builtins.substring 0 1 config.modules.networking.hostname))}${(builtins.substring 1 (builtins.stringLength config.modules.networking.hostname) config.modules.networking.hostname)} at your service.";
+        greetingLine = " << NixOS ${config.system.nixos.release} >>\n";
+        helpLine = lib.mkForce " ${(lib.strings.toUpper (builtins.substring 0 1 config.modules.networking.hostname))}${(builtins.substring 1 (builtins.stringLength config.modules.networking.hostname) config.modules.networking.hostname)} at your service.";
       };
 
       greetd = {
@@ -30,7 +30,7 @@
           };
 
           default_session = {
-            command = "${pkgs.greetd}/bin/agreety --cmd '${config.modules.tty.greetd.cmd}'";
+            command = "${pkgs.greetd}/bin/agreety --max-failures 3 --cmd '${config.modules.tty.greetd.cmd}'";
             user = "greeter";
           };
         };
