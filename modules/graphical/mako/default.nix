@@ -1,6 +1,16 @@
-{...}:
+{lib, config, ...}:
 {
-  config = {
+  options = {
+    modules = {
+      graphical = {
+        mako = {
+          enable = lib.mkEnableOption "Mako";
+        };
+      };
+    };
+  };
+
+  config = lib.mkIf config.modules.graphical.mako.enable {
     userHome = {
       services.mako = {
         enable = true;

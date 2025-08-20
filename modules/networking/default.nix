@@ -1,4 +1,4 @@
-{lib, config, ...}: {
+{lib, config, pkgs, ...}: {
   options = {
     modules = {
       networking = {
@@ -15,6 +15,30 @@
     networking = {
       hostName = config.modules.networking.hostname;
       networkmanager.enable = true;
+    };
+
+    environment.systemPackages = lib.mkIf config.modules.graphical.waybar.tray.enable [
+      pkgs.libappindicator
+      pkgs.networkmanagerapplet
+    ];
+
+    userHome = {
+      systemd.user.services.nm-applet = lib.mkIf config.modules.graphical.waybar.tray.enable {
+        Unit = {
+          Description = "Nm-applet service";
+          PartOf = [ "graphical-session.target"  "dbus.socket" ];
+          After = [ "graphical-session.target"  "dbus.socket" ];
+        };
+        Service = {
+          ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+          Restart     = "on-failure";
+          RestartSec  = "5s";
+        };
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
+        };
+      };
+
     };
   };
 }

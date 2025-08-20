@@ -10,11 +10,19 @@
         hostname = "zeus";
       };
 
-      terminal.zsh.enable = true;
+      terminal = {
+        tmux.enable = true;
+        zsh.enable = true;
+      };
+
+      developer.enable = true;
+      hardware.audio.enable = true;
 
       graphical = {
+        waybar.enable = true;
+
         niri = {
-          enable = false;
+          enable = true;
           outputs = {
             "PNP(AOC) 2590G5 0x00002709" = {
               mode = {

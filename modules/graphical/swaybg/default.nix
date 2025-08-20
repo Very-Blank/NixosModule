@@ -1,7 +1,17 @@
-{config, pkgs, ...}:
+{lib, config, pkgs, ...}:
 
 {
-  config = {
+  options = {
+    modules = {
+      graphical = {
+        swaybg = {
+          enable = lib.mkEnableOption "Swaybg";
+        };
+      };
+    };
+  };
+
+  config = lib.mkIf config.modules.graphical.swaybg.enable {
     userHome = {
       home.file."Pictures/wallpaper.png".source = ./wallpaper.png;
       systemd.user.services.swaybg = {

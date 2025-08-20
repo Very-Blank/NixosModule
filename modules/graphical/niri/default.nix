@@ -81,9 +81,22 @@
       ];
     };
 
+    #"NEEDED" NIRI MODULES
     modules.tty.greetd = {
       enable = lib.mkForce true;
       cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
+    };
+
+    modules = {
+      graphical = {
+        mako.enable = lib.mkForce true;
+        swaybg.enable = lib.mkForce true;
+        fuzzel.enable = lib.mkForce true;
+        firefox.enable = lib.mkForce true;
+        stylix.enable = lib.mkForce true;
+      };
+
+      terminal.ghostty = lib.mkForce true;
     };
 
     userHome = let cursorName = "Bibata-Original-Classic"; cursorSize = 16; in {

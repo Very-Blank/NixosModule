@@ -1,7 +1,23 @@
-{lib, ...}:
+{lib, config, pkgs, ...}:
 
 {
-  config = {
+  options = {
+    modules = {
+      graphical = {
+        fuzzel = {
+          enable = lib.mkEnableOption "Fuzzel";
+        };
+      };
+    };
+  };
+
+  config = lib.mkIf config.modules.graphical.fuzzel.enable {
+    fonts = {
+      packages = [
+        pkgs.nerd-fonts._0xproto
+      ];
+    };
+
     userHome = {
       programs.fuzzel = {
         enable = true;
@@ -23,6 +39,16 @@
 
           dmenu = {
             exit-immediately-if-empty = "yes";
+          };
+        };
+      };
+
+      home = {
+        gtk = {
+          enable = true;
+          iconTheme = {
+            name = "Papirus";
+            package = pkgs.papirus-icon-theme;
           };
         };
       };

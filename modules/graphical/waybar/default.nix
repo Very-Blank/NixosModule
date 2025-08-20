@@ -1,53 +1,41 @@
 {lib, config, pkgs, ...}: {
-  # systemd.user.services.nm-applet = {
-  #   Unit = {
-  #     Description = "Nm-applet service";
-  #     PartOf = [ "graphical-session.target"  "dbus.socket" ];
-  #     After = [ "graphical-session.target"  "dbus.socket" ];
-  #   };
-  #   Service = {
-  #     ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-  #     Restart     = "on-failure";
-  #     RestartSec  = "5s";
-  #   };
-  #   Install = {
-  #     WantedBy = [ "graphical-session.target" ];
-  #   };
-  # };
-  #
-  # systemd.user.services.blueman-applet = {
-  #   Unit = {
-  #     Description = "Blueman-applet service";
-  #     PartOf = [ "graphical-session.target"  "dbus.socket" ];
-  #     After = [ "graphical-session.target"  "dbus.socket" ];
-  #   };
-  #   Service = {
-  #     ExecStart = "${pkgs.blueman}/bin/blueman-applet";
-  #     Restart     = "on-failure";
-  #     RestartSec  = "5s";
-  #   };
-  #   Install = {
-  #     WantedBy = [ "graphical-session.target" ];
-  #   };
-  # };
+  options = {
+    modules = {
+      graphical = {
+        waybar = {
+          enable = lib.mkEnableOption "Waybar";
+          tray = {
+            enable = lib.mkEnableOption "Tray";
+          };
+          systemInfo = {
+            enable = lib.mkEnableOption "System info";
+          };
+        };
+      };
+    };
+  };
 
-  # programs.waybar = {
-  #   settings = {
-  #     mainBar = {
-  #       modules-right = ["pulseaudio" "memory" "cpu" "backlight" "battery" "tray"];
-  #       "tray" = {
-  #         icon-size = 20;
-  #         spacing = 10;
-  #       };
-  #     };
-  #   };
-  # };
+  config = lib.mkIf config.modules.graphical.waybar.enable {
+    fonts = {
+      packages = [
+        pkgs.nerd-fonts._0xproto
+      ];
+    };
 
-  config = {
+    stylix.enable = lib.mkForce true;
+
     userHome = {
-      programs.waybar = let
-        processedDefines = pkgs.replaceVars ./style.css config.lib.stylix.colors;
-        in {
+      home = lib.mkIf config.modules.graphical.waybar.tray.enable {
+        gtk = {
+          enable = true;
+          iconTheme = {
+            name = "Papirus";
+            package = pkgs.papirus-icon-theme;
+          };
+        };
+      };
+
+      programs.waybar = let processedDefines = pkgs.replaceVars ./style.css config.lib.stylix.colors; in {
         enable = true;
         settings = {
           mainBar = {
@@ -56,11 +44,18 @@
             margin = "5 10 5 10";
             modules-center = ["clock"];
 
-            modules-left = ["niri/workspaces" "niri/language" "keyboard-state" "custom/poweroff" "custom/hibernate" "custom/reboot"];
+            modules-left = lib.mkMerge [
+              (lib.mkIf config.modules.graphical.niri.enable ["niri/workspaces"])
+              ["keyboard-state" "custom/poweroff" "custom/hibernate" "custom/reboot"]
+            ];
 
-            "niri/language" = {
-              format-en = "US";
-            };
+            modules-right = lib.mkMerge [
+              (lib.mkIf config.modules.hardware.audio.enable ["pipewire"])
+              (lib.mkIf config.modules.hardware.backlight.enable ["backlight"])
+              (lib.mkIf config.modules.graphical.waybar.systemInfo.enable ["memory" "cpu"])
+              (lib.mkIf config.modules.hardware.battery.enable ["battery"])
+              (lib.mkIf config.modules.graphical.waybar.tray.enable ["tray"])
+            ];
 
             "keyboard-state" = {
               capslock = true;
@@ -94,7 +89,7 @@
               tooltip = false;
             };
 
-            "pulseaudio" = {
+            "pipewire" = lib.mkIf config.modules.hardware.audio.enable {
               reverse-scrolling = 1;
               format = "{volume}% {icon} {format_source}";
               format-bluetooth = "{volume}% {icon} {format_source}";
@@ -111,39 +106,29 @@
                 car = "";
                 default = ["" "" ""];
               };
-              on-click = "pavucontrol";
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
               min-length = 13;
             };
 
-            "memory" = {
+            "memory" = lib.mkIf config.modules.graphical.waybar.systemInfo.enable {
               interval =  30;
               format = "{}% ";
             };
 
-            "cpu" = {
+            "cpu" = lib.mkIf config.modules.graphical.waybar.systemInfo.enable {
               interval = 2;
               format = "{usage}% ";
               min-length = 6;
             };
 
-            "temperature" = {
-              # thermal-zone = 2;
-              # hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
-              critical-threshold = 80;
-              # format-critical = "{temperatureC}°C {icon}";
-              format = "{temperatureC}°C {icon}";
-              format-icons = ["" "" "" "" ""];
-              tooltip = false;
-            };
-
-            "backlight" = {
+            "backlight" = lib.mkIf config.modules.hardware.backlight.enable {
               device = "intel_backlight";
               format = "{percent}% {icon}";
               format-icons = ["󰛩" "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨"];
               min-length = 7;
             };
 
-            "battery" = {
+            "battery" = lib.mkIf config.modules.hardware.battery.enable {
               interval = 2;
               states = { warning = 30; critical = 15;
               };
@@ -152,6 +137,11 @@
               format-plugged = "{capacity}% ";
               format-alt = "{time} {icon}";
               format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+            };
+
+            "tray" = lib.mkIf config.modules.graphical.waybar.tray.enable {
+              icon-size = 20;
+              spacing = 10;
             };
           };
         };

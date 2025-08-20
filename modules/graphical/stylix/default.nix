@@ -1,13 +1,30 @@
-{pkgs, ...}: {
-  config = {
+{lib, config, pkgs, ...}: {
+  options = {
+    modules = {
+      graphical = {
+        stylix = {
+          enable = lib.mkEnableOption "Stylix";
+        };
+      };
+    };
+  };
+
+  config = lib.mkIf config.modules.graphical.stylix.enable {
     userHome = {
       stylix = {
         enable = true;
+        autoEnable = false;
+
         base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
         targets = {
-          waybar.enable = false;
-          neovim.enable = false;
-          firefox.profileNames = [ "blank" ];
+          firefox = {
+            enable = config.modules.graphical.firefox.enable;
+            profileNames = [ config.modules.home.user.name ];
+          };
+
+          fuzzel.enable = config.modules.graphical.fuzzel.enable;
+          ghostty.enable = config.modules.terminal.ghostty.enable;
+          mako.enable = config.modules.graphical.mako.enable;
         };
 
         fonts = {
