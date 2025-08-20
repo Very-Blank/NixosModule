@@ -77,8 +77,9 @@ window#waybar.hidden {
 
 #keyboard-state {
     margin-right: 8px;
+    padding-left: 16px;
     padding-right: 16px;
-    border-radius: 0 10px 10px 0;
+    border-radius: 10px;
     transition: none;
     color: @base05;
     background: @base00;

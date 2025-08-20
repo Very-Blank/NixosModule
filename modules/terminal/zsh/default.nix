@@ -14,7 +14,7 @@
       enable = true;
     };
 
-    users.users.${config.modules.home.user.name}.shell = pkgs.zsh;
+    users.users.${config.modules.home.user.name}.shell = lib.mkForce pkgs.zsh;
     modules.tty.greetd = {
       cmd = lib.mkOverride 100 "${pkgs.zsh}/bin/zsh";
     };
@@ -26,7 +26,7 @@
         enable = true;
 
         autosuggestion.enable = true;
-        autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";
+        autosuggestion.highlight = "fg=#383838,bg=#a1d8fc,bold,underline";
         syntaxHighlighting.enable = true;
 
         shellAliases = {

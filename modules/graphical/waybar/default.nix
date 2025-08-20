@@ -24,6 +24,12 @@
 
     modules.graphical.stylix.enable = lib.mkForce true;
 
+    programs = {
+      waybar = {
+        enable = true;
+      };
+    };
+
     userHome = {
       gtk = lib.mkIf config.modules.graphical.waybar.tray.enable {
         enable = true;
@@ -62,7 +68,7 @@
             ];
 
             modules-right = lib.mkMerge [
-              (lib.mkIf config.modules.hardware.audio.enable ["pipewire"])
+              (lib.mkIf config.modules.hardware.audio.enable ["pulseaudio"])
               (lib.mkIf config.modules.hardware.backlight.enable ["backlight"])
               (lib.mkIf config.modules.graphical.waybar.systemInfo.enable ["memory" "cpu"])
               (lib.mkIf config.modules.hardware.battery.enable ["battery"])
@@ -101,7 +107,7 @@
               tooltip = false;
             };
 
-            "pipewire" = lib.mkIf config.modules.hardware.audio.enable {
+            "pulseaudio" = lib.mkIf config.modules.hardware.audio.enable {
               reverse-scrolling = 1;
               format = "{volume}% {icon} {format_source}";
               format-bluetooth = "{volume}% {icon} {format_source}";

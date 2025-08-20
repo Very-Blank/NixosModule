@@ -24,7 +24,7 @@
       mutableUsers = true; # true for now
       users.${config.modules.home.user.name} = {
         isNormalUser = true;
-        shell = lib.mkOverride 1 pkgs.bash; # This is overwritten by zsh if enabled
+        shell = lib.mkOverride 100 pkgs.bash; # This is overwritten by zsh if enabled
         extraGroups = config.modules.home.user.extraGroups ++ [
           "wheel"
           "video"
