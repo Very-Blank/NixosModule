@@ -10,7 +10,7 @@
   };
 
   config = lib.mkIf config.modules.developer.git.enable {
-    homeUser = {
+    userHome = {
       programs.git = {
         enable = true;
         userEmail = "aapeli.saarelainen.76@gmail.com";

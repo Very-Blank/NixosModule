@@ -1,6 +1,7 @@
 {
   imports = [
     ./niri
+    ./firefox
     ./fuzzel
     ./mako
     ./stylix

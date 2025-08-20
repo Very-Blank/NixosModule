@@ -22,16 +22,14 @@
       ];
     };
 
-    stylix.enable = lib.mkForce true;
+    modules.graphical.stylix.enable = lib.mkForce true;
 
     userHome = {
-      home = lib.mkIf config.modules.graphical.waybar.tray.enable {
-        gtk = {
-          enable = true;
-          iconTheme = {
-            name = "Papirus";
-            package = pkgs.papirus-icon-theme;
-          };
+      gtk = lib.mkIf config.modules.graphical.waybar.tray.enable {
+        enable = true;
+        iconTheme = {
+          name = "Papirus";
+          package = pkgs.papirus-icon-theme;
         };
       };
 

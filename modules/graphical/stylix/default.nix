@@ -1,4 +1,8 @@
-{lib, config, pkgs, ...}: {
+{lib, config, pkgs, inputs, ...}: {
+  imports = [
+    inputs.stylix.nixosModules.stylix
+  ];
+
   options = {
     modules = {
       graphical = {
@@ -14,6 +18,7 @@
       stylix = {
         enable = true;
         autoEnable = false;
+        polarity = "dark";
 
         base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
         targets = {

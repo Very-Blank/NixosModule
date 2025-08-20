@@ -30,15 +30,13 @@
     };
 
     userHome = {
-      home = {
-        programs.ghostty = {
-          enable = true;
-          settings = {
-            font-family = config.modules.terminal.ghostty.font.family;
-            title = "Ghostty";
-            adjust-cell-width = "-10%";
-            adjust-cell-height = "-10%";
-          };
+      programs.ghostty = {
+        enable = true;
+        settings = {
+          font-family = config.modules.terminal.ghostty.font.family;
+          title = "Ghostty";
+          adjust-cell-width = "-10%";
+          adjust-cell-height = "-10%";
         };
       };
     };

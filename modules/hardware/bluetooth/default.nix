@@ -2,7 +2,7 @@
   options = {
     modules = {
       hardware = {
-        audio = {
+        bluetooth = {
           enable = lib.mkEnableOption "Enables bluetooth.";
         };
       };
@@ -10,9 +10,11 @@
   };
 
   config = lib.mkIf config.modules.hardware.bluetooth.enable {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
+    hardware = {
+      bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+      };
     };
 
     services = lib.mkIf config.modules.graphical.waybar.tray.enable {

@@ -96,7 +96,7 @@
         stylix.enable = lib.mkForce true;
       };
 
-      terminal.ghostty = lib.mkForce true;
+      terminal.ghostty.enable = lib.mkForce true;
     };
 
     userHome = let cursorName = "Bibata-Original-Classic"; cursorSize = 16; in {
