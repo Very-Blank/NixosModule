@@ -36,8 +36,6 @@
         syntaxHighlighting.enable = true;
 
         shellAliases = {
-          rebuild = "sudo nixos-rebuild switch --flake .";
-          rebuild-home = "home-manager switch --flake .";
           ns = "nix-shell --run zsh";
 
           ls = "ls --color=auto -h --group-directories-first";
