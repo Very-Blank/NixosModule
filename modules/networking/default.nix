@@ -17,6 +17,10 @@
       networkmanager.enable = true;
     };
 
+    services = {
+      openssh.enable = true;
+    };
+
     environment.systemPackages = lib.mkIf config.modules.graphical.waybar.tray.enable [
       pkgs.libappindicator
       pkgs.networkmanagerapplet

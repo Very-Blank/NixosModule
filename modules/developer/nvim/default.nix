@@ -1,4 +1,4 @@
-{input, pkgs, lib, ... }: {
+{inputs, pkgs, lib, ... }: {
   options = {
     modules = {
       developer = {
@@ -24,7 +24,7 @@
 
       xdg.configFile."nvim" = {
         enable = true;
-        source = input.nvim;
+        source = inputs.nvim;
       };
     };
   };

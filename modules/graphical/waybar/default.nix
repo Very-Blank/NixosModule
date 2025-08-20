@@ -33,8 +33,22 @@
         };
       };
 
-      programs.waybar = let processedDefines = pkgs.replaceVars ./style.css config.lib.stylix.colors; in {
+      programs.waybar = let
+        inherit (config.lib.stylix.colors)
+          base00 base01 base02 base03 base04 base05 base06 base07
+          base08 base09 base0A base0B base0C base0D base0E base0F;
+        processedDefines = pkgs.writeText "waybar-colors.css"
+          (builtins.replaceStrings
+            ["__base00__" "__base01__" "__base02__" "__base03__" "__base04__"
+              "__base05__" "__base06__" "__base07__" "__base08__" "__base09__"
+              "__base0A__" "__base0B__" "__base0C__" "__base0D__" "__base0E__" "__base0F__"]
+            [base00 base01 base02 base03 base04
+              base05 base06 base07 base08 base09
+              base0A base0B base0C base0D base0E base0F]
+            (builtins.readFile ./style.css));
+        in {
         enable = true;
+        style = processedDefines;
         settings = {
           mainBar = {
             layer = "top";
@@ -143,8 +157,6 @@
             };
           };
         };
-
-        style = processedDefines;
       };
     };
   };

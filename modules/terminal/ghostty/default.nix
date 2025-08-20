@@ -8,7 +8,7 @@
           font = {
             enable = lib.mkEnableOption "Terminal font";
             package = lib.mkPackageOption pkgs "Font package" {
-              default = [ "nerd-fonts._0xproto" ];
+              default = [ "nerd-fonts" "_0xproto" ];
             };
 
             family = lib.mkOption {

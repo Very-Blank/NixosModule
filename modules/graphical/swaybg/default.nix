@@ -21,7 +21,7 @@
           After = [ "graphical-session.target"  "dbus.socket" ];
         };
         Service = {
-          ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${config.home.homeDirectory}/Pictures/wallpaper.png -m fill";
+          ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${config.userHome.home.homeDirectory}/Pictures/wallpaper.png -m fill";
           Restart     = "on-failure";
           RestartSec  = "5s";
         };

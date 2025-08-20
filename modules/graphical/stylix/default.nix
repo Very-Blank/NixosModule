@@ -14,13 +14,18 @@
   };
 
   config = lib.mkIf config.modules.graphical.stylix.enable {
+    stylix = {
+        enable = true;
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+    };
+
     userHome = {
       stylix = {
         enable = true;
         autoEnable = false;
         polarity = "dark";
-
         base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+
         targets = {
           firefox = {
             enable = config.modules.graphical.firefox.enable;

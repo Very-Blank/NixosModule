@@ -40,9 +40,7 @@
           DisplayBookmarksToolbar = "never";
           DisplayMenuBar = "default-off";
           SearchBar = "unified";
-        };
 
-        profiles.${config.modules.home.user.name} = {
           ExtensionSettings = {
             "*".installation_mode = "blocked";
             # uBlock Origin:

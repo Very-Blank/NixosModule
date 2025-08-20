@@ -1,19 +1,19 @@
-@define-color base00 #@base00@;
-@define-color base01 #@base01@;
-@define-color base02 #@base02@;
-@define-color base03 #@base03@;
-@define-color base04 #@base04@;
-@define-color base05 #@base05@;
-@define-color base06 #@base06@;
-@define-color base07 #@base07@;
-@define-color base08 #@base08@;
-@define-color base09 #@base09@;
-@define-color base0A #@base0A@;
-@define-color base0B #@base0B@;
-@define-color base0C #@base0C@;
-@define-color base0D #@base0D@;
-@define-color base0E #@base0E@;
-@define-color base0F #@base0F@;
+@define-color base00 #__base00__;
+@define-color base01 #__base01__;
+@define-color base02 #__base02__;
+@define-color base03 #__base03__;
+@define-color base04 #__base04__;
+@define-color base05 #__base05__;
+@define-color base06 #__base06__;
+@define-color base07 #__base07__;
+@define-color base08 #__base08__;
+@define-color base09 #__base09__;
+@define-color base0A #__base0A__;
+@define-color base0B #__base0B__;
+@define-color base0C #__base0C__;
+@define-color base0D #__base0D__;
+@define-color base0E #__base0E__;
+@define-color base0F #__base0F__;
 
 * {
     border: none;
