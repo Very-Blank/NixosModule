@@ -7,6 +7,7 @@
           tray = {
             enable = lib.mkEnableOption "Tray";
           };
+
           systemInfo = {
             enable = lib.mkEnableOption "System info";
           };
@@ -130,7 +131,7 @@
 
             "memory" = lib.mkIf config.modules.graphical.waybar.systemInfo.enable {
               interval =  30;
-              format = "{}% ";
+              format = "{}% ";
             };
 
             "cpu" = lib.mkIf config.modules.graphical.waybar.systemInfo.enable {

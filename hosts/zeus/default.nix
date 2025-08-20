@@ -21,7 +21,7 @@
       graphical = {
         waybar = {
           enable = true;
-          systemInfo = true;
+          systemInfo.enable = true;
         };
 
         niri = {
