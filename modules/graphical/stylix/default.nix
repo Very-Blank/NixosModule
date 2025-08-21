@@ -17,6 +17,16 @@
     stylix = {
         enable = true;
         base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+        targets = {
+          firefox = {
+            enable = config.modules.graphical.firefox.enable;
+            profileNames = [ config.modules.home.user.name ];
+          };
+
+          fuzzel.enable = config.modules.graphical.fuzzel.enable;
+          ghostty.enable = config.modules.terminal.ghostty.enable;
+          mako.enable = config.modules.graphical.mako.enable;
+        };
 
         fonts = {
           serif = {
@@ -44,7 +54,6 @@
     userHome = {
       stylix = {
         enable = true;
-        autoEnable = false;
         polarity = "dark";
         base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
 

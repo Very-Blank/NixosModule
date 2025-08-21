@@ -32,9 +32,7 @@
           tray.enable = true;
         };
 
-        niri = {
-          enable = true;
-        };
+        environment.enable = true;
       };
     };
   };
