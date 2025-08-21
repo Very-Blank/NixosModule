@@ -56,6 +56,8 @@
           fuzzel.enable = config.modules.graphical.fuzzel.enable;
           ghostty.enable = config.modules.terminal.ghostty.enable;
           mako.enable = config.modules.graphical.mako.enable;
+          waybar.enable = false;
+          neovim.enable = false;
         };
 
         fonts = {
