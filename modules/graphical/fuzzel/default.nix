@@ -45,7 +45,7 @@
 
       gtk = {
         enable = true;
-        iconTheme = {
+        iconTheme = lib.mkOverride 100 {
           name = "Papirus";
           package = pkgs.papirus-icon-theme;
         };

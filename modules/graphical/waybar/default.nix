@@ -34,7 +34,7 @@
     userHome = {
       gtk = lib.mkIf config.modules.graphical.waybar.tray.enable {
         enable = true;
-        iconTheme = {
+        iconTheme = lib.mkDefault {
           name = "Papirus";
           package = pkgs.papirus-icon-theme;
         };
