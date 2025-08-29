@@ -9,7 +9,7 @@
     };
   };
 
-  config = lib.mkMerge [ lib.mkMerge [
+  config = lib.mkMerge [ (lib.mkMerge [
     (lib.mkIf config.modules.boot.multiboot.enable {
       boot.loader.grub.enable = true;
       boot.loader.grub.device = "nodev";
@@ -21,7 +21,7 @@
     })
     (lib.mkIf (!config.modules.boot.multiboot.enable) {
       boot.loader.systemd-boot.enable = true;
-    })]
+    })])
     {
       boot.consoleLogLevel = 3;
       boot.loader.efi.canTouchEfiVariables = true;
