@@ -11,10 +11,9 @@
   };
 
   config = lib.mkIf config.modules.developer.zig.enable {
-    nixpkgs.overlays = [ inputs.zig.overlays.default ];
     userHome = {
       home.packages = [
-        pkgs.zig
+        inputs.zig.packages.${pkgs.system}.default
       ];
     };
   };
