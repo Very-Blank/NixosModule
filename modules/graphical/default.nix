@@ -8,5 +8,6 @@
     ./stylix
     ./swaybg
     ./waybar
+    ./icons
   ];
 }

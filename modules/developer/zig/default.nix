@@ -1,4 +1,4 @@
-{lib, config, pkgs, inputs, ...}: {
+{lib, config, inputs, ...}: {
   imports = [
     inputs.zig.nixosModules.zig
   ];
@@ -15,14 +15,7 @@
 
   config = lib.mkIf config.modules.developer.zig.enable {
     userHome = {
-      home.packages = [
-        pkgs.cmake
-        pkgs.rustc
-        pkgs.cargo
-        pkgs.gcc
-        pkgs.python3
-        pkgs.gnumake
-      ];
+      programs.zig.enable = true;
     };
   };
 }

@@ -3,6 +3,7 @@
     ./git
     ./nvim
     ./tooling
+    ./zig
   ];
 
   options = {
