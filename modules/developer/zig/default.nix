@@ -1,7 +1,4 @@
-{lib, config, inputs, ...}: {
-  imports = [
-    inputs.zig.nixosModules.zig
-  ];
+{lib, config, inputs, pkgs, ...}: {
 
   options = {
     modules = {
@@ -14,8 +11,11 @@
   };
 
   config = lib.mkIf config.modules.developer.zig.enable {
+    nixpkgs.overlays = [ inputs.zig.overlays.default ];
     userHome = {
-      programs.zig.enable = true;
+      home.packages = [
+        pkgs.zig
+      ];
     };
   };
 }
