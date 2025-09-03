@@ -18,6 +18,8 @@
       ];
     };
 
+    modules.graphical.icons.enable = true;
+
     userHome = {
       programs.fuzzel = {
         enable = true;
@@ -43,13 +45,6 @@
         };
       };
 
-      gtk = {
-        enable = true;
-        iconTheme = lib.mkOverride 100 {
-          name = "Papirus";
-          package = pkgs.papirus-icon-theme;
-        };
-      };
     };
   };
 }

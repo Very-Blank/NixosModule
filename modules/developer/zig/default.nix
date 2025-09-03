@@ -1,16 +1,19 @@
-{lib, pkgs, config, ...}: {
+{lib, config, pkgs, inputs, ...}: {
+  imports = [
+    inputs.zig.nixosModules.zig
+  ];
+
   options = {
     modules = {
       developer = {
-        tooling = {
-          enable = lib.mkEnableOption "tooling";
+        zig = {
+          enable = lib.mkEnableOption "Zig";
         };
       };
     };
   };
 
-  config = lib.mkIf config.modules.developer.tooling.enable {
-    modules.developer.zig.enable = true;
+  config = lib.mkIf config.modules.developer.zig.enable {
     userHome = {
       home.packages = [
         pkgs.cmake

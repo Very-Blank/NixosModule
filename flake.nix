@@ -11,6 +11,8 @@
 
     niri.url = "github:sodiboo/niri-flake";
 
+    zig.url = "github:mitchellh/zig-overlay";
+
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";

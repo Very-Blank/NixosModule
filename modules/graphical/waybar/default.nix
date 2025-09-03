@@ -23,7 +23,10 @@
       ];
     };
 
-    modules.graphical.stylix.enable = lib.mkForce true;
+    modules.graphical = {
+      stylix.enable = lib.mkForce true;
+      icons.enable = lib.mkIf config.modules.graphical.waybar.tray.enable true;
+    };
 
     programs = {
       waybar = {
@@ -32,14 +35,6 @@
     };
 
     userHome = {
-      gtk = lib.mkIf config.modules.graphical.waybar.tray.enable {
-        enable = true;
-        iconTheme = lib.mkDefault {
-          name = "Papirus";
-          package = pkgs.papirus-icon-theme;
-        };
-      };
-
       programs.waybar = let
         inherit (config.lib.stylix.colors)
           base00 base01 base02 base03 base04 base05 base06 base07
