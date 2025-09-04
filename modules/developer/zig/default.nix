@@ -13,9 +13,9 @@
   config = lib.mkIf config.modules.developer.zig.enable {
     userHome = {
       home.packages = [
-        inputs.zig.packages.${pkgs.system}.zig.default
+        inputs.zig.packages.${pkgs.system}.default
         (inputs.zls.packages.${pkgs.system}.zls.overrideAttrs (old: {
-            nativeBuildInputs = [ inputs.zig.packages.${pkgs.system}.zig.default ];
+            nativeBuildInputs = [ inputs.zig.packages.${pkgs.system}.default ];
         }))
       ];
     };
