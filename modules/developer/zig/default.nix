@@ -14,9 +14,7 @@
     userHome = {
       home.packages = [
         inputs.zig.packages.${pkgs.system}.default
-        (inputs.zls.packages.${pkgs.system}.zls.overrideAttrs (old: {
-            nativeBuildInputs = [ inputs.zig.packages.${pkgs.system}.default ];
-        }))
+        inputs.zls.packages.${pkgs.system}.default
       ];
     };
   };

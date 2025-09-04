@@ -12,7 +12,7 @@
     niri.url = "github:sodiboo/niri-flake";
 
     zig.url = "github:mitchellh/zig-overlay";
-    zls.url = "github:zigtools/zls";
+    zls.url = "github:Very-Blank/zls";
 
     stylix = {
       url = "github:danth/stylix";
