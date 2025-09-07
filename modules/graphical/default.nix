@@ -9,5 +9,6 @@
     ./swaybg
     ./waybar
     ./icons
+    ./gaming
   ];
 }

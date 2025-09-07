@@ -24,6 +24,8 @@
           systemInfo.enable = true;
         };
 
+        gaming.enable = true;
+
         environment.enable = true;
 
         niri = {
