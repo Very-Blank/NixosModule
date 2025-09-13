@@ -1,4 +1,10 @@
-{inputs, pkgs, lib, ... }: {
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
+{
   options = {
     modules = {
       developer = {
@@ -15,6 +21,7 @@
       home.packages = [
         pkgs.lua-language-server
         pkgs.nil
+        pkgs.rocmPackages.llvm.clang-tools
       ];
 
       programs.neovim = {
