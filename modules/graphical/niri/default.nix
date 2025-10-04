@@ -235,6 +235,10 @@
                   }
                 ];
                 open-floating = true;
+                max-width = 665;
+                min-width = 665;
+                max-height = 700;
+                min-height = 700;
               }
 
               {
