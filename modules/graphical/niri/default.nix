@@ -231,7 +231,7 @@
                 matches = [
                   {
                     app-id = "^firefox$";
-                    title = "^Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox$";
+                    title = "^.*- Bitwarden — Mozilla Firefox$";
                   }
                 ];
                 open-floating = true;
