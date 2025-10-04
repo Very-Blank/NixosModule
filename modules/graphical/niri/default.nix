@@ -228,20 +228,6 @@
               }
 
               {
-                matches = [
-                  {
-                    app-id = "^firefox$";
-                    title = "^.*- Bitwarden — Mozilla Firefox$";
-                  }
-                ];
-                open-floating = true;
-                max-width = 665;
-                min-width = 665;
-                max-height = 700;
-                min-height = 700;
-              }
-
-              {
                 matches = [ { app-id = "^\\.blueman-manager-wrapped$"; } ];
                 open-floating = true;
                 max-width = 600;
