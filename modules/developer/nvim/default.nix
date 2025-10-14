@@ -21,7 +21,7 @@
       home.packages = [
         pkgs.lua-language-server
         pkgs.nil
-        pkgs.rocmPackages.llvm.clang-tools
+        pkgs.clang-tools
       ];
 
       programs.neovim = {
