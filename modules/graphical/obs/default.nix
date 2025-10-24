@@ -31,12 +31,14 @@
         plugins =
           with pkgs.obs-studio-plugins;
           lib.mkMerge [
-            (lib.mkIf config.modules.graphical.obs.amdSupport obs-vaapi)
-            wlrobs
-            obs-backgroundremoval
-            obs-pipewire-audio-capture
-            obs-gstreamer
-            obs-vkcapture
+            [ (lib.mkIf config.modules.graphical.obs.amdSupport obs-vaapi) ]
+            [
+              wlrobs
+              obs-backgroundremoval
+              obs-pipewire-audio-capture
+              obs-gstreamer
+              obs-vkcapture
+            ]
           ];
       };
     };
