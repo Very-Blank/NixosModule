@@ -10,5 +10,6 @@
     ./waybar
     ./icons
     ./gaming
+    ./obs
   ];
 }

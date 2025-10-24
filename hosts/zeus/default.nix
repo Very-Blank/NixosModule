@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ../../base.nix
@@ -27,6 +28,11 @@
         gaming.enable = true;
 
         environment.enable = true;
+
+        obs = {
+          enable = true;
+          amdSupport = true;
+        };
 
         niri = {
           outputs = {
