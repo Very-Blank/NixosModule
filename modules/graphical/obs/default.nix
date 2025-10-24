@@ -22,7 +22,7 @@
       programs.obs-studio = {
         enable = true;
 
-        package = config.modules.graphical.obs.nvidiaSupport (
+        package = lib.mkIf config.modules.graphical.obs.nvidiaSupport (
           pkgs.obs-studio.override {
             cudaSupport = true;
           }
