@@ -41,10 +41,11 @@
                 width = 1920;
                 height = 1080;
                 refresh = 74.973;
-                position = {
-                  x = 1920;
-                  y = 0;
-                };
+              };
+
+              position = {
+                x = 1920;
+                y = 0;
               };
             };
 
@@ -53,11 +54,12 @@
                 width = 1920;
                 height = 1080;
                 refresh = 164.955;
-                focus-at-startup = true;
-                position = {
-                  x = 0;
-                  y = 0;
-                };
+              };
+
+              focus-at-startup = true;
+              position = {
+                x = 0;
+                y = 0;
               };
             };
           };
