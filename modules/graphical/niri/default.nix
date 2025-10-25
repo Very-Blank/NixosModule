@@ -57,6 +57,24 @@
                     };
                     description = "Display mode configuration";
                   };
+
+                  position = lib.mkOption {
+                    type = lib.types.submodule {
+                      options = {
+                        x = lib.mkOption {
+                          type = lib.types.int;
+                          description = "Display position in pixels";
+                        };
+                        y = lib.mkOption {
+                          type = lib.types.int;
+                          description = "Display position in pixels";
+                        };
+                      };
+                    };
+                    description = "Display position configuration";
+                  };
+
+                  focus-at-startup = lib.mkEnableOption "Focus on this screen at start up";
                 };
               }
             );

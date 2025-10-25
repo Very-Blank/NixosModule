@@ -43,8 +43,10 @@
                 refresh = 74.973;
               };
 
-              position.x = 1920;
-              position.y = 0;
+              position = {
+                x = 1920;
+                y = 0;
+              };
             };
 
             "Samsung Electric Company LS32AG32x H9JT200575   " = {
