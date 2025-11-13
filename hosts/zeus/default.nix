@@ -26,6 +26,7 @@
         };
 
         gaming.enable = true;
+        minecraft.enable = true;
 
         environment.enable = true;
 

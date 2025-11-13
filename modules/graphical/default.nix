@@ -10,6 +10,7 @@
     ./waybar
     ./icons
     ./gaming
+    ./minecraft
     ./obs
   ];
 }
