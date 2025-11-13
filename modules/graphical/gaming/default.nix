@@ -26,7 +26,7 @@
         "steam-run"
       ];
 
-    programs = lib.mkIf config.modules.graphical.gaming.steam {
+    programs = lib.mkIf config.modules.graphical.gaming.steam.enable {
       steam = {
         enable = true;
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -35,7 +35,7 @@
       };
     };
 
-    userHome = lib.mkIf config.modules.graphical.gaming.minecraft {
+    userHome = lib.mkIf config.modules.graphical.gaming.minecraft.enable {
       home.packages = [
         pkgs.prismlauncher
       ];
