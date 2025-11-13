@@ -1,4 +1,10 @@
-{lib, config, pkgs,...}: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
     modules = {
       graphical = {
@@ -10,12 +16,14 @@
   };
 
   config = lib.mkIf config.modules.graphical.gaming.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "steam"
-      "steam-original"
-      "steam-unwrapped"
-      "steam-run"
-    ];
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "steam"
+        "steam-original"
+        "steam-unwrapped"
+        "steam-run"
+      ];
 
     programs = {
       steam = {
