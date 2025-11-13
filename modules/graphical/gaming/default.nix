@@ -9,13 +9,14 @@
     modules = {
       graphical = {
         gaming = {
-          enable = lib.mkEnableOption "Gaming";
+          steam.enable = lib.mkEnableOption "steam";
+          minecraft.enable = lib.mkEnableOption "minecraft";
         };
       };
     };
   };
 
-  config = lib.mkIf config.modules.graphical.gaming.enable {
+  config = {
     nixpkgs.config.allowUnfreePredicate =
       pkg:
       builtins.elem (lib.getName pkg) [
@@ -25,13 +26,19 @@
         "steam-run"
       ];
 
-    programs = {
+    programs = lib.mkIf config.modules.graphical.gaming.steam {
       steam = {
         enable = true;
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
         dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
         localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
       };
+    };
+
+    userHome = lib.mkIf config.modules.graphical.gaming.minecraft {
+      home.packages = [
+        pkgs.prismlauncher
+      ];
     };
   };
 }

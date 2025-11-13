@@ -25,8 +25,8 @@
           systemInfo.enable = true;
         };
 
-        gaming.enable = true;
-        minecraft.enable = true;
+        gaming.steam.enable = true;
+        gaming.minecraft.enable = true;
 
         environment.enable = true;
 
