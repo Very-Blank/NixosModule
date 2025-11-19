@@ -19,7 +19,7 @@
   config = lib.mkIf config.modules.developer.haskell.enable {
     userHome = {
       home.packages = [
-        pkgs.haskellPackages.haskell-lsp-types
+        pkgs.haskell-language-server
         pkgs.stack
       ];
     };
