@@ -1,4 +1,10 @@
-{lib, pkgs, config, ...}: {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
   options = {
     modules = {
       developer = {
@@ -19,6 +25,7 @@
         pkgs.gcc
         pkgs.python3
         pkgs.gnumake
+        pkgs.stack
       ];
     };
   };
