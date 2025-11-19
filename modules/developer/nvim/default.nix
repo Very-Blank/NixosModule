@@ -19,7 +19,6 @@
     userHome = {
       # Language servers
       home.packages = [
-        pkgs.lua-language-server
         pkgs.nil
         pkgs.clang-tools
       ];

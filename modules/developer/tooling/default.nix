@@ -16,7 +16,6 @@
   };
 
   config = lib.mkIf config.modules.developer.tooling.enable {
-    modules.developer.zig.enable = true;
     userHome = {
       home.packages = [
         pkgs.cmake
@@ -25,7 +24,6 @@
         pkgs.gcc
         pkgs.python3
         pkgs.gnumake
-        pkgs.stack
       ];
     };
   };
