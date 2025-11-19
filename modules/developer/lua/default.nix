@@ -16,7 +16,7 @@
     };
   };
 
-  config = lib.mkIf config.modules.developer.haskell.enable {
+  config = lib.mkIf config.modules.developer.lua.enable {
     userHome = {
       home.packages = [
         pkgs.lua

@@ -6,6 +6,7 @@
     ./tooling
     ./zig
     ./haskell
+    ./lua
   ];
 
   options = {
