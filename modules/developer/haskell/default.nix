@@ -19,6 +19,8 @@
   config = lib.mkIf config.modules.developer.haskell.enable {
     userHome = {
       home.packages = [
+        pkgs.cabal
+        pkgs.ghc
         pkgs.haskell-language-server
         pkgs.stack
       ];
