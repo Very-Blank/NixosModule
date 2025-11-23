@@ -1,4 +1,10 @@
-{lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
     modules = {
       home = {
@@ -9,9 +15,15 @@
             type = lib.types.nonEmptyStr;
           };
 
+          pathToShell = lib.mkOption {
+            default = "${pkgs.bash}/bin/bash";
+            description = "Username";
+            type = lib.types.nonEmptyStr;
+          };
+
           extraGroups = lib.mkOption {
             type = with lib.types; listOf nonEmptyStr;
-            default = [];
+            default = [ ];
             description = "Extra groups for the main user";
           };
         };
