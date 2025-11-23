@@ -1,4 +1,5 @@
-{lib, config, ...}: {
+{ lib, config, ... }:
+{
   options = {
     modules = {
       terminal = {
@@ -16,7 +17,7 @@
         escapeTime = 0;
         keyMode = "vi";
         extraConfig = ''
-          set-option -g default-shell $SHELL
+          set-option -g default-shell ${config.users.${config.modules.home.user.name}.shell}
           set -g prefix C-a
           unbind C-b
           bind C-a send-prefix
