@@ -17,7 +17,7 @@
         escapeTime = 0;
         keyMode = "vi";
         extraConfig = ''
-          set-option -g default-shell ${config.users.users.${config.modules.home.user.name}.shell}
+          set-option -g default-shell ${config.users.users.${config.modules.home.user.name}.shell.outPath}
           set -g prefix C-a
           unbind C-b
           bind C-a send-prefix
