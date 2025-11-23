@@ -32,7 +32,7 @@
       programs = {
         tmux = {
           enable = true;
-          shell = config.modules.home.user.shell;
+          shell = config.modules.home.user.shell.path;
         };
       };
     };
