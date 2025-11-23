@@ -30,6 +30,7 @@
 
     userHome = {
       programs = {
+        enable = true;
         tmux = {
           shell = config.modules.home.user.shell;
         };
