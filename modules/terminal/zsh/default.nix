@@ -23,7 +23,7 @@
     users.users.${config.modules.home.user.name}.shell = lib.mkForce pkgs.zsh;
 
     modules.tty.greetd = {
-      cmd = lib.mkOverride 100 "${pkgs.zsh}/bin/zsh";
+      cmd = lib.mkOverride 100 "${pkgs.zsh.outPath}";
     };
 
     userHome = {
