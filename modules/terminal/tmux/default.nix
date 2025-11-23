@@ -16,11 +16,14 @@
         enable = true;
         escapeTime = 0;
         keyMode = "vi";
+        # FUCK YOU, https://github.com/tmux/tmux/issues/4240
         extraConfig = ''
-          set-option -g default-shell $SHELL
           set-option -g prefix C-a
           unbind C-b
           bind C-a send-prefix
+
+          set -gu default-command
+          set -g default-shell "$SHELL"
         '';
       };
     };
