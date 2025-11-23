@@ -15,10 +15,16 @@
             type = lib.types.nonEmptyStr;
           };
 
-          pathToShell = lib.mkOption {
-            default = "${pkgs.bash}/bin/bash";
-            description = "Username";
-            type = lib.types.nonEmptyStr;
+          shell = {
+            path = lib.mkOption {
+              default = "${pkgs.bash}/bin/bash";
+              description = "Path to the shell";
+              type = lib.types.nonEmptyStr;
+            };
+
+            package = lib.mkPackageOption pkgs "The actual shell package" {
+              default = pkgs.bash;
+            };
           };
 
           extraGroups = lib.mkOption {
@@ -36,7 +42,7 @@
       mutableUsers = true; # true for now
       users.${config.modules.home.user.name} = {
         isNormalUser = true;
-        shell = lib.mkOverride 100 pkgs.bash; # This is overwritten by zsh if enabled
+        shell = config.modules.home.user.shell.package;
         extraGroups = config.modules.home.user.extraGroups ++ [
           "wheel"
           "video"

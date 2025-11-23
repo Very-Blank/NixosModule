@@ -20,11 +20,13 @@
       enable = true;
     };
 
-    users.users.${config.modules.home.user.name}.shell = lib.mkForce pkgs.zsh;
-    modules.home.user.pathToShell = "${pkgs.zsh}/bin/zsh";
+    modules.home.user.shell = {
+      path = "${pkgs.zsh}/bin/zsh";
+      package = pkgs.zsh;
+    };
 
     modules.tty.greetd = {
-      cmd = lib.mkOverride 100 "${pkgs.zsh}/bin/zsh";
+      cmd = lib.mkOverride 100 config.modules.home.user.shell;
     };
 
     userHome = {
