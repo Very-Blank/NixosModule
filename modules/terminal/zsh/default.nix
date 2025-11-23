@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options = {
     modules = {
       terminal = {
@@ -15,6 +21,7 @@
     };
 
     users.users.${config.modules.home.user.name}.shell = lib.mkForce pkgs.zsh;
+
     modules.tty.greetd = {
       cmd = lib.mkOverride 100 "${pkgs.zsh}/bin/zsh";
     };
@@ -27,10 +34,10 @@
 
         autosuggestion.enable = true;
         autosuggestion.highlight = lib.mkMerge [
-          (lib.mkIf config.modules.graphical.stylix.enable
-            "fg=#383838,bg=#a1d8fc,bold,underline")
-          (lib.mkIf (!config.modules.graphical.stylix.enable)
-            "fg=#${config.lib.stylix.colors.base0D},bg=#${config.lib.stylix.colors.base0B},bold,underline")
+          (lib.mkIf config.modules.graphical.stylix.enable "fg=#383838,bg=#a1d8fc,bold,underline")
+          (lib.mkIf (
+            !config.modules.graphical.stylix.enable
+          ) "fg=#${config.lib.stylix.colors.base0D},bg=#${config.lib.stylix.colors.base0B},bold,underline")
         ];
 
         syntaxHighlighting.enable = true;
