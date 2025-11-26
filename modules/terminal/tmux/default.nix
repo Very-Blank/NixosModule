@@ -32,6 +32,7 @@
       programs = {
         tmux = {
           enable = true;
+          keyMode = "vi";
           shell = config.modules.home.user.shell.path;
         };
       };
