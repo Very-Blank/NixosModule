@@ -22,6 +22,7 @@
     userHome = {
       home.packages = [
         pkgs.asm-lsp
+        pkgs.gdb
         pkgs.binutils
         pkgs.gnumake
         pkgs.gcc
