@@ -17,7 +17,7 @@ in
     ./git
     ./nvim
   ]
-  ++ map (x: "./languages/" + x) languages;
+  ++ map (x: (./. + "/languages/${x}")) languages;
 
   options = {
     modules = {
@@ -42,7 +42,10 @@ in
     # };
 
     modules.developer = {
-      languages = lib.genAttrs (map (x: x + ".enable") languages) (name: true);
+      languages = lib.genAttrs languages (name: {
+        enable = true;
+      });
+
       git.enable = true;
       nvim.enable = true;
     };
