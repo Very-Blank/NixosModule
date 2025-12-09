@@ -23,6 +23,8 @@
       home.packages = [
         pkgs.asm-lsp
         pkgs.binutils
+        pkgs.gnumake
+        pkgs.gcc
       ];
     };
   };
