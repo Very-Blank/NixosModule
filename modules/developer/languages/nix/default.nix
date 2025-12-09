@@ -9,18 +9,19 @@
   options = {
     modules = {
       developer = {
-        lua = {
-          enable = lib.mkEnableOption "Lua";
+        languages = {
+          nix = {
+            enable = lib.mkEnableOption "Nix";
+          };
         };
       };
     };
   };
 
-  config = lib.mkIf config.modules.developer.lua.enable {
+  config = lib.mkIf config.modules.developer.languages.nix.enable {
     userHome = {
       home.packages = [
-        pkgs.lua
-        pkgs.lua-language-server
+        pkgs.nil
       ];
     };
   };

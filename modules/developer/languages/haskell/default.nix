@@ -9,14 +9,16 @@
   options = {
     modules = {
       developer = {
-        haskell = {
-          enable = lib.mkEnableOption "Haskell";
+        languages = {
+          haskell = {
+            enable = lib.mkEnableOption "Haskell";
+          };
         };
       };
     };
   };
 
-  config = lib.mkIf config.modules.developer.haskell.enable {
+  config = lib.mkIf config.modules.developer.languages.haskell.enable {
     userHome = {
       home.packages = [
         pkgs.ghc

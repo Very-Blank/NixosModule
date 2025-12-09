@@ -1,28 +1,50 @@
 { config, lib, ... }:
+let
+  languages = [
+
+    "zig"
+    "lua"
+    "python"
+    "asm"
+    "haskell"
+    "nix"
+    "c"
+    "rust"
+  ];
+in
 {
   imports = [
     ./git
     ./nvim
-    ./tooling
-    ./zig
-    ./haskell
-    ./lua
-  ];
+  ]
+  ++ map (x: "./languages/" + x) languages;
 
   options = {
     modules = {
       developer = {
-        enable = lib.mkEnableOption "Enables basic developer tools";
+        enable = lib.mkEnableOption "Enables basic developer tools and languages";
       };
     };
   };
 
   config = lib.mkIf config.modules.developer.enable {
-    modules.developer.lua.enable = true;
-    modules.developer.haskell.enable = true;
-    modules.developer.zig.enable = true;
-    modules.developer.nvim.enable = true;
-    modules.developer.git.enable = true;
-    modules.developer.tooling.enable = true;
+    # modules.developer = {
+    #   languages = {
+    #     zig.enable = true;
+    #     lua.enable = true;
+    #     python.enable = true;
+    #     asm.enable = true;
+    #     haskell.enable = true;
+    #     nix.enable = true;
+    #     c.enable = true;
+    #     rust.enable = true;
+    #   };
+    # };
+
+    modules.developer = {
+      languages = lib.genAttrs (map (x: x + ".enable") languages) (name: true);
+      git.enable = true;
+      nvim.enable = true;
+    };
   };
 }

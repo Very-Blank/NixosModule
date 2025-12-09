@@ -19,8 +19,6 @@
     userHome = {
       # Language servers
       home.packages = [
-        pkgs.nil
-        pkgs.clang-tools
       ];
 
       programs.neovim = {
