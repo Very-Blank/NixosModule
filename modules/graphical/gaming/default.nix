@@ -17,7 +17,7 @@
   };
 
   config = {
-    nixpkgs.config.allowUnfreePackages = [
+    modules.unfreePackages = [
       "steam"
       "steam-original"
       "steam-unwrapped"

@@ -17,7 +17,9 @@
   };
 
   config = lib.mkIf config.modules.graphical.obsidian.enable {
-    nixpkgs.config.allowUnfreePackages = [ "obsidian" ];
+    modules.unfreePackages = [
+      "obsidian"
+    ];
 
     userHome = {
       home.packages = [ pkgs.obsidian ];
