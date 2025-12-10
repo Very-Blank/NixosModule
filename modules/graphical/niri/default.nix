@@ -103,6 +103,16 @@
       enable = true;
     };
 
+    xdg.portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gnome
+        xdg-desktop-portal-gtk
+      ];
+    };
+
     environment = {
       variables = {
         NIXOS_OZONE_WL = "1";
@@ -111,6 +121,7 @@
       systemPackages = [
         pkgs.xdg-desktop-portal
         pkgs.xdg-desktop-portal-gnome
+        pkgs.nautilus
 
         pkgs.wayland-utils
         pkgs.xwayland-satellite-unstable
