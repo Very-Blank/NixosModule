@@ -11,5 +11,6 @@
     ./icons
     ./gaming
     ./obs
+    ./obsidian
   ];
 }
