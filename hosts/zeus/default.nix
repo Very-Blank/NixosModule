@@ -25,8 +25,12 @@
           systemInfo.enable = true;
         };
 
-        gaming.steam.enable = true;
-        gaming.minecraft.enable = true;
+        gaming = {
+          steam.enable = true;
+          minecraft.enable = true;
+        };
+
+        obsidian.enable = true;
 
         environment.enable = true;
 
