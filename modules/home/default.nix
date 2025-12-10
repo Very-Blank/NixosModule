@@ -1,8 +1,17 @@
-{inputs, lib, config, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  ...
+}:
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./user
-    (lib.modules.mkAliasOptionModule [ "userHome" ] [ "home-manager" "users" config.modules.home.user.name ])
+    (lib.modules.mkAliasOptionModule
+      [ "userHome" ]
+      [ "home-manager" "users" config.modules.home.user.name ]
+    )
   ];
 
   config = {
@@ -11,7 +20,7 @@
     };
 
     userHome = {
-      accounts.calendar = {}; 
+      accounts.calendar = { };
 
       xdg = {
         enable = true;

@@ -17,11 +17,7 @@
   };
 
   config = lib.mkIf config.modules.graphical.obsidian.enable {
-    nixpkgs.config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "obsidian"
-      ];
+    nixpkgs.config.allowUnfreePackages = [ "obsidian" ];
 
     userHome = {
       home.packages = [ pkgs.obsidian ];

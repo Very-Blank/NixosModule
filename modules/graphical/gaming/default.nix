@@ -17,14 +17,12 @@
   };
 
   config = {
-    nixpkgs.config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "steam"
-        "steam-original"
-        "steam-unwrapped"
-        "steam-run"
-      ];
+    nixpkgs.config.allowUnfreePackages = [
+      "steam"
+      "steam-original"
+      "steam-unwrapped"
+      "steam-run"
+    ];
 
     programs = lib.mkIf config.modules.graphical.gaming.steam.enable {
       steam = {
