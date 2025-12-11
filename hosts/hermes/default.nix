@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ../../base.nix
@@ -31,6 +32,8 @@
           systemInfo.enable = true;
           tray.enable = true;
         };
+
+        obsidian.enable = true;
 
         environment.enable = true;
       };
