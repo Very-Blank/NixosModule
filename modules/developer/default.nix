@@ -1,7 +1,6 @@
 { config, lib, ... }:
 let
   languages = [
-
     "zig"
     "lua"
     "python"
@@ -28,19 +27,6 @@ in
   };
 
   config = lib.mkIf config.modules.developer.enable {
-    # modules.developer = {
-    #   languages = {
-    #     zig.enable = true;
-    #     lua.enable = true;
-    #     python.enable = true;
-    #     asm.enable = true;
-    #     haskell.enable = true;
-    #     nix.enable = true;
-    #     c.enable = true;
-    #     rust.enable = true;
-    #   };
-    # };
-
     modules.developer = {
       languages = lib.genAttrs languages (name: {
         enable = true;
