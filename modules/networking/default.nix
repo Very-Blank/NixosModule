@@ -1,4 +1,10 @@
-{lib, config, pkgs, ...}: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
     modules = {
       networking = {
@@ -17,10 +23,6 @@
       networkmanager.enable = true;
     };
 
-    services = {
-      openssh.enable = true;
-    };
-
     environment.systemPackages = lib.mkIf config.modules.graphical.waybar.tray.enable [
       pkgs.libappindicator
       pkgs.networkmanagerapplet
@@ -30,13 +32,19 @@
       systemd.user.services.nm-applet = lib.mkIf config.modules.graphical.waybar.tray.enable {
         Unit = {
           Description = "Nm-applet service";
-          PartOf = [ "graphical-session.target"  "dbus.socket" ];
-          After = [ "graphical-session.target"  "dbus.socket" ];
+          PartOf = [
+            "graphical-session.target"
+            "dbus.socket"
+          ];
+          After = [
+            "graphical-session.target"
+            "dbus.socket"
+          ];
         };
         Service = {
           ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-          Restart     = "on-failure";
-          RestartSec  = "5s";
+          Restart = "on-failure";
+          RestartSec = "5s";
         };
         Install = {
           WantedBy = [ "graphical-session.target" ];

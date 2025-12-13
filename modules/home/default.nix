@@ -20,12 +20,16 @@
     };
 
     userHome = {
+
+      # FIXME: These feel wierd here.
       accounts.calendar = { };
 
       xdg = {
         enable = true;
         userDirs.createDirectories = true;
       };
+
+      # ---
 
       home = {
         username = config.modules.home.user.name;
