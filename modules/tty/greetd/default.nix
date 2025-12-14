@@ -1,25 +1,30 @@
-{pkgs, config, lib, ...} : {
+{
+  pkgs,
+  lib,
+  config,
+  mkIfModule,
+  ...
+}:
+mkIfModule config [ "tty" "greetd" ] {
   options = {
-    modules = {
-      tty = {
-        greetd = {
-          enable = lib.mkEnableOption "TTY1 login with greetd.";
-
-          cmd = lib.mkOption {
-            default = "${pkgs.bash}/bin/sh";
-            description = "Command to run after login in.";
-            type = lib.types.nonEmptyStr;
-          };
-        };
-      };
+    cmd = lib.mkOption {
+      default = "${pkgs.bash}/bin/sh";
+      description = "Command to run after login in.";
+      type = lib.types.nonEmptyStr;
     };
   };
 
-  config = lib.mkIf config.modules.tty.greetd.enable {
+  config = {
     services = {
       getty = {
         greetingLine = "<< NixOS ${config.system.nixos.release} >>\n";
-        helpLine = lib.mkForce "${(lib.strings.toUpper (builtins.substring 0 1 config.modules.networking.hostname))}${(builtins.substring 1 (builtins.stringLength config.modules.networking.hostname) config.modules.networking.hostname)} at your service.";
+        helpLine = lib.mkForce "${
+          (lib.strings.toUpper (builtins.substring 0 1 config.modules.networking.hostname))
+        }${
+          (builtins.substring 1 (builtins.stringLength config.modules.networking.hostname)
+            config.modules.networking.hostname
+          )
+        } at your service.";
       };
 
       greetd = {

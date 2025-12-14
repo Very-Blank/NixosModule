@@ -23,7 +23,11 @@
     windowManager = lib.mkOption {
       default = "niri";
       description = "The enabled window manager.";
-      type = lib.types.nonEmptyStr;
+      type = lib.types.enum [
+        "niri"
+        # "sway"
+        # "hyprland"
+      ];
     };
 
     browser = lib.mkOption {
@@ -47,46 +51,37 @@
     };
 
     modules = {
-      inherit
-        (match cfg.windowManager [
-          [
-            "niri"
-            {
-              niri = {
-                enable = true;
-                terminalEmulator = {
-                  enable = true;
-                  path = lib.mkForce "${pkgs.ghostty}/bin/ghostty";
-                };
-
-                dmenu = {
-                  enable = true;
-                  path = lib.mkForce "${pkgs.fuzzel}/bin/fuzzel";
-                };
-              };
-
-              tty.greetd = {
-                enable = true;
-                cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
-              };
-            }
-          ]
-        ])
-        ;
-
-      applications.browsers.${cfg.browser}.enable = true;
-
-      applications.other = lib.genAttrs cfg.applications (name: {
+      tty.greetd = lib.mkIf (cfg.windowManager == "niri") {
         enable = true;
-      });
+        cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
+      };
 
       graphical = {
-        enviroment = {
+        environment = {
           mako.enable = lib.mkForce true;
           swaybg.enable = lib.mkForce true;
           fuzzel.enable = lib.mkForce true;
           stylix.enable = lib.mkForce true;
+
+          niri = lib.mkIf (cfg.windowManager == "niri") {
+            enable = lib.mkForce true;
+            terminalEmulator = {
+              enable = lib.mkForce true;
+              path = lib.mkForce "${pkgs.ghostty}/bin/ghostty";
+            };
+
+            dmenu = {
+              enable = lib.mkForce true;
+              path = lib.mkForce "${pkgs.fuzzel}/bin/fuzzel";
+            };
+          };
         };
+
+        applications.browsers.${cfg.browser}.enable = true;
+
+        applications.other = lib.genAttrs cfg.applications (name: {
+          enable = true;
+        });
       };
 
       terminal.ghostty.enable = lib.mkForce true;

@@ -4,7 +4,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config [ "graphical" "enviroment" "swaybg" ] {
+mkIfModule config [ "graphical" "environment" "swaybg" ] {
   config = {
     userHome = {
       home.file."Pictures/wallpaper.png".source = ./wallpaper.png;

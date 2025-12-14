@@ -1,21 +1,12 @@
 {
-  config,
-  lib,
   pkgs,
+  lib,
+  config,
+  mkIfModule,
   ...
 }:
-{
-  options = {
-    modules = {
-      terminal = {
-        zsh = {
-          enable = lib.mkEnableOption "Zsh";
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.terminal.zsh.enable {
+mkIfModule config [ "terminal" "zsh" ] {
+  config = {
     programs.zsh = {
       enable = true;
     };
@@ -39,9 +30,9 @@
 
         autosuggestion.enable = true;
         autosuggestion.highlight = lib.mkMerge [
-          (lib.mkIf config.modules.graphical.stylix.enable "fg=#383838,bg=#a1d8fc,bold,underline")
+          (lib.mkIf config.modules.graphical.environment.stylix.enable "fg=#383838,bg=#a1d8fc,bold,underline")
           (lib.mkIf (
-            !config.modules.graphical.stylix.enable
+            !config.modules.graphical.environment.stylix.enable
           ) "fg=#${config.lib.stylix.colors.base0D},bg=#${config.lib.stylix.colors.base0B},bold,underline")
         ];
 

@@ -1,20 +1,10 @@
 {
-  lib,
   config,
+  mkIfModule,
   ...
 }:
-{
-  options = {
-    modules = {
-      terminal = {
-        tmux = {
-          enable = lib.mkEnableOption "Tmux";
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.terminal.tmux.enable {
+mkIfModule config [ "terminal tmux" ] {
+  config = {
     programs = {
       tmux = {
         enable = true;

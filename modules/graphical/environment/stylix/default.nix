@@ -10,7 +10,7 @@
     inputs.stylix.nixosModules.stylix
   ];
 }
-// mkIfModule config [ "graphical" "enviroment" "stylix" ] {
+// mkIfModule config [ "graphical" "environment" "stylix" ] {
   config = {
     stylix = {
       enable = true;
@@ -47,13 +47,13 @@
 
         targets = {
           firefox = {
-            enable = config.modules.graphical.firefox.enable;
+            enable = config.modules.graphical.applications.browsers.firefox.enable;
             profileNames = [ config.modules.home.user.name ];
           };
 
-          fuzzel.enable = config.modules.graphical.fuzzel.enable;
+          fuzzel.enable = config.modules.graphical.environment.fuzzel.enable;
           ghostty.enable = config.modules.terminal.ghostty.enable;
-          mako.enable = config.modules.graphical.mako.enable;
+          mako.enable = config.modules.graphical.environment.mako.enable;
           waybar.enable = false;
           neovim.enable = false;
         };

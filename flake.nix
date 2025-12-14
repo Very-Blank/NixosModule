@@ -30,13 +30,6 @@
     let
       inherit (inputs) nixpkgs;
 
-      match =
-        lib: value: cases:
-        let
-          found = lib.findFirst (case: (builtins.head case) == value) null cases;
-        in
-        if found == null then throw "Pattern match non-exhaustive" else builtins.elemAt found 1;
-
       # We pass the config so we can lazyly do cfg.options
       mkIfModule =
         lib: config: path: moduleContent:
@@ -85,7 +78,6 @@
 
             mkModule = mkModule nixpkgs.lib;
             mkIfModule = mkIfModule nixpkgs.lib;
-            match = match nixpkgs.lib;
           };
 
           modules = [

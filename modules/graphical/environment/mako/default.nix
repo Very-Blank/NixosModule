@@ -1,16 +1,10 @@
-{lib, config, ...}:
 {
-  options = {
-    modules = {
-      graphical = {
-        mako = {
-          enable = lib.mkEnableOption "Mako";
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.graphical.mako.enable {
+  config,
+  mkIfModule,
+  ...
+}:
+mkIfModule config [ "graphical" "environment" "mako" ] {
+  config = {
     userHome = {
       services.mako = {
         enable = true;

@@ -27,18 +27,20 @@
       };
 
       graphical = {
-        waybar = {
-          enable = true;
-          systemInfo.enable = true;
-          tray.enable = true;
-        };
-
         environment = {
           enable = true;
+          windowManager = "niri";
+
           applications = [
             "obsidian"
             "obs"
           ];
+
+          waybar = {
+            enable = true;
+            systemInfo.enable = true;
+            tray.enable = true;
+          };
         };
       };
     };

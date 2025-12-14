@@ -1,15 +1,11 @@
-{lib, config, pkgs,...}: {
-  options = {
-    modules = {
-      graphical = {
-        icons = {
-          enable = lib.mkEnableOption "Icons";
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.graphical.icons.enable {
+{
+  pkgs,
+  config,
+  mkIfModule,
+  ...
+}:
+mkIfModule config [ "graphical" "environment" "icons" ] {
+  config = {
     userHome = {
       gtk = {
         enable = true;
