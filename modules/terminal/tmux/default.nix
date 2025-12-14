@@ -3,7 +3,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config [ "terminal tmux" ] {
+mkIfModule config [ "terminal" "tmux" ] {
   config = {
     programs = {
       tmux = {
