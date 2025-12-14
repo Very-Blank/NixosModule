@@ -1,6 +1,6 @@
 {
   imports = [
     ./environment
-    ./apps
+    ./applications
   ];
 }

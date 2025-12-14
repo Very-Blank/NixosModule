@@ -1,101 +1,95 @@
 {
-  config,
-  inputs,
-  pkgs,
   lib,
+  pkgs,
+  inputs,
+  config,
+  mkIfModule,
   ...
 }:
 {
   imports = [
     inputs.niri.nixosModules.niri
   ];
-
+}
+// mkIfModule config [ "graphical" "environment" "niri" ] {
   options = {
-    modules = {
-      graphical = {
-        niri = {
-          enable = lib.mkEnableOption "Niri";
+    terminalEmulator = {
+      enable = lib.mkEnableOption "Terminal emulator";
+      path = lib.mkOption {
+        default = "${pkgs.ghostty}/bin/ghostty";
+        description = "The terminal emulators path";
+        type = lib.types.nonEmptyStr;
+      };
+    };
 
-          terminalEmulator = {
-            enable = lib.mkEnableOption "Terminal emulator";
-            path = lib.mkOption {
-              default = "${pkgs.ghostty}/bin/ghostty";
-              description = "The terminal emulators path";
-              type = lib.types.nonEmptyStr;
-            };
-          };
+    dmenu = {
+      enable = lib.mkEnableOption "Dmenu";
+      path = lib.mkOption {
+        default = "${pkgs.fuzzel}/bin/fuzzel";
+        description = "The dmenus path";
+        type = lib.types.nonEmptyStr;
+      };
+    };
 
-          dmenu = {
-            enable = lib.mkEnableOption "Dmenu";
-            path = lib.mkOption {
-              default = "${pkgs.fuzzel}/bin/fuzzel";
-              description = "The dmenus path";
-              type = lib.types.nonEmptyStr;
-            };
-          };
-
-          outputs = lib.mkOption {
-            type = lib.types.attrsOf (
-              lib.types.submodule {
+    outputs = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            mode = lib.mkOption {
+              type = lib.types.submodule {
                 options = {
-                  mode = lib.mkOption {
-                    type = lib.types.submodule {
-                      options = {
-                        width = lib.mkOption {
-                          type = lib.types.int;
-                          description = "Display width in pixels";
-                        };
-                        height = lib.mkOption {
-                          type = lib.types.int;
-                          description = "Display height in pixels";
-                        };
-                        refresh = lib.mkOption {
-                          type = lib.types.float;
-                          description = "Refresh rate in Hz";
-                        };
-                      };
-                    };
-                    description = "Display mode configuration";
+                  width = lib.mkOption {
+                    type = lib.types.int;
+                    description = "Display width in pixels";
                   };
-
-                  position = lib.mkOption {
-                    type = lib.types.submodule {
-                      options = {
-                        x = lib.mkOption {
-                          type = lib.types.int;
-                          description = "Display position in pixels";
-                        };
-                        y = lib.mkOption {
-                          type = lib.types.int;
-                          description = "Display position in pixels";
-                        };
-                      };
-                    };
-                    description = "Display position configuration";
+                  height = lib.mkOption {
+                    type = lib.types.int;
+                    description = "Display height in pixels";
                   };
-
-                  focus-at-startup = lib.mkEnableOption "Focus on this screen at start up";
-                };
-              }
-            );
-            default = { };
-            description = "Monitor output configurations";
-            example = {
-              "PNP(AOC) 2590G5 0x00002709" = {
-                mode = {
-                  width = 1920;
-                  height = 1080;
-                  refresh = 74.973;
+                  refresh = lib.mkOption {
+                    type = lib.types.float;
+                    description = "Refresh rate in Hz";
+                  };
                 };
               };
+              description = "Display mode configuration";
             };
+
+            position = lib.mkOption {
+              type = lib.types.submodule {
+                options = {
+                  x = lib.mkOption {
+                    type = lib.types.int;
+                    description = "Display position in pixels";
+                  };
+                  y = lib.mkOption {
+                    type = lib.types.int;
+                    description = "Display position in pixels";
+                  };
+                };
+              };
+              description = "Display position configuration";
+            };
+
+            focus-at-startup = lib.mkEnableOption "Focus on this screen at start up";
+          };
+        }
+      );
+      default = { };
+      description = "Monitor output configurations";
+      example = {
+        "PNP(AOC) 2590G5 0x00002709" = {
+          mode = {
+            width = 1920;
+            height = 1080;
+            refresh = 74.973;
           };
         };
       };
     };
   };
 
-  config = lib.mkIf config.modules.graphical.niri.enable {
+  config = cfg: {
     nixpkgs.overlays = [ inputs.niri.overlays.niri ];
     programs.niri.package = pkgs.niri-stable;
 
@@ -157,7 +151,7 @@
 
         programs.niri = {
           settings = {
-            outputs = config.modules.graphical.niri.outputs;
+            outputs = cfg.outputs;
 
             input = {
               keyboard = {
@@ -343,12 +337,8 @@
 
                 "Mod+Q".action = close-window;
                 "Mod+Shift+E".action = quit;
-                "Mod+D".action = lib.mkIf config.modules.graphical.niri.dmenu.enable (
-                  spawn config.modules.graphical.niri.dmenu.path
-                );
-                "Mod+T".action = lib.mkIf config.modules.graphical.niri.terminalEmulator.enable (
-                  spawn config.modules.graphical.niri.terminalEmulator.path
-                );
+                "Mod+D".action = lib.mkIf cfg.dmenu.enable (spawn cfg.dmenu.path);
+                "Mod+T".action = lib.mkIf cfg.terminalEmulator.enable (spawn cfg.terminalEmulator.path);
 
                 "Mod+Semicolon".action = spawn [
                   "wtype"

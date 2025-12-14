@@ -1,10 +1,13 @@
 {
   lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
+  match,
   ...
 }:
 {
+
   imports = [
     ./fuzzel
     ./icons
@@ -14,20 +17,29 @@
     ./swaybg
     ./waybar
   ];
-
+}
+// mkIfModule config [ "graphical" "environment" ] {
   options = {
-    modules = {
-      graphical = {
-        environment = {
-          enable = lib.mkEnableOption "Enables a fully working graphical environment.";
-        };
-      };
+    windowManager = lib.mkOption {
+      default = "niri";
+      description = "The enabled window manager.";
+      type = lib.types.nonEmptyStr;
+    };
+
+    browser = lib.mkOption {
+      default = "firefox";
+      description = "The enabled browser.";
+      type = lib.types.nonEmptyStr;
+    };
+
+    applications = lib.mkOption {
+      type = with lib.types; listOf nonEmptyStr;
+      default = [ ];
+      description = "Extra apps to be enabled.";
     };
   };
 
-  # FIXME: Is there better way to do this?
-
-  config = lib.mkIf config.modules.graphical.environment.enable {
+  config = cfg: {
     environment = {
       systemPackages = [
         pkgs.uwsm
@@ -35,29 +47,46 @@
     };
 
     modules = {
-      tty.greetd = {
-        enable = lib.mkForce true;
-        cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
-      };
+      inherit
+        (match cfg.windowManager [
+          [
+            "niri"
+            {
+              niri = {
+                enable = true;
+                terminalEmulator = {
+                  enable = true;
+                  path = lib.mkForce "${pkgs.ghostty}/bin/ghostty";
+                };
+
+                dmenu = {
+                  enable = true;
+                  path = lib.mkForce "${pkgs.fuzzel}/bin/fuzzel";
+                };
+              };
+
+              tty.greetd = {
+                enable = true;
+                cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
+              };
+            }
+          ]
+        ])
+        ;
+
+      applications.browsers.${cfg.browser}.enable = true;
+
+      applications.other = lib.genAttrs cfg.applications (name: {
+        enable = true;
+      });
 
       graphical = {
-        niri = {
-          enable = lib.mkForce true;
-          terminalEmulator = {
-            enable = lib.mkForce true;
-            path = lib.mkForce "${pkgs.ghostty}/bin/ghostty";
-          };
-          dmenu = {
-            enable = lib.mkForce true;
-            path = lib.mkForce "${pkgs.fuzzel}/bin/fuzzel";
-          };
+        enviroment = {
+          mako.enable = lib.mkForce true;
+          swaybg.enable = lib.mkForce true;
+          fuzzel.enable = lib.mkForce true;
+          stylix.enable = lib.mkForce true;
         };
-
-        mako.enable = lib.mkForce true;
-        swaybg.enable = lib.mkForce true;
-        fuzzel.enable = lib.mkForce true;
-        firefox.enable = lib.mkForce true;
-        stylix.enable = lib.mkForce true;
       };
 
       terminal.ghostty.enable = lib.mkForce true;

@@ -1,24 +1,11 @@
 {
-  lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-
-  options = {
-    modules = {
-      developer = {
-        languages = {
-          c = {
-            enable = lib.mkEnableOption "C";
-          };
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.languages.c.enable {
+mkIfModule config [ "developer" "languages" "c" ] {
+  config = {
     userHome = {
       home.packages = [
         pkgs.gnumake

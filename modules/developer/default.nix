@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  lib,
+  config,
+  mkIfModule,
+  ...
+}:
 let
   languages = [
     "zig"
@@ -12,21 +17,15 @@ let
   ];
 in
 {
+
   imports = [
     ./git
     ./nvim
   ]
   ++ map (x: (./. + "/languages/${x}")) languages;
-
-  options = {
-    modules = {
-      developer = {
-        enable = lib.mkEnableOption "Enables basic developer tools and languages";
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.enable {
+}
+// mkIfModule config [ "developer" ] {
+  config = {
     modules.developer = {
       languages = lib.genAttrs languages (name: {
         enable = true;

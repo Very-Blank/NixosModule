@@ -1,24 +1,11 @@
 {
-  lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-
-  options = {
-    modules = {
-      developer = {
-        languages = {
-          nix = {
-            enable = lib.mkEnableOption "Nix";
-          };
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.languages.nix.enable {
+mkIfModule config [ "developer" "languages" "nix" ] {
+  config = {
     userHome = {
       home.packages = [
         pkgs.nil

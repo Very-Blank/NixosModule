@@ -1,15 +1,10 @@
-{lib, config, ...}: {
-  options = {
-    modules = {
-      developer = {
-        git = {
-          enable = lib.mkEnableOption "Git";
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.git.enable {
+{
+  config,
+  mkIfModule,
+  ...
+}:
+mkIfModule config [ "developer" "git" ] {
+  config = {
     userHome = {
       programs.git = {
         enable = true;

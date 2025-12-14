@@ -1,25 +1,12 @@
 {
-  lib,
-  config,
-  inputs,
   pkgs,
+  inputs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-
-  options = {
-    modules = {
-      developer = {
-        languages = {
-          zig = {
-            enable = lib.mkEnableOption "Zig";
-          };
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.languages.zig.enable {
+mkIfModule config [ "developer" "languages" "zig" ] {
+  config = {
     userHome = {
       home.packages = [
         inputs.zig.packages.${pkgs.system}.default

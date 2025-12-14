@@ -1,24 +1,11 @@
 {
-  lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-
-  options = {
-    modules = {
-      developer = {
-        languages = {
-          lua = {
-            enable = lib.mkEnableOption "Lua";
-          };
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.languages.lua.enable {
+mkIfModule config [ "developer" "languages" "lua" ] {
+  config = {
     userHome = {
       home.packages = [
         pkgs.lua

@@ -1,24 +1,11 @@
 {
-  lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-
-  options = {
-    modules = {
-      developer = {
-        languages = {
-          python = {
-            enable = lib.mkEnableOption "Python";
-          };
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.languages.python.enable {
+mkIfModule config [ "developer" "languages" "python" ] {
+  config = {
     userHome = {
       home.packages = [
         pkgs.python3

@@ -1,28 +1,19 @@
 {
   lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-  options = {
-    modules = {
-      graphical = {
-        fuzzel = {
-          enable = lib.mkEnableOption "Fuzzel";
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.graphical.fuzzel.enable {
+mkIfModule config [ "graphical" "enviroment" "fuzzel" ] {
+  config = {
     fonts = {
       packages = [
         pkgs.nerd-fonts._0xproto
       ];
     };
 
-    modules.graphical.icons.enable = true;
+    modules.graphical.enviroment.icons.enable = true;
 
     userHome = {
       programs.fuzzel = {

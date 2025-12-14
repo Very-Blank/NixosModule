@@ -1,21 +1,11 @@
 {
-  lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-  options = {
-    modules = {
-      graphical = {
-        firefox = {
-          enable = lib.mkEnableOption "Firefox";
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.graphical.firefox.enable {
+mkIfModule config [ "graphical" "applications" "browsers" "firefox" ] {
+  config = {
     fonts = {
       packages = [
         pkgs.noto-fonts

@@ -33,9 +33,13 @@
           tray.enable = true;
         };
 
-        obsidian.enable = true;
-
-        environment.enable = true;
+        environment = {
+          enable = true;
+          applications = [
+            "obsidian"
+            "obs"
+          ];
+        };
       };
     };
   };

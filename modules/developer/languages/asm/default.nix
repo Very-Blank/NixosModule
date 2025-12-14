@@ -1,24 +1,11 @@
 {
-  lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-
-  options = {
-    modules = {
-      developer = {
-        languages = {
-          asm = {
-            enable = lib.mkEnableOption "Asm";
-          };
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.languages.asm.enable {
+mkIfModule config [ "developer" "languages" "asm" ] {
+  config = {
     userHome = {
       home.packages = [
         pkgs.asm-lsp

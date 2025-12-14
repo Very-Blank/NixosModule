@@ -1,24 +1,11 @@
 {
-  lib,
-  config,
   pkgs,
+  config,
+  mkIfModule,
   ...
 }:
-{
-
-  options = {
-    modules = {
-      developer = {
-        languages = {
-          rust = {
-            enable = lib.mkEnableOption "Rust";
-          };
-        };
-      };
-    };
-  };
-
-  config = lib.mkIf config.modules.developer.languages.rust.enable {
+mkIfModule config [ "developer" "languages" "rust" ] {
+  config = {
     userHome = {
       home.packages = [
         pkgs.rustc

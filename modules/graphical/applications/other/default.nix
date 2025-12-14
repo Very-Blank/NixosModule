@@ -1,9 +1,7 @@
 { ... }:
 {
   imports = [
-    ./firefox
-    ./gaming
-    ./obs
     ./obsidian
+    ./obs
   ];
 }

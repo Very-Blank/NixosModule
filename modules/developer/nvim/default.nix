@@ -1,26 +1,12 @@
 {
   inputs,
-  pkgs,
-  lib,
+  config,
+  mkIfModule,
   ...
 }:
-{
-  options = {
-    modules = {
-      developer = {
-        nvim = {
-          enable = lib.mkEnableOption "Nvim";
-        };
-      };
-    };
-  };
-
+mkIfModule config [ "developer" "nvim" ] {
   config = {
     userHome = {
-      # Language servers
-      home.packages = [
-      ];
-
       programs.neovim = {
         enable = true;
         defaultEditor = true;

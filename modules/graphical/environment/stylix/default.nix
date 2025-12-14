@@ -1,44 +1,42 @@
-{lib, config, pkgs, inputs, ...}: {
+{
+  pkgs,
+  inputs,
+  config,
+  mkIfModule,
+  ...
+}:
+{
   imports = [
     inputs.stylix.nixosModules.stylix
   ];
+}
+// mkIfModule config [ "graphical" "enviroment" "stylix" ] {
+  config = {
+    stylix = {
+      enable = true;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
 
-  options = {
-    modules = {
-      graphical = {
-        stylix = {
-          enable = lib.mkEnableOption "Stylix";
+      fonts = {
+        serif = {
+          package = pkgs.dejavu_fonts;
+          name = "DejaVu Serif";
+        };
+
+        sansSerif = {
+          package = pkgs.dejavu_fonts;
+          name = "DejaVu Sans";
+        };
+
+        monospace = {
+          package = pkgs.nerd-fonts._0xproto;
+          name = "0xProto Nerd Font";
+        };
+
+        emoji = {
+          package = pkgs.noto-fonts-emoji;
+          name = "Noto Color Emoji";
         };
       };
-    };
-  };
-
-  config = lib.mkIf config.modules.graphical.stylix.enable {
-    stylix = {
-        enable = true;
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
-
-        fonts = {
-          serif = {
-            package = pkgs.dejavu_fonts;
-            name = "DejaVu Serif";
-          };
-
-          sansSerif = {
-            package = pkgs.dejavu_fonts;
-            name = "DejaVu Sans";
-          };
-
-          monospace = {
-            package =  pkgs.nerd-fonts._0xproto;
-            name = "0xProto Nerd Font";
-          };
-
-          emoji = {
-            package = pkgs.noto-fonts-emoji;
-            name = "Noto Color Emoji";
-          };
-        };
     };
 
     userHome = {
@@ -72,7 +70,7 @@
           };
 
           monospace = {
-            package =  pkgs.nerd-fonts._0xproto;
+            package = pkgs.nerd-fonts._0xproto;
             name = "0xProto Nerd Font";
           };
 
