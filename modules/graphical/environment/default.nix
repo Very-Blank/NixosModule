@@ -1,4 +1,20 @@
-{lib, config, pkgs, ...}: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    ./fuzzel
+    ./icons
+    ./mako
+    ./niri
+    ./stylix
+    ./swaybg
+    ./waybar
+  ];
+
   options = {
     modules = {
       graphical = {
@@ -8,6 +24,8 @@
       };
     };
   };
+
+  # FIXME: Is there better way to do this?
 
   config = lib.mkIf config.modules.graphical.environment.enable {
     environment = {

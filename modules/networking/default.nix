@@ -9,7 +9,7 @@
     modules = {
       networking = {
         hostname = lib.mkOption {
-          default = "nixos";
+          default = "Nixos";
           description = "Hostname";
           type = lib.types.nonEmptyStr;
         };
@@ -23,6 +23,7 @@
       networkmanager.enable = true;
     };
 
+    # FIXME: move these:
     environment.systemPackages = lib.mkIf config.modules.graphical.waybar.tray.enable [
       pkgs.libappindicator
       pkgs.networkmanagerapplet

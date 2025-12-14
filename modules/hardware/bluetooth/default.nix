@@ -1,4 +1,10 @@
-{lib, config, pkgs, ...}: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
     modules = {
       hardware = {
@@ -21,17 +27,25 @@
       blueman.enable = true;
     };
 
+    # FIXME: Move these.
+
     userHome = {
       systemd.user.services.blueman-applet = lib.mkIf config.modules.graphical.waybar.tray.enable {
         Unit = {
           Description = "Blueman-applet service";
-          PartOf = [ "graphical-session.target"  "dbus.socket" ];
-          After = [ "graphical-session.target"  "dbus.socket" ];
+          PartOf = [
+            "graphical-session.target"
+            "dbus.socket"
+          ];
+          After = [
+            "graphical-session.target"
+            "dbus.socket"
+          ];
         };
         Service = {
           ExecStart = "${pkgs.blueman}/bin/blueman-applet";
-          Restart     = "on-failure";
-          RestartSec  = "5s";
+          Restart = "on-failure";
+          RestartSec = "5s";
         };
         Install = {
           WantedBy = [ "graphical-session.target" ];

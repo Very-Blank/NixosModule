@@ -25,9 +25,11 @@
       package = pkgs.zsh;
     };
 
+    # FIXME: This feels bad.
     modules.tty.greetd = {
       cmd = lib.mkOverride 100 config.modules.home.user.shell;
     };
+    #--
 
     userHome = {
       home.packages = [ pkgs.pure-prompt ];
