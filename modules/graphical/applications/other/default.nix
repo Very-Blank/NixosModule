@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./steam
     ./obsidian
     ./obs
   ];
