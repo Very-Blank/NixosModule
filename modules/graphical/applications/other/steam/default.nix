@@ -12,12 +12,10 @@ mkIfModule config [ "graphical" "applications" "other" "steam" ] {
       "steam-run"
     ];
 
-    userHome = {
-      programs.steam = {
-        enable = true;
-        dedicatedServer.openFirewall = true;
-        localNetworkGameTransfers.openFirewall = true;
-      };
+    programs.steam = {
+      enable = true;
+      dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
     };
   };
 }
