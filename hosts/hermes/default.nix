@@ -32,6 +32,7 @@
           windowManager = "niri";
 
           applications = [
+            "steam"
             "obsidian"
             "obs"
           ];
