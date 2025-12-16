@@ -1,6 +1,5 @@
 {
   imports = [
-    ./ghostty
     ./tmux
     ./zsh
   ];

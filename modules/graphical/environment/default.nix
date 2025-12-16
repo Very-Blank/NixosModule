@@ -29,6 +29,22 @@
       ];
     };
 
+    terminal = lib.mkOption {
+      default = "ghostty";
+      description = "The enabled terminal emulator.";
+      type = lib.types.enum [
+        "ghostty"
+      ];
+    };
+
+    dmenu = lib.mkOption {
+      default = "fuzzel";
+      description = "The enabled dmenu.";
+      type = lib.types.enum [
+        "fuzzel"
+      ];
+    };
+
     browser = lib.mkOption {
       default = "firefox";
       description = "The enabled browser.";

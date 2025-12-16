@@ -2,6 +2,7 @@
 {
   imports = [
     ./browsers
+    ./terminalEmulators
     ./other
   ];
 }
