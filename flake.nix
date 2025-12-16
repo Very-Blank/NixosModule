@@ -64,7 +64,7 @@
               (moduleContent.config or { });
         in
         {
-          options = lib.setAttrByPath ([ "modules" ] ++ path) moduleContent.options;
+          options = lib.setAttrByPath ([ "modules" ] ++ path) (moduleContent.options or { });
           config = rawConfig;
         };
 
