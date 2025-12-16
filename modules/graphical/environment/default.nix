@@ -3,7 +3,6 @@
   pkgs,
   config,
   mkIfModule,
-  match,
   ...
 }:
 {
@@ -33,11 +32,19 @@
     browser = lib.mkOption {
       default = "firefox";
       description = "The enabled browser.";
-      type = lib.types.nonEmptyStr;
+      type = lib.types.enum [
+        "firefox"
+      ];
     };
 
     applications = lib.mkOption {
-      type = with lib.types; listOf nonEmptyStr;
+      type =
+        with lib.types;
+        listOf (enum [
+          "obsidian"
+          "obs"
+          "steam"
+        ]);
       default = [ ];
       description = "Extra apps to be enabled.";
     };
