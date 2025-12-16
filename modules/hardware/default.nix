@@ -3,7 +3,7 @@
     ./backlight
     ./tuxedo
     ./audio
-    ./battery
     ./bluetooth
+    ./info
   ];
 }

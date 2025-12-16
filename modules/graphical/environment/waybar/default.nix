@@ -123,7 +123,7 @@ mkIfModule config [ "graphical" "environment" "waybar" ] {
                   "memory"
                   "cpu"
                 ])
-                (lib.mkIf config.modules.hardware.battery.enable [ "battery" ])
+                (lib.mkIf config.modules.hardware.info.battery [ "battery" ])
                 (lib.mkIf cfg.tray.enable [ "tray" ])
               ];
 
@@ -214,7 +214,7 @@ mkIfModule config [ "graphical" "environment" "waybar" ] {
                 min-length = 7;
               };
 
-              "battery" = lib.mkIf config.modules.hardware.battery.enable {
+              "battery" = lib.mkIf config.modules.hardware.info.battery {
                 interval = 2;
                 states = {
                   warning = 30;

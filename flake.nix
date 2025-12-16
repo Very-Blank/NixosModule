@@ -42,7 +42,7 @@
           // (moduleContent.options or { });
 
           rawConfig =
-            if builtins.isFunction moduleContent.config then
+            if builtins.hasAttr "config" moduleContent && builtins.isFunction moduleContent.config then
               moduleContent.config cfg
             else
               (moduleContent.config or { });
@@ -58,7 +58,10 @@
           cfg = lib.getAttrFromPath ([ "modules" ] ++ path) config;
 
           rawConfig =
-            if builtins.isFunction moduleContent.config then moduleContent.config cfg else moduleContent.config;
+            if builtins.hasAttr "config" moduleContent && builtins.isFunction moduleContent.config then
+              moduleContent.config cfg
+            else
+              (moduleContent.config or { });
         in
         {
           options = lib.setAttrByPath ([ "modules" ] ++ path) moduleContent.options;

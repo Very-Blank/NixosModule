@@ -9,7 +9,7 @@
     modules = {
       networking = {
         hostname = lib.mkOption {
-          default = "Nixos";
+          default = "nixos";
           description = "Hostname";
           type = lib.types.nonEmptyStr;
         };

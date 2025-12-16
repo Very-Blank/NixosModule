@@ -21,9 +21,12 @@
       hardware = {
         audio.enable = true;
         bluetooth.enable = true;
-        battery.enable = true;
         tuxedo.enable = true;
         backlight.enable = true;
+
+        info = {
+          battery = true;
+        };
       };
 
       graphical = {
