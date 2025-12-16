@@ -96,6 +96,11 @@
           system = "x86_64-linux";
         };
 
+        aether = mkNixosConfig {
+          name = "aether";
+          system = "x86_64-linux";
+        };
+
         hermes = mkNixosConfig {
           name = "hermes";
           system = "x86_64-linux";
