@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./openssh
     ./forgejo
     ./nginx
     ./tailscale
