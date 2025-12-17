@@ -27,6 +27,10 @@
         };
       };
 
+      server = {
+        tailscale.enable = true;
+      };
+
       graphical = {
         environment = {
           enable = true;
