@@ -322,9 +322,8 @@
                 "Mod+C".action = center-column;
                 "Mod+V".action = toggle-window-floating;
 
-                "Print".screenshot-screen.action = {
-                  show-pointer = false;
-                };
+                "Mod+Shift+S".action.screenshot = [ ];
+                "Print".action.screenshot-screen = [ ];
 
                 "XF86AudioRaiseVolume".action = lib.mkIf config.modules.hardware.audio.enable (
                   sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"

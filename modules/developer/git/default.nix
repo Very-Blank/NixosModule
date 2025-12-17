@@ -8,10 +8,13 @@ mkIfModule config [ "developer" "git" ] {
     userHome = {
       programs.git = {
         enable = true;
-        userEmail = "aapeli.saarelainen.76@gmail.com";
-        userName = "very-blank";
-        extraConfig = {
+        settings = {
           init.defaultBranch = "main";
+
+          user = {
+            name = "very-blank";
+            email = "aapeli.saarelainen.76@gmail.com";
+          };
         };
       };
     };

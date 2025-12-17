@@ -9,7 +9,7 @@ mkIfModule config [ "graphical" "applications" "browsers" "firefox" ] {
     fonts = {
       packages = [
         pkgs.noto-fonts
-        pkgs.noto-fonts-emoji
+        pkgs.noto-fonts-color-emoji
       ];
     };
 
