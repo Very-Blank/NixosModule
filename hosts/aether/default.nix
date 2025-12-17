@@ -16,10 +16,11 @@
         zsh.enable = true;
       };
 
-      developer.nvim.enable = true;
+      developer.enable = true;
 
       hardware = {
         backlight.enable = true;
+        audio.enable = true;
 
         info = {
           battery = true;
