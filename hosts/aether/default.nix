@@ -29,6 +29,7 @@
 
       server = {
         tailscale.enable = true;
+        openssh.enable = true;
       };
 
       graphical = {

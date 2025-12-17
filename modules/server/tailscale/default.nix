@@ -18,7 +18,7 @@ mkIfModule config
         type = lib.types.nonEmptyStr;
       };
 
-      telemetry.enaled = lib.mkEnableOption "Is tailscale's logging and telemetry enabled, lessens privacy.";
+      telemetry.enabled = lib.mkEnableOption "Is tailscale's logging and telemetry enabled, lessens privacy.";
     };
 
     config = cfg: {

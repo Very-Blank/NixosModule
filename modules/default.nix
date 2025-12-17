@@ -4,6 +4,7 @@
     ./boot
     ./hardware
     ./developer
+    ./server
     ./essential
     ./home
     ./terminal
