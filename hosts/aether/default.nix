@@ -29,6 +29,7 @@
 
       server = {
         tailscale.enable = true;
+        tailscale.domain = "tailf09877.ts.net";
         openssh.enable = true;
         vaultwarden.enable = true;
         nginx.enable = true;

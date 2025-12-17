@@ -20,7 +20,7 @@ mkIfModule config
         environmentFile = "/var/lib/vaultwarden/vaultwarden.env";
         config = {
           # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
-          DOMAIN = "https://bitwarden.example.com";
+          DOMAIN = "https://vault.${config.modules.server.tailscale.domain}";
           SIGNUPS_ALLOWED = false;
 
           ROCKET_ADDRESS = "127.0.0.1";
@@ -29,11 +29,11 @@ mkIfModule config
         };
       };
 
-      services.nginx.virtualHosts."bitwarden.example.com" = {
+      services.nginx.virtualHosts."${config.modules.server.tailscale.domain}" = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+          proxyPass = "http://127.0.0.1:${config.services.vaultwarden.config.ROCKET_PORT}";
         };
       };
     };
