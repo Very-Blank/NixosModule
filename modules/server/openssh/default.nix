@@ -31,6 +31,6 @@ mkIfModule config
           fail2ban.enable = true;
         };
 
-        networking.firewall.allowdTCPPorts = [ sshPort ];
+        networking.firewall.allowedTCPPorts = [ sshPort ];
       };
   }
