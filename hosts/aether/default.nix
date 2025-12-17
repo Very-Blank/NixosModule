@@ -30,6 +30,8 @@
       server = {
         tailscale.enable = true;
         openssh.enable = true;
+        vaultwarden.enable = true;
+        nginx.enable = true;
       };
 
       graphical = {
