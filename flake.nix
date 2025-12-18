@@ -91,13 +91,13 @@
     in
     {
       nixosConfigurations = {
-        zeus = mkNixosConfig {
-          name = "zeus";
+        zaratul = mkNixosConfig {
+          name = "zaratul";
           system = "x86_64-linux";
         };
 
-        aether = mkNixosConfig {
-          name = "aether";
+        ouroboros = mkNixosConfig {
+          name = "ouroboros";
           system = "x86_64-linux";
         };
 

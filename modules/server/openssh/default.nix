@@ -10,6 +10,7 @@ mkIfModule config
     "openssh"
   ]
   {
+    options = { };
     config =
       let
         sshPort = 22;

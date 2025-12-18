@@ -8,7 +8,7 @@
   config = {
     modules = {
       networking = {
-        hostname = "zeus";
+        hostname = "zaratul";
       };
 
       terminal = {
