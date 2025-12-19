@@ -1,0 +1,8 @@
+keys:
+  - &hermes age13ltmy9wkmzfpw2qaak30xucq9d0hg7cklaq4pak287fup8z4xe2qvfrat8
+creation_rules:
+  - path_regex: secrets/user/shared.yaml$
+    key_groups:
+      - age:
+        - *hermes
+
