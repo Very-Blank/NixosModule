@@ -13,10 +13,11 @@
 }
 // mkModule config [ "sops" ] {
   options = {
+  };
+  config = {
     environment.systemPackages = [
       pkgs.sops
       pkgs.age
     ];
   };
-  config = { };
 }
