@@ -1,6 +1,7 @@
 { lib, config, ... }:
 {
   imports = [
+    ./sops
     ./boot
     ./hardware
     ./developer

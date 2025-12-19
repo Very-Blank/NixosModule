@@ -35,7 +35,7 @@
         username = config.modules.home.user.name;
         homeDirectory = "/home/${config.modules.home.user.name}";
 
-        stateVersion = "24.11";
+        stateVersion = "25.11";
       };
 
       programs.home-manager.enable = true;
