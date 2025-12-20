@@ -52,6 +52,8 @@
           ];
         };
 
+        domain.name = "taildevourer.com";
+
         ddclient.enable = true;
       };
 

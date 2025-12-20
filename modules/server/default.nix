@@ -3,5 +3,6 @@
   imports = [
     ./openssh
     ./ddclient
+    ./domain
   ];
 }
