@@ -8,6 +8,8 @@
   config = {
     hostname = "ouroboros";
 
+    services.upower.ignoreLid = true;
+
     modules = {
       terminal = {
         tmux.enable = true;
