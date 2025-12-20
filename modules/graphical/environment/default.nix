@@ -12,7 +12,6 @@
     ./icons
     ./mako
     ./niri
-    ./stylix
     ./swaybg
     ./waybar
   ];
@@ -84,7 +83,6 @@
           mako.enable = lib.mkForce true;
           swaybg.enable = lib.mkForce true;
           fuzzel.enable = lib.mkForce true;
-          stylix.enable = lib.mkForce true;
 
           niri = lib.mkIf (cfg.windowManager == "niri") {
             enable = lib.mkForce true;

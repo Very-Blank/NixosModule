@@ -29,12 +29,7 @@ mkIfModule config [ "terminal" "zsh" ] {
         enable = true;
 
         autosuggestion.enable = true;
-        autosuggestion.highlight = lib.mkMerge [
-          (lib.mkIf config.modules.graphical.environment.stylix.enable "fg=#383838,bg=#a1d8fc,bold,underline")
-          (lib.mkIf (
-            !config.modules.graphical.environment.stylix.enable
-          ) "fg=#${config.lib.stylix.colors.base0D},bg=#${config.lib.stylix.colors.base0B},bold,underline")
-        ];
+        autosuggestion.highlight = "fg=#8aadf4,bg=#eed49f,bold,underline";
 
         syntaxHighlighting.enable = true;
 

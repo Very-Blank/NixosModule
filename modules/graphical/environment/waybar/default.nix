@@ -24,7 +24,6 @@ mkIfModule config [ "graphical" "environment" "waybar" ] {
     };
 
     modules.graphical.environment = {
-      stylix.enable = lib.mkForce true;
       icons.enable = lib.mkIf cfg.tray.enable true;
     };
 
@@ -37,24 +36,22 @@ mkIfModule config [ "graphical" "environment" "waybar" ] {
     userHome = {
       programs.waybar =
         let
-          inherit (config.lib.stylix.colors)
-            base00
-            base01
-            base02
-            base03
-            base04
-            base05
-            base06
-            base07
-            base08
-            base09
-            base0A
-            base0B
-            base0C
-            base0D
-            base0E
-            base0F
-            ;
+          base00 = "1e2030";
+          base01 = "363a4f";
+          base02 = "494d64";
+          base03 = "5b6078";
+          base04 = "6e738d";
+          base05 = "8a8fa1";
+          base06 = "b5b9cc";
+          base07 = "f0f0f6";
+          base08 = "f4dbd6";
+          base09 = "f0c6c6";
+          base0A = "f5bde6";
+          base0B = "eed49f";
+          base0C = "a6da95";
+          base0D = "8aadf4";
+          base0E = "7dc4e4";
+          base0F = "939ab7";
           processedDefines = pkgs.writeText "waybar-colors.css" (
             builtins.replaceStrings
               [
