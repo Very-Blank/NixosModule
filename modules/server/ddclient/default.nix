@@ -10,25 +10,22 @@ mkIfModule config
     "ddclient"
   ]
   {
-    options = {
-    };
-
     config = {
-      # sops.secrets."ddclient/password" = {
-      #   sopsFile = ../../secrets/other/shared/secrets.yaml;
-      # };
+      sops.secrets."ddclient/password" = {
+        sopsFile = ../../secrets/user/. + "/${config.hostname}.yaml";
+      };
 
-      # services.ddclient = {
-      #   enable = true;
-      #   interval = "5min";
-      #   protocol = "cloudflare";
-      #   username = config.domain;
-      #   passwordFile = config.sops.secrets."ddclient/password".path;
-      #   domains = [
-      #     "*.${config.domain}"
-      #     "@.${config.domain}"
-      #   ];
-      # };
+      services.ddclient = {
+        enable = true;
+        interval = "5min";
+        protocol = "cloudflare";
+        username = config.modules.domain.name;
+        passwordFile = config.sops.secrets."ddclient/password".path;
+
+        domains = [
+          config.modules.domain.name
+        ];
+      };
     };
   }
 

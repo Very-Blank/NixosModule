@@ -38,6 +38,11 @@
   };
 
   config = {
+    sops.secrets."user/password-hash" = {
+      sopsFile = ../../../secrets/user/shared.yaml;
+      neededForUsers = true;
+    };
+
     users = {
       mutableUsers = false;
 
