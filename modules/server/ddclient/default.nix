@@ -12,7 +12,7 @@ mkIfModule config
   {
     config = {
       sops.secrets."dns/token" = {
-        sopsFile = ../../secrets/other/. + "/${config.hostname}.yaml";
+        sopsFile = ../../../secrets/other/. + "/${config.hostname}.yaml";
       };
 
       services.ddclient = {
