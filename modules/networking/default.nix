@@ -5,21 +5,9 @@
   ...
 }:
 {
-  options = {
-    modules = {
-      networking = {
-        hostname = lib.mkOption {
-          default = "nixos";
-          description = "Hostname";
-          type = lib.types.nonEmptyStr;
-        };
-      };
-    };
-  };
-
   config = {
     networking = {
-      hostName = config.modules.networking.hostname;
+      hostName = config.hostname;
       networkmanager.enable = true;
     };
 

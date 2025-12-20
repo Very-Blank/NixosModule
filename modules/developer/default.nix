@@ -21,6 +21,7 @@ in
   imports = [
     ./git
     ./nvim
+    ./ssh
   ]
   ++ map (x: (./. + "/languages/${x}")) languages;
 }

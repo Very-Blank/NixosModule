@@ -2,21 +2,28 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../base.nix
+    ../../modules
   ];
 
   config = {
-    modules = {
-      networking = {
-        hostname = "hermes";
-      };
+    hostname = "hermes";
 
+    modules = {
       terminal = {
         tmux.enable = true;
         zsh.enable = true;
       };
 
-      developer.enable = true;
+      developer = {
+        enable = true; # FIXME: this is bad
+        ssh.keys = [
+          {
+            match = "github.com";
+            hostname = "github.com";
+            user = "very-blank";
+          }
+        ];
+      };
 
       hardware = {
         audio.enable = true;

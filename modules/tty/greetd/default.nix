@@ -18,13 +18,11 @@ mkIfModule config [ "tty" "greetd" ] {
     services = {
       getty = {
         greetingLine = "<< NixOS ${config.system.nixos.release} >>\n";
-        helpLine = lib.mkForce "${
-          (lib.strings.toUpper (builtins.substring 0 1 config.modules.networking.hostname))
-        }${
-          (builtins.substring 1 (builtins.stringLength config.modules.networking.hostname)
-            config.modules.networking.hostname
-          )
-        } at your service.";
+        helpLine = lib.mkForce (
+          (lib.strings.toUpper (builtins.substring 0 1 config.hostname))
+          + (builtins.substring 1 (builtins.stringLength config.hostname) config.hostname)
+          + " at your service."
+        );
       };
 
       greetd = {

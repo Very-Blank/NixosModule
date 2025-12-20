@@ -2,15 +2,13 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../base.nix
+    ../../modules
   ];
 
   config = {
-    modules = {
-      networking = {
-        hostname = "zaratul";
-      };
+    hostname = "zaratul";
 
+    modules = {
       terminal = {
         tmux.enable = true;
         zsh.enable = true;
