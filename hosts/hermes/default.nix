@@ -22,6 +22,12 @@
             hostname = "github.com";
             user = "very-blank";
           }
+
+          {
+            match = "taildevourer.com";
+            hostname = "taildevourer.com";
+            user = "blank";
+          }
         ];
       };
 
