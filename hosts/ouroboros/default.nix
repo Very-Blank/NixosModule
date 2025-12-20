@@ -16,6 +16,10 @@
         zsh.enable = true;
       };
 
+      tty = {
+        greetd.autoLogin = true;
+      };
+
       developer = {
         enable = true;
         ssh.keys = [
