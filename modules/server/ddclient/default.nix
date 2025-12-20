@@ -11,8 +11,8 @@ mkIfModule config
   ]
   {
     config = {
-      sops.secrets."ddclient/password" = {
-        sopsFile = ../../secrets/user/. + "/${config.hostname}.yaml";
+      sops.secrets."dns/token" = {
+        sopsFile = ../../secrets/other/. + "/${config.hostname}.yaml";
       };
 
       services.ddclient = {
@@ -20,7 +20,7 @@ mkIfModule config
         interval = "5min";
         protocol = "cloudflare";
         username = config.modules.domain.name;
-        passwordFile = config.sops.secrets."ddclient/password".path;
+        passwordFile = config.sops.secrets."dns/token".path;
 
         domains = [
           config.modules.domain.name
