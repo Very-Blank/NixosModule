@@ -23,7 +23,7 @@ mkIfModule config
         passwordFile = config.sops.secrets."dns/token".path;
 
         domains = [
-          config.modules.domain.name
+          config.modules.server.domain.name
         ];
       };
     };
