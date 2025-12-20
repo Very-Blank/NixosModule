@@ -14,7 +14,16 @@
         zsh.enable = true;
       };
 
-      developer.enable = true;
+      developer = {
+        enable = true;
+        ssh.keys = [
+          {
+            match = "github.com";
+            hostname = "github.com";
+            user = "very-blank";
+          }
+        ];
+      };
 
       hardware = {
         backlight.enable = true;

@@ -13,6 +13,7 @@ mkIfModule config
     options = {
       port = lib.mkOption {
         type = lib.types.ints.unsigned;
+        default = 22;
         description = "Port that the ssh service uses.";
       };
 
