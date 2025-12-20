@@ -19,7 +19,7 @@ mkIfModule config
         enable = true;
         interval = "5min";
         protocol = "cloudflare";
-        username = config.modules.domain.name;
+        username = config.modules.server.domain.name;
         passwordFile = config.sops.secrets."dns/token".path;
 
         domains = [
