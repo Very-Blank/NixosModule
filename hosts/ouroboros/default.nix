@@ -9,6 +9,7 @@
     hostname = "ouroboros";
 
     services.upower.ignoreLid = true;
+    systemd.sleep.extraConfig = "AllowHibernation=no";
 
     modules = {
       terminal = {
