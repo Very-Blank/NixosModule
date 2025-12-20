@@ -15,12 +15,9 @@ mkIfModule config
         sopsFile = ../../../secrets/other/. + "/${config.hostname}.yaml";
       };
 
-      services.ddclient = {
+      services.cloudflare-dyndns = {
         enable = true;
-        interval = "5min";
-        protocol = "cloudflare";
-        username = "aapeli.saarelainen.76@gmail.com";
-        passwordFile = config.sops.secrets."dns/token".path;
+        apiTokenFile = config.sops.secrets."dns/token".path;
 
         domains = [
           config.modules.server.domain.name
