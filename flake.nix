@@ -19,11 +19,6 @@
     zig.url = "github:mitchellh/zig-overlay";
     zls.url = "github:Very-Blank/zls";
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nvim = {
       url = "github:Very-Blank/nvim";
       flake = false;
