@@ -37,7 +37,6 @@
 
       hardware = {
         backlight.enable = true;
-        audio.enable = true;
 
         info = {
           battery = true;
@@ -55,19 +54,6 @@
         domain.name = "taildevourer.com";
 
         ddclient.enable = true;
-      };
-
-      graphical = {
-        environment = {
-          enable = true;
-          windowManager = "niri";
-
-          waybar = {
-            enable = true;
-            systemInfo.enable = true;
-            tray.enable = true;
-          };
-        };
       };
     };
   };
