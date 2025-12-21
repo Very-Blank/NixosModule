@@ -22,11 +22,20 @@
             hostname = "github.com";
             user = "very-blank";
           }
-
           {
             match = "taildevourer.com";
             hostname = "taildevourer.com";
             user = "blank";
+          }
+          {
+            match = "gitlab.jyu.fi";
+            hostname = "gitlab.jyu.fi";
+            user = "aapotska";
+          }
+          {
+            match = "puhti.csc.fi";
+            hostname = "puhti.csc.fi";
+            user = "aapotska";
           }
         ];
       };
