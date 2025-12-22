@@ -20,7 +20,6 @@ mkIfModule config [ "terminal" "zsh" ] {
     modules.tty.greetd = {
       cmd = lib.mkOverride 100 config.modules.home.user.shell;
     };
-    #--
 
     userHome = {
       home.packages = [ pkgs.pure-prompt ];
@@ -29,7 +28,7 @@ mkIfModule config [ "terminal" "zsh" ] {
         enable = true;
 
         autosuggestion.enable = true;
-        autosuggestion.highlight = "fg=#8aadf4,bg=#eed49f,bold,underline";
+        autosuggestion.highlight = "fg=#${config.scheme.base0E},bg=#${config.scheme.base01},bold,underline";
 
         syntaxHighlighting.enable = true;
 

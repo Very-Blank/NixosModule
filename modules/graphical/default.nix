@@ -2,5 +2,6 @@
   imports = [
     ./environment
     ./applications
+    ./theming
   ];
 }

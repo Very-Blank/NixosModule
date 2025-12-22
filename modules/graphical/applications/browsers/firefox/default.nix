@@ -74,6 +74,7 @@ mkIfModule config [ "graphical" "applications" "browsers" "firefox" ] {
                 Value = "strict";
                 Status = "locked";
               };
+
               "extensions.pocket.enabled" = lock-false;
               "extensions.screenshots.disabled" = lock-true;
               "browser.topsites.contile.enabled" = lock-false;
@@ -82,12 +83,17 @@ mkIfModule config [ "graphical" "applications" "browsers" "firefox" ] {
               "browser.search.suggest.enabled.private" = lock-false;
               "browser.urlbar.suggest.searches" = lock-false;
               "browser.urlbar.showSearchSuggestionsFirst" = lock-false;
+
               "sidebar.main.tools" = {
                 Value = "bookmarks";
                 Status = "locked";
               };
+
+              "sidebar.revamp" = lock-true;
               "sidebar.verticalTabs" = lock-true;
               "browser.layout.showSideBar" = lock-true;
+              "sidebar.verticalTabs.dragToPinPromo.dismissed" = lock-true;
+
               "browser.newtabpage.activity-stream.feeds.section.topstories" = lock-false;
               "browser.newtabpage.activity-stream.feeds.snippets" = lock-false;
               "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
