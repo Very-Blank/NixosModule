@@ -45,7 +45,7 @@
     };
 
     nixnvim = {
-      url = "github:very-blank/nixvim";
+      url = "github:Very-Blank/NixNvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
