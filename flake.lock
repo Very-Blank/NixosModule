@@ -301,11 +301,11 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1766584955,
-        "narHash": "sha256-3RYd7eASkSSJ3VZC6H3s7dEt+hqRwXsMtktsyYrU1e8=",
+        "lastModified": 1766586424,
+        "narHash": "sha256-v8lqdJPjax5uXQQJMLwCuAcjFRgJffH5gPaqu80veEA=",
         "owner": "Very-Blank",
         "repo": "NixNvim",
-        "rev": "33422889915d33027510e05e539e6c018cd30ac9",
+        "rev": "ae2702b757d1e438d67ee61f239058a87b8ac30a",
         "type": "github"
       },
       "original": {

@@ -15,7 +15,7 @@ mkIfModule config [ "developer" "git" ] {
             name = "very-blank";
             email = "aapeli.saarelainen.76@gmail.com";
           };
-        };
+        };        
       };
     };
   };
