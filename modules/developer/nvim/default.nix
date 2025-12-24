@@ -1,4 +1,5 @@
 {
+  pkgs,
   inputs,
   config,
   mkIfModule,
@@ -6,16 +7,18 @@
 }:
 mkIfModule config [ "developer" "nvim" ] {
   config = {
-    userHome = {
-      programs.neovim = {
-        enable = true;
-        defaultEditor = true;
-      };
+    environment.systemPackages = [ inputs.nixnvim.packages.${pkgs.stdenv.system}.neovim ];
 
-      xdg.configFile."nvim" = {
-        enable = true;
-        source = inputs.nvim;
-      };
-    };
+    # userHome = {
+    #   programs.neovim = {
+    #     enable = true;
+    #     defaultEditor = true;
+    #   };
+    #
+    #   xdg.configFile."nvim" = {
+    #     enable = true;
+    #     source = inputs.nvim;
+    #   };
+    # };
   };
 }

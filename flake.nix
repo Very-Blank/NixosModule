@@ -43,6 +43,11 @@
       url = "github:Very-Blank/nvim";
       flake = false;
     };
+
+    nixnvim = {
+      url = "github:very-blank/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

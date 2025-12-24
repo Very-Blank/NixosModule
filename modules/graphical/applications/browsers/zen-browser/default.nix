@@ -42,10 +42,39 @@ mkIfModule config [ "graphical" "applications" "browsers" "zen-browser" ] {
         };
 
         profiles."default" = {
+          containersForce = true;
+          containers = { };
+
+          spacesForce = true;
+          spaces = {
+            "Space" = {
+              id = "c6de089c-410d-4206-961d-ab11f988d40a";
+              position = 1000;
+
+              theme = {
+                type = "gradient";
+                colors = [
+                  {
+                    red = 30;
+                    green = 30;
+                    blue = 30;
+                  }
+                ];
+
+                opacity = 1.0;
+              };
+            };
+          };
+
           settings = {
             "browser.tabs.warnOnClose" = false;
             "browser.download.panel.shown" = false;
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+            "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+
+            "accessibility.typeaheadfind" = true;
+            "accessibility.typeaheadfind.manual" = false;
 
             browser = {
               tabs.warnOnClose = false;
@@ -77,7 +106,7 @@ mkIfModule config [ "graphical" "applications" "browsers" "zen-browser" ] {
                 ];
 
                 icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                definedAliases = [ "@nix" ]; # Keep in mind that aliases defined here only work if they start with "@"
+                definedAliases = [ "@mn" ]; # Keep in mind that aliases defined here only work if they start with "@"
               };
             };
           };
