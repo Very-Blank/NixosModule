@@ -53,23 +53,12 @@ mkIfModule config
 
       sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
 
-      virtualHosts.${config.modules.server.domain.main} = let
-        sefirah = pkgs.stdenv.mkDerivation {
-          name = "Sefirah Castle";
-          src = ./sefirah;
-          installPhase = ''
-            mkdir -p $out
-            cp -r $src/* $out/
-            find $out -type d -exec chmod 755 {} +
-            find $out -type f -exec chmod 644 {} +
-          '';
-        };
-      in {
+      virtualHosts.${config.modules.server.domain.main} = {
         forceSSL = true;
         enableACME = true;
         reuseport = true;
 
-        root = sefirah;
+        root = ./sefirah;
 
         locations."/" = {
           index = "index.html";
