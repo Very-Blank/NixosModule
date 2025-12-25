@@ -47,21 +47,20 @@ mkIfModule config ["developer" "nvim"] {
           core.editor = "nvim";
         };
       };
-    };
 
-    programs.bash = {
-      bashrcExtra = ''
-        export EDITOR="nvim"
-        export VISUAL="nvim"
-      '';
-    };
+      programs.bash = {
+        bashrcExtra = ''
+          export EDITOR="nvim"
+          export VISUAL="nvim"
+        '';
+      };
 
-    # Configure zsh
-    programs.zsh = {
-      initContent = ''
-        export EDITOR="nvim"
-        export VISUAL="nvim"
-      '';
+      programs.zsh = {
+        initContent = ''
+          export EDITOR="nvim"
+          export VISUAL="nvim"
+        '';
+      };
     };
   };
 }
