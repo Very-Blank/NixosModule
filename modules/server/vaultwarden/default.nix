@@ -23,7 +23,7 @@ mkIfModule config
       environmentFile = config.sops.secrets."vaultwarden/env".path;
 
       config = {
-        DOMAIN = "https://vault.${config.modules.server.domain.main}";
+        DOMAIN = "https://${subdomainName}.${config.modules.server.domain.main}";
         SIGNUPS_ALLOWED = false;
 
         ROCKET_ADDRESS = "127.0.0.1";
