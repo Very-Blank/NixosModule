@@ -55,7 +55,7 @@ mkIfModule config
 
       virtualHosts.${config.modules.server.domain.main} = let
         sefirah = pkgs.stdenv.mkDerivation {
-          name = "sefirah-site";
+          name = "Sefirah Castle";
           src = ./sefirah;
           installPhase = ''
             mkdir -p $out
@@ -67,7 +67,7 @@ mkIfModule config
         enableACME = true;
         reuseport = true;
 
-        root = "${sefirah}";
+        root = sefirah;
       };
     };
 
