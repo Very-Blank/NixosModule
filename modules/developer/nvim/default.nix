@@ -39,7 +39,7 @@ mkIfModule config ["developer" "nvim"] {
       home.sessionVariables = {
         EDITOR = "nvim";
         VISUAL = "nvim";
-        GIT_EDITOR = "nvim";
+        SUDO_EDITOR = "nvim";
       };
 
       programs.git = {
@@ -47,6 +47,21 @@ mkIfModule config ["developer" "nvim"] {
           core.editor = "nvim";
         };
       };
+    };
+
+    programs.bash = {
+      initExtra = ''
+        export EDITOR="nvim"
+        export VISUAL="nvim"
+      '';
+    };
+
+    # Configure zsh
+    programs.zsh = {
+      initExtra = ''
+        export EDITOR="nvim"
+        export VISUAL="nvim"
+      '';
     };
   };
 }
