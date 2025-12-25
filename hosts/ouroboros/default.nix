@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules
@@ -51,9 +50,13 @@
           ];
         };
 
-        domain.name = "taildevourer.com";
-
+        domain.main = "taildevourer.com";
         ddclient.enable = true;
+
+        nginx = {
+          enable = true;
+          acme.email = "aapeli.saarelainen.76@gmail.com";
+        };
       };
     };
   };
