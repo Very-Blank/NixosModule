@@ -60,6 +60,8 @@ mkIfModule config
           installPhase = ''
             mkdir -p $out
             cp -r $src/* $out/
+            find $out -type d -exec chmod 755 {} +
+            find $out -type f -exec chmod 644 {} +
           '';
         };
       in {
