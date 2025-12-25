@@ -50,7 +50,7 @@ mkIfModule config ["developer" "nvim"] {
     };
 
     programs.bash = {
-      initExtra = ''
+      extraConfig = ''
         export EDITOR="nvim"
         export VISUAL="nvim"
       '';
@@ -58,7 +58,7 @@ mkIfModule config ["developer" "nvim"] {
 
     # Configure zsh
     programs.zsh = {
-      initExtra = ''
+      extraConfig = ''
         export EDITOR="nvim"
         export VISUAL="nvim"
       '';
