@@ -1,0 +1,11 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.ouroboros {
+  width: 10%;
+  vertical-align: middle;
+}
