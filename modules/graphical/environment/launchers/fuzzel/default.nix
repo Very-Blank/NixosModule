@@ -5,7 +5,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config [ "graphical" "environment" "fuzzel" ] {
+mkIfModule config [ "graphical" "environment" "launchers" "fuzzel" ] {
   config = {
     fonts = {
       packages = [
@@ -39,7 +39,6 @@ mkIfModule config [ "graphical" "environment" "fuzzel" ] {
           };
         };
       };
-
     };
   };
 }

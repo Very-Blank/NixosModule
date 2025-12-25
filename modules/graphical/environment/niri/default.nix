@@ -1,4 +1,5 @@
 {
+  kdl,
   lib,
   pkgs,
   inputs,
@@ -11,26 +12,8 @@
     inputs.niri.nixosModules.niri
   ];
 }
-// mkIfModule config [ "graphical" "environment" "niri" ] {
+// mkIfModule config ["graphical" "environment" "niri"] {
   options = {
-    terminalEmulator = {
-      enable = lib.mkEnableOption "Terminal emulator";
-      path = lib.mkOption {
-        default = "${pkgs.ghostty}/bin/ghostty";
-        description = "The terminal emulators path";
-        type = lib.types.nonEmptyStr;
-      };
-    };
-
-    dmenu = {
-      enable = lib.mkEnableOption "Dmenu";
-      path = lib.mkOption {
-        default = "${pkgs.fuzzel}/bin/fuzzel";
-        description = "The dmenus path";
-        type = lib.types.nonEmptyStr;
-      };
-    };
-
     outputs = lib.mkOption {
       type = lib.types.attrsOf (
         lib.types.submodule {
@@ -75,7 +58,8 @@
           };
         }
       );
-      default = { };
+
+      default = {};
       description = "Monitor output configurations";
       example = {
         "PNP(AOC) 2590G5 0x00002709" = {
@@ -87,10 +71,97 @@
         };
       };
     };
+
+    spawn-at-startup = lib.mkOption {
+      type = lib.types.listOf (
+        lib.types.attrTag {
+          argv = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            description = ''
+              Almost raw process arguments to spawn, without shell syntax.
+              A leading tilde in the zeroth argument will be expanded to the user's home directory. No other preprocessing is applied.
+            '';
+          };
+          sh = lib.mkOption {
+            type = lib.types.str;
+            description = ''
+              A shell command to spawn. Run wild with POSIX syntax.
+            '';
+          };
+
+          command = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            visible = false;
+          };
+        }
+      );
+
+      default = [];
+    };
+
+    keybinds = let
+      rename = name: real:
+        lib.mkOptionType {
+          name = "rename";
+          description = "${name}";
+          descriptionClass = "noun";
+          inherit (real) check merge getSubOptions;
+          nestedTypes = {inherit real;};
+        };
+
+      optional = type: default: lib.mkOption {inherit type default;};
+      nullable = type: optional (lib.types.nullOr type) null;
+      attrs = type: optional (lib.types.attrsOf type) {};
+
+      record' = description: options:
+        lib.types.submoduleWith {
+          inherit description;
+          shorthandOnlyDefinesConfig = true;
+          modules = [
+            {inherit options;}
+          ];
+        };
+
+      attrs-record' = description: opts:
+        attrs (
+          if builtins.isFunction opts
+          then
+            lib.types.submoduleWith {
+              inherit description;
+              shorthandOnlyDefinesConfig = true;
+              modules = [
+                (
+                  {name, ...}: {
+                    options = opts name;
+                  }
+                )
+              ];
+            }
+          else record' description opts
+        );
+
+      required = type: lib.mkOption { inherit type; };
+    in
+      attrs-record' "niri keybind" {
+        allow-when-locked = optional lib.types.bool false;
+        allow-inhibiting = optional lib.types.bool true;
+        cooldown-ms = nullable lib.types.int;
+        repeat = optional lib.types.bool true;
+
+        hotkey-overlay =
+          optional (lib.types.attrTag {
+            hidden = lib.mkOption {type = lib.types.bool;};
+            title = lib.mkOption {type = lib.types.str;};
+          }) {
+            hidden = false;
+          };
+
+        action = required (rename "niri action" inputs.niri.lib.kdl.types.kdl-leaf);
+      };
   };
 
   config = cfg: {
-    nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+    nixpkgs.overlays = [inputs.niri.overlays.niri];
     programs.niri.package = pkgs.niri-stable;
 
     programs.niri = {
@@ -128,148 +199,145 @@
       ];
     };
 
-    userHome =
-      let
-        cursorName = "Bibata-Original-Classic";
-        cursorSize = 16;
-      in
-      {
-        home = {
-          pointerCursor = {
-            name = cursorName;
-            package = pkgs.bibata-cursors;
-            size = cursorSize;
-            gtk.enable = true;
-            x11.enable = true;
-          };
-
-          sessionVariables = {
-            XCURSOR_THEME = cursorName;
-            XCURSOR_SIZE = builtins.toString cursorSize;
-          };
+    userHome = let
+      cursorName = "Bibata-Original-Classic";
+      cursorSize = 16;
+    in {
+      home = {
+        pointerCursor = {
+          name = cursorName;
+          package = pkgs.bibata-cursors;
+          size = cursorSize;
+          gtk.enable = true;
+          x11.enable = true;
         };
 
-        programs.niri = {
-          settings = {
-            outputs = cfg.outputs;
+        sessionVariables = {
+          XCURSOR_THEME = cursorName;
+          XCURSOR_SIZE = builtins.toString cursorSize;
+        };
+      };
 
-            input = {
-              keyboard = {
-                repeat-delay = 150;
+      programs.niri = {
+        settings = {
+          outputs = cfg.outputs;
+
+          input = {
+            keyboard = {
+              repeat-delay = 150;
+            };
+          };
+
+          hotkey-overlay = {
+            skip-at-startup = true;
+          };
+
+          cursor = {
+            theme = cursorName;
+            size = cursorSize;
+          };
+
+          screenshot-path = "~/Pictures/Screenshots/Screenshot%Y_%m_%d_%H_%M_%S.png";
+
+          prefer-no-csd = true;
+
+          spawn-at-startup =
+            [
+              {command = ["xwayland-satellite"];}
+            ]
+            ++ cfg.spawn-at-startup;
+
+          environment = {
+            DISPLAY = ":0";
+          };
+
+          layout = {
+            gaps = 8;
+            center-focused-column = "never";
+
+            preset-column-widths = [
+              {proportion = 1.0 / 3.0;}
+              {proportion = 1.0 / 2.0;}
+              {proportion = 2.0 / 3.0;}
+            ];
+            default-column-width = {
+              proportion = 1.0 / 2.0;
+            };
+
+            focus-ring = {
+              active = {
+                gradient = {
+                  to = "rgb(127 200 255)";
+                  from = "rgb(120 000 200)";
+                  angle = 45;
+                };
+              };
+
+              inactive = {
+                color = "rgb(127 200 255)";
               };
             };
 
-            hotkey-overlay = {
-              skip-at-startup = true;
+            tab-indicator = {
+              width = 4;
+              gap = 4;
+              position = "top";
+              place-within-column = true;
+
+              active = {
+                gradient = {
+                  to = "rgb(127 200 255)";
+                  from = "rgb(120 000 200)";
+                  angle = 45;
+                };
+              };
             };
+          };
 
-            cursor = {
-              theme = cursorName;
-              size = cursorSize;
-            };
+          # FIXME: Some of these should be only added if the underlying package is added.
+          window-rules = [
+            {
+              draw-border-with-background = false;
+              geometry-corner-radius = let
+                radius = 4.0;
+              in {
+                top-left = radius;
+                top-right = radius;
+                bottom-left = radius;
+                bottom-right = radius;
+              };
+              clip-to-geometry = true;
+            }
 
-            screenshot-path = "~/Pictures/Screenshots/Screenshot%Y_%m_%d_%H_%M_%S.png";
-
-            prefer-no-csd = true;
-
-            spawn-at-startup = [
-              { command = [ "xwayland-satellite" ]; }
-            ];
-
-            environment = {
-              DISPLAY = ":0";
-            };
-
-            layout = {
-              gaps = 8;
-              center-focused-column = "never";
-
-              preset-column-widths = [
-                { proportion = 1.0 / 3.0; }
-                { proportion = 1.0 / 2.0; }
-                { proportion = 2.0 / 3.0; }
+            {
+              matches = [
+                {
+                  app-id = "^firefox$";
+                  title = "^Picture-in-Picture$";
+                }
               ];
-              default-column-width = {
-                proportion = 1.0 / 2.0;
-              };
+              open-floating = true;
+            }
 
-              focus-ring = {
-                active = {
-                  gradient = {
-                    to = "rgb(127 200 255)";
-                    from = "rgb(120 000 200)";
-                    angle = 45;
-                  };
-                };
+            {
+              matches = [{app-id = "^\\.blueman-manager-wrapped$";}];
+              open-floating = true;
+              max-width = 600;
+              min-width = 600;
+              max-height = 400;
+              min-height = 400;
+            }
 
-                inactive = {
-                  color = "rgb(127 200 255)";
-                };
-              };
+            {
+              matches = [{app-id = "^nm-connection-editor$";}];
+              open-floating = true;
+            }
+          ];
 
-              tab-indicator = {
-                width = 4;
-                gap = 4;
-                position = "top";
-                place-within-column = true;
-
-                active = {
-                  gradient = {
-                    to = "rgb(127 200 255)";
-                    from = "rgb(120 000 200)";
-                    angle = 45;
-                  };
-                };
-              };
-            };
-
-            # FIXME: Some of these should be only added if the underlying package is added.
-            window-rules = [
-              {
-                draw-border-with-background = false;
-                geometry-corner-radius =
-                  let
-                    radius = 4.0;
-                  in
-                  {
-                    top-left = radius;
-                    top-right = radius;
-                    bottom-left = radius;
-                    bottom-right = radius;
-                  };
-                clip-to-geometry = true;
-              }
-
-              {
-                matches = [
-                  {
-                    app-id = "^firefox$";
-                    title = "^Picture-in-Picture$";
-                  }
-                ];
-                open-floating = true;
-              }
-
-              {
-                matches = [ { app-id = "^\\.blueman-manager-wrapped$"; } ];
-                open-floating = true;
-                max-width = 600;
-                min-width = 600;
-                max-height = 400;
-                min-height = 400;
-              }
-
-              {
-                matches = [ { app-id = "^nm-connection-editor$"; } ];
-                open-floating = true;
-              }
-            ];
-
-            binds =
-              with config.userHome.lib.niri.actions;
-              let
-                sh = spawn "sh" "-c";
-              in
+          binds = with config.userHome.lib.niri.actions; let
+            sh = spawn "sh" "-c";
+          in
+            lib.mkMerge [
               {
                 "Mod+H".action = focus-column-left;
                 "Mod+J".action = focus-window-down;
@@ -322,43 +390,43 @@
                 "Mod+C".action = center-column;
                 "Mod+V".action = toggle-window-floating;
 
-                "Mod+Shift+S".action.screenshot = [ ];
-                "Print".action.screenshot-screen = [ ];
-
-                "XF86AudioRaiseVolume".action = lib.mkIf config.modules.hardware.audio.enable (
-                  sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"
-                );
-                "XF86AudioLowerVolume".action = lib.mkIf config.modules.hardware.audio.enable (
-                  sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"
-                );
-                "XF86AudioMute".action = lib.mkIf config.modules.hardware.audio.enable (
-                  sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-                );
+                "Mod+Shift+S".action.screenshot = [];
+                "Print".action.screenshot-screen = [];
 
                 "Mod+Q".action = close-window;
                 "Mod+Shift+E".action = quit;
-                "Mod+D".action = lib.mkIf cfg.dmenu.enable (spawn cfg.dmenu.path);
-                "Mod+T".action = lib.mkIf cfg.terminalEmulator.enable (spawn cfg.terminalEmulator.path);
 
                 "Mod+Semicolon".action = spawn [
                   "wtype"
                   "ö"
                 ];
+
                 "Mod+Apostrophe".action = spawn [
                   "wtype"
                   "ä"
                 ];
+
                 "Mod+Shift+Semicolon".action = spawn [
                   "wtype"
                   "Ö"
                 ];
+
                 "Mod+Shift+Apostrophe".action = spawn [
                   "wtype"
                   "Ä"
                 ];
-              };
-          };
+              }
+
+              (lib.mkIf config.modules.hardware.audio.enable {
+                "XF86AudioRaiseVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
+                "XF86AudioLowerVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+                "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+              })
+
+              cfg.keybinds
+            ];
         };
       };
+    };
   };
 }

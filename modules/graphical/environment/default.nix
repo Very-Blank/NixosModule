@@ -6,9 +6,8 @@
   ...
 }:
 {
-
   imports = [
-    ./fuzzel
+    ./launchers
     ./icons
     ./mako
     ./niri
@@ -16,7 +15,7 @@
     ./waybar
   ];
 }
-// mkIfModule config [ "graphical" "environment" ] {
+// mkIfModule config ["graphical" "environment"] {
   options = {
     windowManager = lib.mkOption {
       default = "niri";
@@ -36,11 +35,12 @@
       ];
     };
 
-    dmenu = lib.mkOption {
-      default = "fuzzel";
-      description = "The enabled dmenu.";
+    launcher = lib.mkOption {
+      default = "vicinae";
+      description = "The enabled launcher.";
       type = lib.types.enum [
         "fuzzel"
+        "vicinae"
       ];
     };
 
@@ -54,14 +54,13 @@
     };
 
     applications = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         listOf (enum [
           "obsidian"
           "obs"
           "steam"
         ]);
-      default = [ ];
+      default = [];
       description = "Extra apps to be enabled.";
     };
   };
@@ -83,18 +82,32 @@
         environment = {
           mako.enable = lib.mkForce true;
           swaybg.enable = lib.mkForce true;
-          fuzzel.enable = lib.mkForce true;
+
+          launchers."${cfg.launcher}".enable = true;
 
           niri = lib.mkIf (cfg.windowManager == "niri") {
-            enable = lib.mkForce true;
-            terminalEmulator = {
-              enable = lib.mkForce true;
-              path = lib.mkForce "${pkgs.ghostty}/bin/ghostty";
-            };
+            enable = true;
 
-            dmenu = {
-              enable = lib.mkForce true;
-              path = lib.mkForce "${pkgs.fuzzel}/bin/fuzzel";
+            spawn-at-startup = [
+              {command = ["vicinae" "server"];}
+            ];
+
+            keybinds = with config.userHome.lib.niri.actions; {
+              "Mod+D" = lib.mkMerge [
+                (lib.mkIf
+                  (cfg.launcher == "vicinae")
+                  {
+                    repeat = false;
+                    action = spawn ["vicinae" "toggle"];
+                  })
+                (lib.mkIf
+                  (cfg.launcher == "fuzzel")
+                  {
+                    action = spawn "${pkgs.fuzzel}/bin/fuzzel";
+                  })
+              ];
+
+              "Mod+T".action = spawn "${pkgs.ghostty}/bin/ghostty";
             };
           };
         };
