@@ -51,6 +51,7 @@
         };
 
         domain.main = "taildevourer.com";
+        vaultwarden.enable = true;
         ddclient.enable = true;
 
         nginx = {
