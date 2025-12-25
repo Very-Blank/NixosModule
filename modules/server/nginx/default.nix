@@ -70,6 +70,10 @@ mkIfModule config
         reuseport = true;
 
         root = sefirah;
+
+        locations."/" = {
+          index = "index.html";
+        };
       };
     };
 
