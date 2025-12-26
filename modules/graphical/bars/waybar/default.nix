@@ -23,7 +23,7 @@ mkIfModule config ["graphical" "bars" "waybar"] {
       ];
     };
 
-    modules.graphical.environment = {
+    modules.graphical.theming = {
       icons.enable = lib.mkIf cfg.tray.enable true;
     };
 
@@ -50,7 +50,7 @@ mkIfModule config ["graphical" "bars" "waybar"] {
             modules-center = ["clock"];
 
             modules-left = lib.mkMerge [
-              (lib.mkIf config.modules.graphical.environment.niri.enable ["niri/workspaces"])
+              (lib.mkIf config.modules.graphical.windowManagers.niri.enable ["niri/workspaces"])
               [
                 "keyboard-state"
                 "custom/poweroff"
@@ -134,7 +134,7 @@ mkIfModule config ["graphical" "bars" "waybar"] {
               tooltip = false;
             };
 
-            "cpu" = lib.mkIf config.modules.graphical.environment.waybar.systemInfo.enable {
+            "cpu" = lib.mkIf cfg.systemInfo.enable {
               interval = 2;
               format = "{usage}% ";
               min-length = 6;

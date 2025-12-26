@@ -50,6 +50,10 @@
         };
       };
 
+      graphical.applications.other.obs = {
+        amdSupport = true;
+      };
+
       desktop = {
         enable = true;
         windowManager = "niri";

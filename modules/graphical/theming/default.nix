@@ -8,10 +8,11 @@
 {
   imports = [
     inputs.base16.nixosModule
+    ./icons
+    ./swaybg
   ];
 }
-// mkModule config [ "graphical" "theming" ] {
-
+// mkModule config ["graphical" "theming"] {
   options = {
     theme = lib.mkOption {
       default = "tokyo-night-terminal-dark";
@@ -42,18 +43,15 @@
         }
       );
 
-      default = [ ];
+      default = [];
     };
   };
 
-  config =
-
-    cfg:
-    let
-      isOverridesZero = (builtins.length cfg.overrides == 0);
-    in
+  config = cfg: let
+    isOverridesZero = builtins.length cfg.overrides == 0;
+  in
     lib.mkMerge [
-      (lib.mkIf isOverridesZero { scheme = "${inputs.tt-schemes}/base16/${cfg.theme}.yaml"; })
+      (lib.mkIf isOverridesZero {scheme = "${inputs.tt-schemes}/base16/${cfg.theme}.yaml";})
       (lib.mkIf (!isOverridesZero) {
         scheme = (
           (config.lib.base16.mkSchemeAttrs "${inputs.tt-schemes}/base16/${cfg.theme}.yaml").override (

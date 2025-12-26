@@ -24,10 +24,10 @@ mkIfModule config ["graphical" "terminalEmulators" "ghostty"] {
     };
   };
 
-  config = {
+  config = cfg: {
     fonts = {
       packages = [
-        config.modules.terminal.ghostty.font.package
+        cfg.font.package
       ];
     };
 
@@ -35,7 +35,7 @@ mkIfModule config ["graphical" "terminalEmulators" "ghostty"] {
       programs.ghostty = {
         enable = true;
         settings = {
-          font-family = config.modules.terminal.ghostty.font.family;
+          font-family = cfg.font.family;
           title = "Ghostty";
           adjust-cell-width = "-10%";
           adjust-cell-height = "-10%";
