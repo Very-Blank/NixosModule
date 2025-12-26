@@ -53,41 +53,41 @@
             systemInfo.enable = true;
             tray.enable = true;
           };
+
+          niri = {
+            outputs = {
+              "PNP(AOC) 2590G5 0x00002709" = {
+                mode = {
+                  width = 1920;
+                  height = 1080;
+                  refresh = 74.973;
+                };
+
+                position = {
+                  x = 1920;
+                  y = 0;
+                };
+              };
+
+              "Samsung Electric Company LS32AG32x H9JT200575   " = {
+                mode = {
+                  width = 1920;
+                  height = 1080;
+                  refresh = 164.955;
+                };
+
+                focus-at-startup = true;
+                position = {
+                  x = 0;
+                  y = 0;
+                };
+              };
+            };
+          };
         };
 
         applications.other.obs = {
           amdSupport = true;
-        };
-
-        niri = {
-          outputs = {
-            "PNP(AOC) 2590G5 0x00002709" = {
-              mode = {
-                width = 1920;
-                height = 1080;
-                refresh = 74.973;
-              };
-
-              position = {
-                x = 1920;
-                y = 0;
-              };
-            };
-
-            "Samsung Electric Company LS32AG32x H9JT200575   " = {
-              mode = {
-                width = 1920;
-                height = 1080;
-                refresh = 164.955;
-              };
-
-              focus-at-startup = true;
-              position = {
-                x = 0;
-                y = 0;
-              };
-            };
-          };
         };
       };
 
