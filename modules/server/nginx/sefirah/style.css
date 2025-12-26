@@ -1,3 +1,7 @@
+body {
+  background-color: black;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -6,6 +10,7 @@
 }
 
 .ouroboros {
-  width: 10%;
   vertical-align: middle;
+  width: 200px;
+  height: 200px;
 }
