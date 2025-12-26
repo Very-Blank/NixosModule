@@ -14,26 +14,48 @@
         zsh.enable = true;
       };
 
-      developer.enable = true;
+      developer = {
+        enable = true; # FIXME: this is bad
+        ssh.keys = [
+          {
+            match = "github.com";
+            hostname = "github.com";
+            user = "very-blank";
+          }
+          {
+            match = "taildevourer.com";
+            hostname = "taildevourer.com";
+            user = "blank";
+          }
+          {
+            match = "gitlab.jyu.fi";
+            hostname = "gitlab.jyu.fi";
+            user = "aapotska";
+          }
+        ];
+      };
+
       hardware.audio.enable = true;
 
       graphical = {
-        waybar = {
+        environment = {
           enable = true;
-          systemInfo.enable = true;
+          windowManager = "niri";
+
+          applications = [
+            "steam"
+            "obsidian"
+            "obs"
+          ];
+
+          waybar = {
+            enable = true;
+            systemInfo.enable = true;
+            tray.enable = true;
+          };
         };
 
-        gaming = {
-          steam.enable = true;
-          minecraft.enable = true;
-        };
-
-        obsidian.enable = true;
-
-        environment.enable = true;
-
-        obs = {
-          enable = true;
+        applications.other.obs = {
           amdSupport = true;
         };
 
