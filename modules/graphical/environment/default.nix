@@ -15,7 +15,7 @@
     ./waybar
   ];
 }
-// mkIfModule config ["graphical" "environment"] {
+// mkIfModule config [ "graphical" "environment" ] {
   options = {
     windowManager = lib.mkOption {
       default = "niri";
@@ -54,14 +54,15 @@
     };
 
     applications = lib.mkOption {
-      type = with lib.types;
+      default = [ ];
+      description = "Extra apps to be enabled.";
+      type =
+        with lib.types;
         listOf (enum [
           "obsidian"
           "obs"
           "steam"
         ]);
-      default = [];
-      description = "Extra apps to be enabled.";
     };
   };
 
@@ -89,22 +90,26 @@
             enable = true;
 
             spawn-at-startup = [
-              {command = ["vicinae" "server"];}
+              {
+                command = [
+                  "vicinae"
+                  "server"
+                ];
+              }
             ];
 
             keybinds = with config.userHome.lib.niri.actions; {
               "Mod+D" = lib.mkMerge [
-                (lib.mkIf
-                  (cfg.launcher == "vicinae")
-                  {
-                    repeat = false;
-                    action = spawn ["vicinae" "toggle"];
-                  })
-                (lib.mkIf
-                  (cfg.launcher == "fuzzel")
-                  {
-                    action = spawn "${pkgs.fuzzel}/bin/fuzzel";
-                  })
+                (lib.mkIf (cfg.launcher == "vicinae") {
+                  repeat = false;
+                  action = spawn [
+                    "vicinae"
+                    "toggle"
+                  ];
+                })
+                (lib.mkIf (cfg.launcher == "fuzzel") {
+                  action = spawn "${pkgs.fuzzel}/bin/fuzzel";
+                })
               ];
 
               "Mod+T".action = spawn "${pkgs.ghostty}/bin/ghostty";
