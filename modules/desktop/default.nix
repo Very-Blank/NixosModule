@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  mkIfModule,
   ...
 }:
 {
@@ -15,8 +14,10 @@
     ./waybar
   ];
 }
-// mkIfModule config [ "graphical" "environment" ] {
+// {
   options = {
+    enable = "Enable the desktop module.";
+
     windowManager = lib.mkOption {
       default = "niri";
       description = "The enabled window manager.";
@@ -44,6 +45,28 @@
       ];
     };
 
+    bar = {
+      enable = lib.mkEnableOption "Enable the bar.";
+
+      name = lib.mkOption {
+        default = "waybar";
+        description = "The enabled bar.";
+        type = lib.types.enum [
+          "waybar"
+        ];
+      };
+
+      modules = lib.mkOption {
+        default = [];
+        description = "Extra bar moduels to be enabled.";
+        type = with lib.types;
+          listOf (enum [
+            "systemInfo"
+            "tray"
+          ]);
+      };
+    };
+
     browser = lib.mkOption {
       default = "zen-browser";
       description = "The enabled browser.";
@@ -54,10 +77,9 @@
     };
 
     applications = lib.mkOption {
-      default = [ ];
+      default = [];
       description = "Extra apps to be enabled.";
-      type =
-        with lib.types;
+      type = with lib.types;
         listOf (enum [
           "obsidian"
           "obs"
@@ -66,28 +88,41 @@
     };
   };
 
-  config = cfg: {
-    environment = {
-      systemPackages = [
-        pkgs.uwsm
-      ];
-    };
-
-    modules = {
-      tty.greetd = lib.mkIf (cfg.windowManager == "niri") {
-        enable = true;
-        cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
+  config = let
+    cfg = config.modules.desktop;
+  in
+    lib.mkIf config.modules.desktop.enable
+    {
+      environment = {
+        systemPackages = [
+          pkgs.uwsm
+        ];
       };
 
-      graphical = {
-        environment = {
-          mako.enable = lib.mkForce true;
-          swaybg.enable = lib.mkForce true;
+      modules = {
+        tty.greetd = lib.mkIf (cfg.windowManager == "niri") {
+          enable = true;
+          cmd = lib.mkForce "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.niri}/bin/niri --session >/dev/null 2>&1";
+        };
 
-          launchers."${cfg.launcher}".enable = true;
+        graphical = {
+          notifications.mako.enable = lib.mkForce true;
 
-          niri = lib.mkIf (cfg.windowManager == "niri") {
-            enable = true;
+          theming.swaybg.enable = lib.mkForce true;
+
+          launchers.${cfg.launcher}.enable = true;
+          terminalEmulators.${cfg.terminal}.enable = lib.mkForce true;
+
+          bar.${cfg.bar.name} =
+            lib.mkIf cfg.bar.enable {
+              enable = true;
+            }
+            // lib.genAttrs cfg.bar.moduels (name: {
+              enable = true;
+            });
+
+          windowManagers.niri = lib.mkIf (cfg.windowManager == "niri") {
+            enable = lib.mkForce true;
 
             spawn-at-startup = [
               {
@@ -115,16 +150,13 @@
               "Mod+T".action = spawn "${pkgs.ghostty}/bin/ghostty";
             };
           };
+
+          applications.browsers.${cfg.browser}.enable = true;
+
+          applications.other = lib.genAttrs cfg.applications (name: {
+            enable = true;
+          });
         };
-
-        applications.browsers.${cfg.browser}.enable = true;
-
-        applications.other = lib.genAttrs cfg.applications (name: {
-          enable = true;
-        });
       };
-
-      terminal.ghostty.enable = lib.mkForce true;
     };
-  };
 }

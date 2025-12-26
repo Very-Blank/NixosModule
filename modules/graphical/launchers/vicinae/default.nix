@@ -1,11 +1,9 @@
 {
-  lib,
-  pkgs,
   config,
   mkIfModule,
   ...
 }:
-mkIfModule config [ "graphical" "environment" "launchers" "vicinae" ] {
+mkIfModule config ["graphical" "launchers" "vicinae"] {
   config = {
     userHome = {
       programs.vicinae = {

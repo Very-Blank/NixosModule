@@ -4,7 +4,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config [ "graphical" "environment" "icons" ] {
+mkIfModule config ["graphical" "theming" "icons"] {
   config = {
     userHome = {
       gtk = {

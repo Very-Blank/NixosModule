@@ -1,7 +1,11 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   imports = [
     ./sops
+    ./desktop
     ./boot
     ./hardware
     ./developer
@@ -24,15 +28,14 @@
     modules = {
       unfreePackages = lib.mkOption {
         type = with lib.types; listOf nonEmptyStr;
-        default = [ ];
+        default = [];
         description = "Packages that are unfree that should be allowed.";
       };
     };
   };
 
   config = {
-    nixpkgs.config.allowUnfreePredicate =
-      pkg: builtins.elem (lib.getName pkg) config.modules.unfreePackages;
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.modules.unfreePackages;
 
     nix = {
       settings.experimental-features = [

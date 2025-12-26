@@ -5,7 +5,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config [ "terminal" "ghostty" ] {
+mkIfModule config ["graphical" "terminalEmulators" "ghostty"] {
   options = {
     font = {
       enable = lib.mkEnableOption "Terminal font";
@@ -72,6 +72,5 @@ mkIfModule config [ "terminal" "ghostty" ] {
         };
       };
     };
-
   };
 }

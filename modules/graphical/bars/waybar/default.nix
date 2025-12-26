@@ -5,7 +5,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config [ "graphical" "environment" "waybar" ] {
+mkIfModule config ["graphical" "bars" "waybar"] {
   options = {
     tray = {
       enable = lib.mkEnableOption "System tray.";
@@ -47,10 +47,10 @@ mkIfModule config [ "graphical" "environment" "waybar" ] {
             layer = "top";
             position = "top";
             margin = "5 10 5 10";
-            modules-center = [ "clock" ];
+            modules-center = ["clock"];
 
             modules-left = lib.mkMerge [
-              (lib.mkIf config.modules.graphical.environment.niri.enable [ "niri/workspaces" ])
+              (lib.mkIf config.modules.graphical.environment.niri.enable ["niri/workspaces"])
               [
                 "keyboard-state"
                 "custom/poweroff"
@@ -60,14 +60,14 @@ mkIfModule config [ "graphical" "environment" "waybar" ] {
             ];
 
             modules-right = lib.mkMerge [
-              (lib.mkIf config.modules.hardware.audio.enable [ "pulseaudio" ])
-              (lib.mkIf config.modules.hardware.backlight.enable [ "backlight" ])
+              (lib.mkIf config.modules.hardware.audio.enable ["pulseaudio"])
+              (lib.mkIf config.modules.hardware.backlight.enable ["backlight"])
               (lib.mkIf cfg.systemInfo.enable [
                 "memory"
                 "cpu"
               ])
-              (lib.mkIf config.modules.hardware.info.battery [ "battery" ])
-              (lib.mkIf cfg.tray.enable [ "tray" ])
+              (lib.mkIf config.modules.hardware.info.battery ["battery"])
+              (lib.mkIf cfg.tray.enable ["tray"])
             ];
 
             "keyboard-state" = {

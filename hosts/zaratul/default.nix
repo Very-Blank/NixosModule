@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules
@@ -35,25 +34,24 @@
         ];
       };
 
-      hardware.audio.enable = true;
+      desktop = {
+        enable = true;
+        windowManager = "niri";
+
+        bar = {
+          enable = true;
+          modules = ["tray" "systemInfo"];
+        };
+
+        applications = [
+          "steam"
+          "obsidian"
+          "obs"
+        ];
+      };
 
       graphical = {
-        environment = {
-          enable = true;
-          windowManager = "niri";
-
-          applications = [
-            "steam"
-            "obsidian"
-            "obs"
-          ];
-
-          waybar = {
-            enable = true;
-            systemInfo.enable = true;
-            tray.enable = true;
-          };
-
+        windowManagers = {
           niri = {
             outputs = {
               "PNP(AOC) 2590G5 0x00002709" = {
@@ -90,6 +88,8 @@
           amdSupport = true;
         };
       };
+
+      hardware.audio.enable = true;
 
       boot = {
         multiboot.enable = true;
