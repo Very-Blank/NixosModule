@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   mkIfModule,
   ...
@@ -37,10 +36,6 @@ mkIfModule config
       appendHttpConfig = ''
         # Minimize information leaked to other domains
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
-
-        # Disable embedding as a frame
-        add_header X-Frame-Options DENY;
-
         # Prevent injection of code in other mime types (XSS Attacks)
         add_header X-Content-Type-Options nosniff;
       '';
