@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   config = {
     networking = {
       hostName = config.hostname;
@@ -12,13 +11,13 @@
     };
 
     # FIXME: move these:
-    environment.systemPackages = lib.mkIf config.modules.graphical.environment.waybar.tray.enable [
+    environment.systemPackages = lib.mkIf config.modules.graphical.bars.waybar.tray.enable [
       pkgs.libappindicator
       pkgs.networkmanagerapplet
     ];
 
     userHome = {
-      systemd.user.services.nm-applet = lib.mkIf config.modules.graphical.environment.waybar.tray.enable {
+      systemd.user.services.nm-applet = lib.mkIf config.modules.graphical.bars.waybar.tray.enable {
         Unit = {
           Description = "Nm-applet service";
           PartOf = [
@@ -36,10 +35,9 @@
           RestartSec = "5s";
         };
         Install = {
-          WantedBy = [ "graphical-session.target" ];
+          WantedBy = ["graphical-session.target"];
         };
       };
-
     };
   };
 }

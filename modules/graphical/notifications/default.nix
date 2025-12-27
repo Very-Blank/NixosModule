@@ -1,6 +1,5 @@
 {...}: {
   imports = [
-    ./browsers
-    ./other
+    ./mako
   ];
 }

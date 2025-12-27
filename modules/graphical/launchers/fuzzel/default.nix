@@ -5,7 +5,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config [ "graphical" "environment" "launchers" "fuzzel" ] {
+mkIfModule config ["graphical" "launchers" "fuzzel"] {
   config = {
     fonts = {
       packages = [
@@ -13,7 +13,7 @@ mkIfModule config [ "graphical" "environment" "launchers" "fuzzel" ] {
       ];
     };
 
-    modules.graphical.environment.icons.enable = true;
+    modules.graphical.theming.icons.enable = true;
 
     userHome = {
       programs.fuzzel = {

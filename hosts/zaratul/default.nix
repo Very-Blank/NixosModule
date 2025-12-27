@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules
@@ -14,60 +13,83 @@
         zsh.enable = true;
       };
 
-      developer.enable = true;
-      hardware.audio.enable = true;
+      developer = {
+        enable = true; # FIXME: this is bad
+        ssh.keys = [
+          {
+            match = "github.com";
+            hostname = "github.com";
+            user = "very-blank";
+          }
+          {
+            match = "taildevourer.com";
+            hostname = "taildevourer.com";
+            user = "blank";
+          }
+          {
+            match = "gitlab.jyu.fi";
+            hostname = "gitlab.jyu.fi";
+            user = "aapotska";
+          }
+        ];
+      };
+
+      desktop = {
+        enable = true;
+        windowManager = "niri";
+
+        bar = {
+          enable = true;
+          modules = ["tray" "systemInfo"];
+        };
+
+        applications = [
+          "steam"
+          "obsidian"
+          "obs"
+        ];
+      };
 
       graphical = {
-        waybar = {
-          enable = true;
-          systemInfo.enable = true;
-        };
+        windowManagers = {
+          niri = {
+            outputs = {
+              "PNP(AOC) 2590G5 0x00002709" = {
+                mode = {
+                  width = 1920;
+                  height = 1080;
+                  refresh = 74.973;
+                };
 
-        gaming = {
-          steam.enable = true;
-          minecraft.enable = true;
-        };
-
-        obsidian.enable = true;
-
-        environment.enable = true;
-
-        obs = {
-          enable = true;
-          amdSupport = true;
-        };
-
-        niri = {
-          outputs = {
-            "PNP(AOC) 2590G5 0x00002709" = {
-              mode = {
-                width = 1920;
-                height = 1080;
-                refresh = 74.973;
+                position = {
+                  x = 1920;
+                  y = 0;
+                };
               };
 
-              position = {
-                x = 1920;
-                y = 0;
-              };
-            };
+              "Samsung Electric Company LS32AG32x H9JT200575   " = {
+                mode = {
+                  width = 1920;
+                  height = 1080;
+                  refresh = 164.955;
+                };
 
-            "Samsung Electric Company LS32AG32x H9JT200575   " = {
-              mode = {
-                width = 1920;
-                height = 1080;
-                refresh = 164.955;
-              };
-
-              focus-at-startup = true;
-              position = {
-                x = 0;
-                y = 0;
+                focus-at-startup = true;
+                position = {
+                  x = 0;
+                  y = 0;
+                };
               };
             };
           };
         };
+
+        applications.other.obs = {
+          amdSupport = true;
+        };
       };
+
+      hardware.audio.enable = true;
 
       boot = {
         multiboot.enable = true;

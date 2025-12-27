@@ -4,7 +4,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config [ "graphical" "environment" "swaybg" ] {
+mkIfModule config ["graphical" "theming" "swaybg"] {
   config = {
     userHome = {
       home.file."Pictures/wallpaper.png".source = ./wallpaper.png;
@@ -26,7 +26,7 @@ mkIfModule config [ "graphical" "environment" "swaybg" ] {
           RestartSec = "5s";
         };
         Install = {
-          WantedBy = [ "graphical-session.target" ];
+          WantedBy = ["graphical-session.target"];
         };
       };
     };

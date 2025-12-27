@@ -1,16 +1,22 @@
 keys:
   - &hermes age13ltmy9wkmzfpw2qaak30xucq9d0hg7cklaq4pak287fup8z4xe2qvfrat8
   - &ouroboros age1q3y7cxkfw4t7ez2jmumh8ue8af0s7ttmvvph73zluazqvvdwx5lqr90hmy
+  - &zaratul age1nrcqjdyert8sm4ug9g33tyhhp74n79wuda0p4kftyll5temgudwqd2vcpr
 creation_rules:
   - path_regex: secrets/user/shared.yaml$
     key_groups:
       - age:
         - *hermes
         - *ouroboros
+        - *zaratul
   - path_regex: secrets/user/hermes.yaml$
     key_groups:
       - age:
         - *hermes
+  - path_regex: secrets/user/zaratul.yaml$
+    key_groups:
+      - age:
+        - *zaratul
   - path_regex: secrets/user/ouroboros.yaml$
     key_groups:
       - age:

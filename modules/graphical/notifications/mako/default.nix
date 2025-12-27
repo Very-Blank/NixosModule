@@ -3,7 +3,7 @@
   mkIfModule,
   ...
 }:
-mkIfModule config ["graphical" "environment" "mako"] {
+mkIfModule config ["graphical" "notifications" "mako"] {
   config = {
     userHome = {
       services.mako = {

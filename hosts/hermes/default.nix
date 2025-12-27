@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules
@@ -51,23 +50,24 @@
         };
       };
 
-      graphical = {
-        environment = {
+      graphical.applications.other.obs = {
+        amdSupport = true;
+      };
+
+      desktop = {
+        enable = true;
+        windowManager = "niri";
+
+        bar = {
           enable = true;
-          windowManager = "niri";
-
-          applications = [
-            "steam"
-            "obsidian"
-            "obs"
-          ];
-
-          waybar = {
-            enable = true;
-            systemInfo.enable = true;
-            tray.enable = true;
-          };
+          modules = ["tray" "systemInfo"];
         };
+
+        applications = [
+          "steam"
+          "obsidian"
+          "obs"
+        ];
       };
     };
   };

@@ -12,7 +12,7 @@
     inputs.niri.nixosModules.niri
   ];
 }
-// mkIfModule config ["graphical" "environment" "niri"] {
+// mkIfModule config ["graphical" "windowManagers" "niri"] {
   options = {
     outputs = lib.mkOption {
       type = lib.types.attrsOf (
@@ -140,7 +140,7 @@
           else record' description opts
         );
 
-      required = type: lib.mkOption { inherit type; };
+      required = type: lib.mkOption {inherit type;};
     in
       attrs-record' "niri keybind" {
         allow-when-locked = optional lib.types.bool false;

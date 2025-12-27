@@ -1,7 +1,11 @@
-{
+{...}: {
   imports = [
-    ./environment
     ./applications
+    ./bars
+    ./launchers
+    ./notifications
+    ./terminalEmulators
     ./theming
+    ./windowManagers
   ];
 }
