@@ -1,39 +1,47 @@
 {
   lib,
   config,
-  mkIfModule,
+  mkModule,
   ...
-}:
-let
+}: let
   languages = [
     "zig"
     "lua"
     "python"
-    "asm"
+    "assembly"
     "haskell"
     "nix"
     "c"
     "rust"
   ];
 in
-{
-
-  imports = [
-    ./git
-    ./nvim
-    ./ssh
-  ]
-  ++ map (x: (./. + "/languages/${x}")) languages;
-}
-// mkIfModule config [ "developer" ] {
-  config = {
-    modules.developer = {
-      languages = lib.genAttrs languages (name: {
-        enable = true;
-      });
-
-      git.enable = true;
-      nvim.enable = true;
+  {
+    imports =
+      [
+        ./git
+        ./nvim
+        ./ssh
+      ]
+      ++ map (x: (./. + "/languages/${x}")) languages;
+  }
+  // mkModule config ["developer"] {
+    options = {
+      languages = lib.mkOption {
+        default = [];
+        description = "Languages to be enabled.";
+        type = lib.type.listOf (lib.type.enum languages);
+      };
     };
-  };
-}
+
+    config = cfg: {
+      modules.developer = {
+        languages = cfg.languages;
+
+        git.enable = true;
+        nvim.enable = true;
+
+        nvim.defaultEditor = true;
+        nvim.languages = cfg.languages;
+      };
+    };
+  }

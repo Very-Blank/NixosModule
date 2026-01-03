@@ -14,7 +14,8 @@
       };
 
       developer = {
-        enable = true; # FIXME: this is bad
+        languages = [""];
+
         ssh.keys = [
           {
             match = "github.com";

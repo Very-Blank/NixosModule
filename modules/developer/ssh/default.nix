@@ -4,7 +4,7 @@
   mkModule,
   ...
 }:
-mkModule config [ "developer" "ssh" ] {
+mkModule config ["developer" "ssh"] {
   options = {
     keys = lib.mkOption {
       type = lib.types.listOf (
@@ -35,19 +35,19 @@ mkModule config [ "developer" "ssh" ] {
       sops.secrets =
         lib.attrsets.genAttrs' cfg.keys (
           option:
-          lib.attrsets.nameValuePair ("ssh-keys/pub/" + option.hostname) ({
-            sopsFile = ../../../secrets/user/. + "/${config.hostname}.yaml";
-            path = ".ssh/${option.hostname}.pub";
-            mode = "0644";
-          })
+            lib.attrsets.nameValuePair ("ssh-keys/pub/" + option.hostname) {
+              sopsFile = ../../../secrets/user/. + "/${config.hostname}.yaml";
+              path = ".ssh/${option.hostname}.pub";
+              mode = "0644";
+            }
         )
         // lib.attrsets.genAttrs' cfg.keys (
           option:
-          lib.attrsets.nameValuePair ("ssh-keys/private/" + option.hostname) ({
-            sopsFile = ../../../secrets/user/. + "/${config.hostname}.yaml";
-            path = ".ssh/${option.hostname}";
-            mode = "0600";
-          })
+            lib.attrsets.nameValuePair ("ssh-keys/private/" + option.hostname) {
+              sopsFile = ../../../secrets/user/. + "/${config.hostname}.yaml";
+              path = ".ssh/${option.hostname}";
+              mode = "0600";
+            }
         );
 
       programs.ssh = {
@@ -56,11 +56,11 @@ mkModule config [ "developer" "ssh" ] {
 
         matchBlocks = lib.attrsets.genAttrs' cfg.keys (
           option:
-          lib.attrsets.nameValuePair (option.match) ({
-            user = option.user;
-            hostname = option.hostname;
-            identityFile = config.userHome.sops.secrets."ssh-keys/pub/${option.hostname}".path;
-          })
+            lib.attrsets.nameValuePair (option.match) {
+              user = option.user;
+              hostname = option.hostname;
+              identityFile = config.userHome.sops.secrets."ssh-keys/pub/${option.hostname}".path;
+            }
         );
       };
     };
