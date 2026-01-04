@@ -1,11 +1,11 @@
-{
-  lib,
-  config,
-  mkModule,
-  ...
-}:
-mkModule config [ "hardware" "info" ] {
+{lib, ...}: {
   options = {
-    battery = lib.mkEnableOption "True if the device has battery.";
+    modules = {
+      hardware = {
+        info = {
+          battery = lib.mkEnableOption "True if the device has battery.";
+        };
+      };
+    };
   };
 }

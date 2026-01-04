@@ -2,39 +2,59 @@
   pkgs,
   lib,
   config,
-  mkIfModule,
   ...
-}:
-mkIfModule config [ "graphical" "applications" "other" "obs" ] {
+}: {
   options = {
-    amdSupport = lib.mkEnableOption "Enables AMD hardware acceleration";
-    nvidiaSupport = lib.mkEnableOption "Enables Nvidia hardware acceleration";
-  };
+    modules = {
+      graphical = {
+        applications = {
+          other = {
+            obs = {
+              enable = lib.mkEnableOption "Enables the obs module.";
 
-  config = cfg: {
-    userHome = {
-      programs.obs-studio = {
-        enable = true;
+              hardwareAcceleration = lib.mkOption {
+                default = "none";
+                description = "The enabled hardware acceleration.";
 
-        package = lib.mkIf cfg.nvidiaSupport (
-          pkgs.obs-studio.override {
-            cudaSupport = true;
-          }
-        );
-
-        plugins =
-          with pkgs.obs-studio-plugins;
-          lib.mkMerge [
-            [ (lib.mkIf cfg.amdSupport obs-vaapi) ]
-            [
-              wlrobs
-              obs-backgroundremoval
-              obs-pipewire-audio-capture
-              obs-gstreamer
-              obs-vkcapture
-            ]
-          ];
+                type = lib.types.enum [
+                  "none"
+                  "amd"
+                  "nvidia"
+                ];
+              };
+            };
+          };
+        };
       };
     };
   };
+
+  config = let
+    cfg = config.modules.graphical.applications.other.obs;
+  in
+    lib.mkIf cfg.enable {
+      userHome = {
+        programs.obs-studio = {
+          enable = true;
+
+          package = lib.mkIf (cfg.hardwareAcceleration == "nvidia") (
+            pkgs.obs-studio.override {
+              cudaSupport = true;
+            }
+          );
+
+          plugins = with pkgs.obs-studio-plugins;
+            lib.mkMerge [
+              [(lib.mkIf (cfg.hardwareAcceleration == "amd") obs-vaapi)]
+              [
+                wlrobs
+                obs-backgroundremoval
+                obs-pipewire-audio-capture
+                obs-gstreamer
+                obs-vkcapture
+              ]
+            ];
+        };
+      };
+    };
 }

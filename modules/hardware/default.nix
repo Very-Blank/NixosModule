@@ -5,5 +5,6 @@
     ./audio
     ./bluetooth
     ./info
+    ./networking
   ];
 }

@@ -1,15 +1,25 @@
 {
+  lib,
   pkgs,
   config,
-  mkIfModule,
   ...
-}:
-mkIfModule config [ "developer" "languages" "haskell" ] {
-  config = {
+}: {
+  options = {
+    modules = {
+      developer = {
+        languages = {
+          haskell = {
+            enable = lib.mkEnableOption "Enable the haskell language module.";
+          };
+        };
+      };
+    };
+  };
+
+  config = lib.mkIf config.modules.developer.languages.haskell.enable {
     userHome = {
       home.packages = [
         pkgs.ghc
-        pkgs.haskell-language-server
         pkgs.stack
       ];
     };

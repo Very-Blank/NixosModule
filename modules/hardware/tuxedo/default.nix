@@ -1,22 +1,29 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}: {
   options = {
     modules = {
       hardware = {
         tuxedo = {
-          enable = lib.mkEnableOption "Enables tuxedo.";
+          enable = lib.mkEnableOption "Enables the tuxedo module.";
         };
       };
     };
   };
 
-  config = lib.mkIf config.modules.hardware.tuxedo.enable {
-    hardware = {
-      tuxedo-drivers.enable = true;
+  config = let
+    cfg = config.modules.hardware.tuxedo;
+  in
+    lib.mkIf cfg.enable {
+      hardware = {
+        tuxedo-drivers.enable = true;
 
-      tuxedo-rs = {
-        enable = true;
-        tailor-gui.enable = true;
+        tuxedo-rs = {
+          enable = true;
+          tailor-gui.enable = true;
+        };
       };
     };
-  };
 }

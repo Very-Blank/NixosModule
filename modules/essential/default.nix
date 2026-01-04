@@ -1,10 +1,4 @@
-{
-  pkgs,
-  config,
-  mkModule,
-  ...
-}:
-mkModule config [ "essential" ] {
+{pkgs, ...}: {
   config = {
     programs = {
       nano.enable = false;

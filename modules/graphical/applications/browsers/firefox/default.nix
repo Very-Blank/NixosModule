@@ -1,65 +1,82 @@
 {
+  lib,
   pkgs,
   config,
-  mkIfModule,
   ...
-}:
-mkIfModule config [ "graphical" "applications" "browsers" "firefox" ] {
-  config = {
-    fonts = {
-      packages = [
-        pkgs.noto-fonts
-        pkgs.noto-fonts-color-emoji
-      ];
+}: {
+  options = {
+    modules = {
+      graphical = {
+        applications = {
+          browsers = {
+            firefox = {
+              enable = lib.mkEnableOption "Enable the firefox module.";
+            };
+          };
+        };
+      };
     };
+  };
 
-    userHome = {
-      programs.firefox = {
-        enable = true;
+  config = let
+    cfg = config.graphical.applications.browsers.firefox;
+  in
+    lib.mkIf cfg.enable {
+      fonts = {
+        packages = [
+          pkgs.noto-fonts
+          pkgs.noto-fonts-color-emoji
+        ];
+      };
 
-        policies = {
-          DisableTelemetry = true;
-          DisableFirefoxStudies = true;
-          EnableTrackingProtection = {
-            Value = true;
-            Locked = true;
-            Cryptomining = true;
-            Fingerprinting = true;
-          };
-          DisablePocket = true;
-          DisableFirefoxAccounts = true;
-          DisableAccounts = true;
-          DisableFirefoxScreenshots = true;
-          OverrideFirstRunPage = "";
-          OverridePostUpdatePage = "";
-          DontCheckDefaultBrowser = true;
-          DisplayBookmarksToolbar = "never";
-          DisplayMenuBar = "default-off";
-          SearchBar = "unified";
+      userHome = {
+        programs.firefox = {
+          enable = true;
 
-          ExtensionSettings = {
-            "*".installation_mode = "blocked";
-            # uBlock Origin:
-            "uBlock0@raymondhill.net" = {
-              install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-              installation_mode = "force_installed";
+          policies = {
+            DisableTelemetry = true;
+            DisableFirefoxStudies = true;
+
+            EnableTrackingProtection = {
+              Value = true;
+              Locked = true;
+              Cryptomining = true;
+              Fingerprinting = true;
             };
 
-            # Privacy badger:
-            "jid1-MnnxcxisBPnSXQ@jetpack" = {
-              install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
-              installation_mode = "force_installed";
+            DisablePocket = true;
+            DisableFirefoxAccounts = true;
+            DisableAccounts = true;
+            DisableFirefoxScreenshots = true;
+            OverrideFirstRunPage = "";
+            OverridePostUpdatePage = "";
+            DontCheckDefaultBrowser = true;
+            DisplayBookmarksToolbar = "never";
+            DisplayMenuBar = "default-off";
+            SearchBar = "unified";
+
+            ExtensionSettings = {
+              "*".installation_mode = "blocked";
+              # uBlock Origin:
+              "uBlock0@raymondhill.net" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+                installation_mode = "force_installed";
+              };
+
+              # Privacy badger:
+              "jid1-MnnxcxisBPnSXQ@jetpack" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
+                installation_mode = "force_installed";
+              };
+
+              # Bitwarden:
+              "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+                installation_mode = "force_installed";
+              };
             };
 
-            # Bitwarden:
-            "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-              install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-              installation_mode = "force_installed";
-            };
-          };
-
-          Preferences =
-            let
+            Preferences = let
               lock-false = {
                 Value = false;
                 Status = "locked";
@@ -68,8 +85,7 @@ mkIfModule config [ "graphical" "applications" "browsers" "firefox" ] {
                 Value = true;
                 Status = "locked";
               };
-            in
-            {
+            in {
               "browser.contentblocking.category" = {
                 Value = "strict";
                 Status = "locked";
@@ -113,8 +129,8 @@ mkIfModule config [ "graphical" "applications" "browsers" "firefox" ] {
               "signon.management.page.vulnerable-passwords.enabled" = lock-false;
               "signon.backup.enabled" = lock-false;
             };
+          };
         };
       };
     };
-  };
 }

@@ -2,52 +2,56 @@
   lib,
   inputs,
   config,
-  mkModule,
   ...
-}:
-{
+}: {
   imports = [
     inputs.base16.nixosModule
     ./icons
     ./swaybg
   ];
-}
-// mkModule config ["graphical" "theming"] {
+
   options = {
-    theme = lib.mkOption {
-      default = "tokyo-night-terminal-dark";
-      description = "The base 16 seceme used for theming.";
-      type = lib.types.enum [
-        "catppuccin-mocha"
-        "chinoiserie-midnight"
-        "atelier-plateau"
-        "tokyo-night-terminal-dark"
-      ];
-    };
-
-    overrides = lib.mkOption {
-      type = lib.types.listOf (
-        lib.types.submodule {
-          options = {
-            color = lib.mkOption {
-              type = lib.types.str;
-              description = "The name of the color.";
-              example = "base00";
-            };
-
-            value = lib.mkOption {
-              type = lib.types.str;
-              description = "Hex value of the color.";
-            };
+    modules = {
+      graphical = {
+        theming = {
+          theme = lib.mkOption {
+            default = "tokyo-night-terminal-dark";
+            description = "The base 16 seceme used for theming.";
+            type = lib.types.enum [
+              "catppuccin-mocha"
+              "chinoiserie-midnight"
+              "atelier-plateau"
+              "tokyo-night-terminal-dark"
+            ];
           };
-        }
-      );
 
-      default = [];
+          overrides = lib.mkOption {
+            type = lib.types.listOf (
+              lib.types.submodule {
+                options = {
+                  color = lib.mkOption {
+                    type = lib.types.str;
+                    description = "The name of the color.";
+                    example = "base00";
+                  };
+
+                  value = lib.mkOption {
+                    type = lib.types.str;
+                    description = "Hex value of the color.";
+                  };
+                };
+              }
+            );
+
+            default = [];
+          };
+        };
+      };
     };
   };
 
-  config = cfg: let
+  config = let
+    cfg = config.modules.graphical.theming;
     isOverridesZero = builtins.length cfg.overrides == 0;
   in
     lib.mkMerge [

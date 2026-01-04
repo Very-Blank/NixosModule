@@ -13,7 +13,6 @@
     ./essential
     ./home
     ./terminal
-    ./networking
     ./graphical
     ./tty
   ];

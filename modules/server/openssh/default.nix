@@ -1,34 +1,38 @@
 {
   lib,
   config,
-  mkIfModule,
   ...
-}:
-mkIfModule config
-  [
-    "server"
-    "openssh"
-  ]
-  {
-    options = {
-      port = lib.mkOption {
-        type = lib.types.ints.unsigned;
-        default = 22;
-        description = "Port that the ssh service uses.";
-      };
+}: {
+  options = {
+    modules = {
+      server = {
+        openssh = {
+          enable = lib.mkEnableOption "Enables the openssh module.";
 
-      keys = lib.mkOption {
-        type = lib.types.listOf lib.types.singleLineStr;
-        description = "All of the authorized keys for ssh.";
-        default = [ ];
+          port = lib.mkOption {
+            type = lib.types.ints.unsigned;
+            default = 22;
+            description = "Port that the ssh service uses.";
+          };
+
+          keys = lib.mkOption {
+            type = lib.types.listOf lib.types.singleLineStr;
+            description = "All of the authorized keys for ssh.";
+            default = [];
+          };
+        };
       };
     };
+  };
 
-    config = cfg: {
+  config = let
+    cfg = config.modules.server.openssh.enable;
+  in
+    lib.mkIf cfg.enable {
       services = {
         openssh = {
           enable = true;
-          ports = [ cfg.port ];
+          ports = [cfg.port];
           openFirewall = false;
 
           settings = {
@@ -37,7 +41,7 @@ mkIfModule config
             PasswordAuthentication = false;
             KbdInteractiveAuthentication = false;
 
-            AllowUsers = [ config.modules.home.user.name ];
+            AllowUsers = [config.modules.home.user.name];
           };
         };
 
@@ -46,6 +50,6 @@ mkIfModule config
 
       users.users.${config.modules.home.user.name}.openssh.authorizedKeys.keys = cfg.keys;
 
-      networking.firewall.allowedTCPPorts = [ cfg.port ];
+      networking.firewall.allowedTCPPorts = [cfg.port];
     };
-  }
+}

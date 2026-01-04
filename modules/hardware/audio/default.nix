@@ -1,28 +1,35 @@
-{lib, config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   options = {
     modules = {
       hardware = {
         audio = {
-          enable = lib.mkEnableOption "Enables audio.";
+          enable = lib.mkEnableOption "Enables the audio module.";
         };
       };
     };
   };
 
-  config = lib.mkIf config.modules.hardware.audio.enable {
-    services = {
-      pipewire = {
-        enable = true;
-        pulse.enable = true;
-        audio.enable = true;
-
-        alsa = {
+  config = let
+    cfg = config.modules.hardware.audio;
+  in
+    lib.mkIf cfg.enable {
+      services = {
+        pipewire = {
           enable = true;
-          support32Bit = true; 
-        };
+          pulse.enable = true;
+          audio.enable = true;
 
-        jack.enable = true;
+          alsa = {
+            enable = true;
+            support32Bit = true;
+          };
+
+          jack.enable = true;
+        };
       };
     };
-  };
 }

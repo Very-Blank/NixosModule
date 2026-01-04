@@ -2,18 +2,12 @@
   pkgs,
   inputs,
   config,
-  mkModule,
   ...
-}:
-{
-
+}: {
   imports = [
     inputs.sops-nix.nixosModules.sops
   ];
-}
-// mkModule config [ "sops" ] {
-  options = {
-  };
+
   config = {
     environment.systemPackages = [
       pkgs.sops
@@ -32,7 +26,7 @@
       sops = {
         gnupg = {
           home = "~/.gnupg";
-          sshKeyPaths = [ ];
+          sshKeyPaths = [];
         };
 
         defaultSymlinkPath = "/run/user/1000/secrets";

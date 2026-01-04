@@ -1,21 +1,35 @@
 {
+  lib,
   config,
-  mkIfModule,
   ...
-}:
-mkIfModule config [ "graphical" "applications" "other" "steam" ] {
-  config = {
-    modules.unfreePackages = [
-      "steam"
-      "steam-original"
-      "steam-unwrapped"
-      "steam-run"
-    ];
-
-    programs.steam = {
-      enable = true;
-      dedicatedServer.openFirewall = true;
-      localNetworkGameTransfers.openFirewall = true;
+}: {
+  options = {
+    modules = {
+      graphical = {
+        applications = {
+          other = {
+            steam = {
+              enable = lib.mkEnableOption "Enables the steam module.";
+            };
+          };
+        };
+      };
     };
   };
+
+  config = let
+    cfg = config.modules.graphical.applications.other.steam;
+  in
+    lib.mkIf cfg.enable {
+      modules.unfreePackages = [
+        "steam"
+        "steam-original"
+        "steam-unwrapped"
+        "steam-run"
+      ];
+
+      programs.steam = {
+        enable = true;
+      };
+    };
 }

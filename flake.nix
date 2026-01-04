@@ -50,86 +50,40 @@
     };
   };
 
-  outputs =
-    inputs:
-    let
-      inherit (inputs) nixpkgs;
+  outputs = inputs: let
+    inherit (inputs) nixpkgs;
 
-      # We pass the config so we can lazyly do cfg.options
-      mkIfModule =
-        lib: config: path: moduleContent:
-        let
-          cfg = lib.getAttrFromPath ([ "modules" ] ++ path) config;
+    mkNixosConfig = {
+      name,
+      system,
+    }:
+      nixpkgs.lib.nixosSystem {
+        system = system;
 
-          optionsWithEnable = {
-            enable = lib.mkEnableOption "Enable the ${lib.last path} module.";
-          }
-          // (moduleContent.options or { });
-
-          rawConfig =
-            if builtins.hasAttr "config" moduleContent && builtins.isFunction moduleContent.config then
-              moduleContent.config cfg
-            else
-              (moduleContent.config or { });
-        in
-        {
-          options = lib.setAttrByPath ([ "modules" ] ++ path) optionsWithEnable;
-          config = lib.mkIf cfg.enable rawConfig;
+        specialArgs = {
+          inherit inputs;
         };
 
-      mkModule =
-        lib: config: path: moduleContent:
-        let
-          cfg = lib.getAttrFromPath ([ "modules" ] ++ path) config;
+        modules = [
+          ./hosts/${name}
+        ];
+      };
+  in {
+    nixosConfigurations = {
+      zaratul = mkNixosConfig {
+        name = "zaratul";
+        system = "x86_64-linux";
+      };
 
-          rawConfig =
-            if builtins.hasAttr "config" moduleContent && builtins.isFunction moduleContent.config then
-              moduleContent.config cfg
-            else
-              (moduleContent.config or { });
-        in
-        {
-          options = lib.setAttrByPath ([ "modules" ] ++ path) (moduleContent.options or { });
-          config = rawConfig;
-        };
+      ouroboros = mkNixosConfig {
+        name = "ouroboros";
+        system = "x86_64-linux";
+      };
 
-      mkNixosConfig =
-        {
-          name,
-          system,
-        }:
-        nixpkgs.lib.nixosSystem {
-          system = system;
-
-          specialArgs = {
-            inherit inputs;
-
-            mkModule = mkModule nixpkgs.lib;
-            mkIfModule = mkIfModule nixpkgs.lib;
-          };
-
-          modules = [
-            ./hosts/${name}
-          ];
-        };
-
-    in
-    {
-      nixosConfigurations = {
-        zaratul = mkNixosConfig {
-          name = "zaratul";
-          system = "x86_64-linux";
-        };
-
-        ouroboros = mkNixosConfig {
-          name = "ouroboros";
-          system = "x86_64-linux";
-        };
-
-        hermes = mkNixosConfig {
-          name = "hermes";
-          system = "x86_64-linux";
-        };
+      hermes = mkNixosConfig {
+        name = "hermes";
+        system = "x86_64-linux";
       };
     };
+  };
 }

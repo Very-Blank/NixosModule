@@ -2,10 +2,18 @@
   pkgs,
   lib,
   config,
-  mkIfModule,
   ...
-}:
-mkIfModule config [ "terminal" "zsh" ] {
+}: {
+  options = {
+    modules = {
+      terminal = {
+        zsh = {
+          enable = lib.mkEnableOption "Enables the terminal zsh module";
+        };
+      };
+    };
+  };
+
   config = {
     programs.zsh = {
       enable = true;
@@ -22,7 +30,7 @@ mkIfModule config [ "terminal" "zsh" ] {
     };
 
     userHome = {
-      home.packages = [ pkgs.pure-prompt ];
+      home.packages = [pkgs.pure-prompt];
 
       programs.zsh = {
         enable = true;

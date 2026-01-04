@@ -1,18 +1,32 @@
 {
+  lib,
   pkgs,
   config,
-  mkIfModule,
   ...
-}:
-mkIfModule config [ "developer" "languages" "c" ] {
-  config = {
-    userHome = {
-      home.packages = [
-        pkgs.gnumake
-        pkgs.cmake
-        pkgs.clang-tools
-        pkgs.gcc
-      ];
+}: {
+  options = {
+    modules = {
+      developer = {
+        languages = {
+          c = {
+            enable = lib.mkEnableOption "Enables the c language module.";
+          };
+        };
+      };
     };
   };
+
+  config = let
+    cfg = config.modules.developer.languages.c;
+  in
+    lib.mkIf cfg.enable {
+      userHome = {
+        home.packages = [
+          pkgs.gnumake
+          pkgs.cmake
+          pkgs.clang-tools
+          pkgs.gcc
+        ];
+      };
+    };
 }

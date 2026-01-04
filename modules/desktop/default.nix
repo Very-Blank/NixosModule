@@ -7,7 +7,7 @@
   options = {
     modules = {
       desktop = {
-        enable = lib.mkEnableOption "Enable the desktop module.";
+        enable = lib.mkEnableOption "Enables the desktop module.";
 
         windowManager = lib.mkOption {
           default = "niri";

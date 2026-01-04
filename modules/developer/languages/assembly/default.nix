@@ -1,19 +1,32 @@
 {
+  lib,
   pkgs,
   config,
-  mkIfModule,
   ...
-}:
-mkIfModule config [ "developer" "languages" "asm" ] {
-  config = {
-    userHome = {
-      home.packages = [
-        pkgs.asm-lsp
-        pkgs.gdb
-        pkgs.binutils
-        pkgs.gnumake
-        pkgs.gcc
-      ];
+}: {
+  options = {
+    modules = {
+      developer = {
+        languages = {
+          assembly = {
+            enable = lib.mkEnableOption "Enables the assembly language module.";
+          };
+        };
+      };
     };
   };
+
+  config = let
+    cfg = config.modules.developer.languages.assembly;
+  in
+    lib.mkIf cfg.enable {
+      userHome = {
+        home.packages = [
+          pkgs.gdb
+          pkgs.binutils
+          pkgs.gnumake
+          pkgs.gcc
+        ];
+      };
+    };
 }
