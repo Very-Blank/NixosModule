@@ -18,6 +18,7 @@
         nvim.enable = true;
         nvim.defaultEditor = true;
         git.enable = true;
+        ssh.enable = true;
 
         ssh.keys = [
           {
