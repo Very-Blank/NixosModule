@@ -14,7 +14,10 @@
       };
 
       developer = {
-        languages = [""];
+        languages.enableAll = true;
+        nvim.enable = true;
+        nvim.defaultEditor = true;
+        git.enable = true;
 
         ssh.keys = [
           {
@@ -86,14 +89,14 @@
         };
 
         applications.other.obs = {
-          amdSupport = true;
+          hardwareAcceleration = "amd";
         };
       };
 
       hardware.audio.enable = true;
 
       boot = {
-        multiboot.enable = true;
+        multiboot = true;
       };
     };
   };

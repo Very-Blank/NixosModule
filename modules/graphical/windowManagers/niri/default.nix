@@ -12,153 +12,155 @@
   options = {
     modules = {
       graphical = {
-        niri = {
-          enable = lib.mkEnableOption "Enables the niri module.";
+        windowManagers = {
+          niri = {
+            enable = lib.mkEnableOption "Enables the niri module.";
 
-          outputs = lib.mkOption {
-            type = lib.types.attrsOf (
-              lib.types.submodule {
-                options = {
-                  mode = lib.mkOption {
-                    type = lib.types.submodule {
-                      options = {
-                        width = lib.mkOption {
-                          type = lib.types.int;
-                          description = "Display width in pixels";
-                        };
-                        height = lib.mkOption {
-                          type = lib.types.int;
-                          description = "Display height in pixels";
-                        };
-                        refresh = lib.mkOption {
-                          type = lib.types.float;
-                          description = "Refresh rate in Hz";
-                        };
-                      };
-                    };
-                    description = "Display mode configuration";
-                  };
-
-                  position = lib.mkOption {
-                    type = lib.types.submodule {
-                      options = {
-                        x = lib.mkOption {
-                          type = lib.types.int;
-                          description = "Display position in pixels";
-                        };
-                        y = lib.mkOption {
-                          type = lib.types.int;
-                          description = "Display position in pixels";
+            outputs = lib.mkOption {
+              type = lib.types.attrsOf (
+                lib.types.submodule {
+                  options = {
+                    mode = lib.mkOption {
+                      type = lib.types.submodule {
+                        options = {
+                          width = lib.mkOption {
+                            type = lib.types.int;
+                            description = "Display width in pixels";
+                          };
+                          height = lib.mkOption {
+                            type = lib.types.int;
+                            description = "Display height in pixels";
+                          };
+                          refresh = lib.mkOption {
+                            type = lib.types.float;
+                            description = "Refresh rate in Hz";
+                          };
                         };
                       };
+                      description = "Display mode configuration";
                     };
-                    description = "Display position configuration";
+
+                    position = lib.mkOption {
+                      type = lib.types.submodule {
+                        options = {
+                          x = lib.mkOption {
+                            type = lib.types.int;
+                            description = "Display position in pixels";
+                          };
+                          y = lib.mkOption {
+                            type = lib.types.int;
+                            description = "Display position in pixels";
+                          };
+                        };
+                      };
+                      description = "Display position configuration";
+                    };
+
+                    focus-at-startup = lib.mkEnableOption "Focus on this screen at start up";
                   };
-
-                  focus-at-startup = lib.mkEnableOption "Focus on this screen at start up";
-                };
-              }
-            );
-
-            default = {};
-            description = "Monitor output configurations";
-            example = {
-              "PNP(AOC) 2590G5 0x00002709" = {
-                mode = {
-                  width = 1920;
-                  height = 1080;
-                  refresh = 74.973;
-                };
-              };
-            };
-          };
-
-          spawn-at-startup = lib.mkOption {
-            type = lib.types.listOf (
-              lib.types.attrTag {
-                argv = lib.mkOption {
-                  type = lib.types.listOf lib.types.str;
-                  description = ''
-                    Almost raw process arguments to spawn, without shell syntax.
-                    A leading tilde in the zeroth argument will be expanded to the user's home directory. No other preprocessing is applied.
-                  '';
-                };
-                sh = lib.mkOption {
-                  type = lib.types.str;
-                  description = ''
-                    A shell command to spawn. Run wild with POSIX syntax.
-                  '';
-                };
-
-                command = lib.mkOption {
-                  type = lib.types.listOf lib.types.str;
-                  visible = false;
-                };
-              }
-            );
-
-            default = [];
-          };
-
-          keybinds = let
-            rename = name: real:
-              lib.mkOptionType {
-                name = "rename";
-                description = "${name}";
-                descriptionClass = "noun";
-                inherit (real) check merge getSubOptions;
-                nestedTypes = {inherit real;};
-              };
-
-            optional = type: default: lib.mkOption {inherit type default;};
-            nullable = type: optional (lib.types.nullOr type) null;
-            attrs = type: optional (lib.types.attrsOf type) {};
-
-            record' = description: options:
-              lib.types.submoduleWith {
-                inherit description;
-                shorthandOnlyDefinesConfig = true;
-                modules = [
-                  {inherit options;}
-                ];
-              };
-
-            attrs-record' = description: opts:
-              attrs (
-                if builtins.isFunction opts
-                then
-                  lib.types.submoduleWith {
-                    inherit description;
-                    shorthandOnlyDefinesConfig = true;
-                    modules = [
-                      (
-                        {name, ...}: {
-                          options = opts name;
-                        }
-                      )
-                    ];
-                  }
-                else record' description opts
+                }
               );
 
-            required = type: lib.mkOption {inherit type;};
-          in
-            attrs-record' "niri keybind" {
-              allow-when-locked = optional lib.types.bool false;
-              allow-inhibiting = optional lib.types.bool true;
-              cooldown-ms = nullable lib.types.int;
-              repeat = optional lib.types.bool true;
+              default = {};
+              description = "Monitor output configurations";
+              example = {
+                "PNP(AOC) 2590G5 0x00002709" = {
+                  mode = {
+                    width = 1920;
+                    height = 1080;
+                    refresh = 74.973;
+                  };
+                };
+              };
+            };
 
-              hotkey-overlay =
-                optional (lib.types.attrTag {
-                  hidden = lib.mkOption {type = lib.types.bool;};
-                  title = lib.mkOption {type = lib.types.str;};
-                }) {
-                  hidden = false;
+            spawn-at-startup = lib.mkOption {
+              type = lib.types.listOf (
+                lib.types.attrTag {
+                  argv = lib.mkOption {
+                    type = lib.types.listOf lib.types.str;
+                    description = ''
+                      Almost raw process arguments to spawn, without shell syntax.
+                      A leading tilde in the zeroth argument will be expanded to the user's home directory. No other preprocessing is applied.
+                    '';
+                  };
+                  sh = lib.mkOption {
+                    type = lib.types.str;
+                    description = ''
+                      A shell command to spawn. Run wild with POSIX syntax.
+                    '';
+                  };
+
+                  command = lib.mkOption {
+                    type = lib.types.listOf lib.types.str;
+                    visible = false;
+                  };
+                }
+              );
+
+              default = [];
+            };
+
+            keybinds = let
+              rename = name: real:
+                lib.mkOptionType {
+                  name = "rename";
+                  description = "${name}";
+                  descriptionClass = "noun";
+                  inherit (real) check merge getSubOptions;
+                  nestedTypes = {inherit real;};
                 };
 
-              action = required (rename "niri action" inputs.niri.lib.kdl.types.kdl-leaf);
-            };
+              optional = type: default: lib.mkOption {inherit type default;};
+              nullable = type: optional (lib.types.nullOr type) null;
+              attrs = type: optional (lib.types.attrsOf type) {};
+
+              record' = description: options:
+                lib.types.submoduleWith {
+                  inherit description;
+                  shorthandOnlyDefinesConfig = true;
+                  modules = [
+                    {inherit options;}
+                  ];
+                };
+
+              attrs-record' = description: opts:
+                attrs (
+                  if builtins.isFunction opts
+                  then
+                    lib.types.submoduleWith {
+                      inherit description;
+                      shorthandOnlyDefinesConfig = true;
+                      modules = [
+                        (
+                          {name, ...}: {
+                            options = opts name;
+                          }
+                        )
+                      ];
+                    }
+                  else record' description opts
+                );
+
+              required = type: lib.mkOption {inherit type;};
+            in
+              attrs-record' "niri keybind" {
+                allow-when-locked = optional lib.types.bool false;
+                allow-inhibiting = optional lib.types.bool true;
+                cooldown-ms = nullable lib.types.int;
+                repeat = optional lib.types.bool true;
+
+                hotkey-overlay =
+                  optional (lib.types.attrTag {
+                    hidden = lib.mkOption {type = lib.types.bool;};
+                    title = lib.mkOption {type = lib.types.str;};
+                  }) {
+                    hidden = false;
+                  };
+
+                action = required (rename "niri action" inputs.niri.lib.kdl.types.kdl-leaf);
+              };
+          };
         };
       };
     };

@@ -8,7 +8,7 @@
     modules = {
       graphical = {
         theming = {
-          icons = {
+          swaybg = {
             enable = lib.mkEnableOption "Enables the swaybg module.";
           };
         };

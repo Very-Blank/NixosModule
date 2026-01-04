@@ -9,22 +9,22 @@
     modules = {
       developer = {
         nvim = {
+          enable = lib.mkEnableOption "Enables the nvim module.";
           defaultEditor = lib.mkEnableOption "Whether to enable nvim as the default editor.";
 
           languages = lib.mkOption {
             default = [];
             description = "Languages to be enabled.";
-            type = with lib.types;
-              listOf (enum [
-                "nix"
-                "haskell"
-                "rust"
-                "zig"
-                "python"
-                "assembly"
-                "c"
-                "cpp"
-              ]);
+            type = lib.types.listOf (lib.types.enum [
+              "nix"
+              "haskell"
+              "rust"
+              "zig"
+              "python"
+              "assembly"
+              "c"
+              "cpp"
+            ]);
           };
         };
       };

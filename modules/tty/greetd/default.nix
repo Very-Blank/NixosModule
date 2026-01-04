@@ -8,6 +8,8 @@
     modules = {
       tty = {
         greetd = {
+          enable = lib.mkEnableOption "Enables the greetd module";
+
           cmd = lib.mkOption {
             default = "${pkgs.bash}/bin/sh";
             description = "Command to run after login in.";
