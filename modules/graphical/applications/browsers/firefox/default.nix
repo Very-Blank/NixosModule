@@ -19,7 +19,7 @@
   };
 
   config = let
-    cfg = config.graphical.applications.browsers.firefox;
+    cfg = config.modules.graphical.applications.browsers.firefox;
   in
     lib.mkIf cfg.enable {
       fonts = {

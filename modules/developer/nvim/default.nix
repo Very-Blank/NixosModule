@@ -13,9 +13,10 @@
           defaultEditor = lib.mkEnableOption "Whether to enable nvim as the default editor.";
 
           languages = lib.mkOption {
-            default = [];
+            default = ["nix"];
             description = "Languages to be enabled.";
             type = lib.types.listOf (lib.types.enum [
+              "lua"
               "nix"
               "haskell"
               "rust"

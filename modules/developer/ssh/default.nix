@@ -7,6 +7,8 @@
     modules = {
       developer = {
         ssh = {
+          enable = lib.mkEnableOption "Enables the ssh module.";
+
           keys = lib.mkOption {
             type = lib.types.listOf (
               lib.types.submodule {

@@ -41,7 +41,7 @@
             zig.enable = true;
           };
 
-          nvim.languages = ["assembly" "c" "haskell" "lua" "python" "rust" "zig"];
+          nvim.languages = ["nix" "assembly" "c" "haskell" "lua" "python" "rust" "zig"];
         };
       };
     };

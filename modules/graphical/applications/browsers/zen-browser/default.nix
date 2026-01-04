@@ -20,7 +20,7 @@
   };
 
   config = let
-    cfg = config.graphical.applications.browsers.zen-browser;
+    cfg = config.modules.graphical.applications.browsers.zen-browser;
   in
     lib.mkIf cfg.enable {
       fonts = {

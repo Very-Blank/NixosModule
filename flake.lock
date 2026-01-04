@@ -305,11 +305,11 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1767473460,
-        "narHash": "sha256-UJ8CQMGcpWAqKRx4WPOW3K8K6WIL6HRgNuEARam0J1g=",
+        "lastModified": 1767547557,
+        "narHash": "sha256-glnAtexeA4WoYYuIpFiViJiYFq+rrln2KPwIMn6VHGQ=",
         "owner": "Very-Blank",
         "repo": "NixNvim",
-        "rev": "a38b08ac839cd636dc5ea490829708524c83a778",
+        "rev": "eb656760ee7011551967b7c8d412452e5a49386d",
         "type": "github"
       },
       "original": {

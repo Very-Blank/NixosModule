@@ -26,7 +26,7 @@
   };
 
   config = let
-    cfg = config.modules.server.openssh.enable;
+    cfg = config.modules.server.openssh;
   in
     lib.mkIf cfg.enable {
       services = {
