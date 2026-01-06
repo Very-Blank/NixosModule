@@ -23,8 +23,7 @@
               "zig"
               "python"
               "assembly"
-              "c"
-              "cpp"
+              "clang"
             ]);
           };
         };
