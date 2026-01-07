@@ -23,12 +23,12 @@
             enable = true;
             keyMode = "vi";
             escapeTime = 0;
+            prefix = "C-a";
+
             shell = config.modules.home.user.shell.path;
 
             extraConfig = ''
-              set-option -g prefix C-a
-              unbind C-b
-              bind C-a send-prefix
+              set-option -s command-alias[6] q='kill-session'
             '';
           };
         };
