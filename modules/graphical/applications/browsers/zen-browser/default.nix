@@ -67,18 +67,18 @@
                 id = "c6de089c-410d-4206-961d-ab11f988d40a";
                 position = 1000;
 
-                theme = {
-                  type = "gradient";
-                  colors = [
-                    {
-                      red = 30;
-                      green = 30;
-                      blue = 30;
-                    }
-                  ];
-
-                  opacity = 1.0;
-                };
+                #   theme = {
+                #     type = "gradient";
+                #     colors = [
+                #       {
+                #         red = 30;
+                #         green = 30;
+                #         blue = 30;
+                #       }
+                #     ];
+                #
+                #     opacity = 1.0;
+                #   };
               };
             };
 
@@ -100,6 +100,7 @@
 
             extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
               ublock-origin
+              leechblock-ng
               bitwarden
             ];
 
