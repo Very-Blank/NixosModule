@@ -27,6 +27,11 @@
             user = "very-blank";
           }
           {
+            match = "codeberg.org";
+            hostname = "codeberg.org";
+            user = "very-blank";
+          }
+          {
             match = "taildevourer.com";
             hostname = "taildevourer.com";
             user = "blank";
