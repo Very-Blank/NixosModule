@@ -31,33 +31,35 @@
               description = "My base16 theme.";
             };
 
-            colors = {
+            colors = let
+              palette = config.colors.palette;
+            in {
               core = {
-                background = "#${config.scheme.base00}";
-                foreground = "#${config.scheme.base05}";
-                secondary_background = "#${config.scheme.base01}";
-                border = "#${config.scheme.base02}";
-                accent = "#${config.scheme.base0D}";
+                background = "#${palette.base00}";
+                foreground = "#${palette.base05}";
+                secondary_background = "#${palette.base01}";
+                border = "#${palette.base02}";
+                accent = "#${palette.base0D}";
               };
 
               accents = {
-                blue = "#${config.scheme.base0D}";
-                green = "#${config.scheme.base0B}";
-                magenta = "#${config.scheme.base0E}";
-                orange = "#${config.scheme.base09}";
-                purple = "#${config.scheme.base0E}";
-                red = "#${config.scheme.base08}";
-                yellow = "#${config.scheme.base0A}";
-                cyan = "#${config.scheme.base0C}";
+                blue = "#${palette.base0D}";
+                green = "#${palette.base0B}";
+                magenta = "#${palette.base0E}";
+                orange = "#${palette.base09}";
+                purple = "#${palette.base0E}";
+                red = "#${palette.base08}";
+                yellow = "#${palette.base0A}";
+                cyan = "#${palette.base0C}";
               };
 
               list.item = {
                 selection = {
-                  background.name = "#${config.scheme.base02}";
-                  secondary_background = "#${config.scheme.base03}";
+                  background.name = "#${palette.base02}";
+                  secondary_background = "#${palette.base03}";
                 };
 
-                hover.background = "#${config.scheme.base01}";
+                hover.background = "#${palette.base01}";
               };
             };
           };

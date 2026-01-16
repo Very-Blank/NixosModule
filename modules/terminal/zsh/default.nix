@@ -36,7 +36,7 @@
         enable = true;
 
         autosuggestion.enable = true;
-        autosuggestion.highlight = "fg=#${config.scheme.base0E},bg=#${config.scheme.base01},bold,underline";
+        autosuggestion.highlight = let palette = config.colors.palette; in "fg=#${palette.base0E},bg=#${palette.base01},bold,underline";
 
         syntaxHighlighting.enable = true;
 

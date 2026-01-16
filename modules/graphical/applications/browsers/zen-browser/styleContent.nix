@@ -1,6 +1,5 @@
-{ theme }:
-with theme;
-''
+{palette}:
+with palette; ''
   /* Common variables affecting all pages */
   @-moz-document url-prefix("about:") {
     :root {

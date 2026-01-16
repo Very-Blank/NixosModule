@@ -3,6 +3,5 @@
     ./git
     ./nvim
     ./ssh
-    ./languages
   ];
 }

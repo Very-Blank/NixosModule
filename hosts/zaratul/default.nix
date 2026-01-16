@@ -14,7 +14,6 @@
       };
 
       developer = {
-        languages.enableAll = true;
         nvim.enable = true;
         nvim.defaultEditor = true;
         git.enable = true;

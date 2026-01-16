@@ -14,11 +14,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    base16.url = "github:SenchoPens/base16.nix";
-
-    tt-schemes = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
+    colors = {
+      url = "github:Very-Blank/colors";
     };
 
     zen-browser = {
@@ -36,17 +33,9 @@
 
     niri.url = "github:sodiboo/niri-flake";
 
-    zig.url = "github:mitchellh/zig-overlay";
-    zls.url = "github:Very-Blank/zls";
-
-    nvim = {
-      url = "github:Very-Blank/nvim";
-      flake = false;
-    };
-
     nixnvim = {
       url = "github:Very-Blank/NixNvim";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

@@ -128,8 +128,8 @@
               };
             };
 
-            userChrome = import ./styleChrome.nix {theme = config.scheme;};
-            userContent = import ./styleContent.nix {theme = config.scheme;};
+            userChrome = import ./styleChrome.nix {palette = config.colors.palette;};
+            userContent = import ./styleContent.nix {palette = config.colors.palette;};
           };
         };
       };

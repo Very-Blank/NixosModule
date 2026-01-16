@@ -48,7 +48,7 @@
         programs.waybar = {
           enable = true;
           style = import ./style.nix {
-            theme = config.scheme;
+            theme = config.colors.palette;
             fontFamily = "0xProto Nerd Font";
             fontWeight = "normal";
           };

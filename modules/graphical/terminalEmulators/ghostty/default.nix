@@ -55,15 +55,17 @@
             theme = "custom";
           };
 
-          themes.custom = {
-            background = config.scheme.base00;
-            foreground = config.scheme.base0B;
+          themes.custom = let
+            palette = config.colors.palette;
+          in {
+            background = palette.base00;
+            foreground = palette.base0B;
 
-            cursor-color = config.scheme.base05;
-            selection-background = config.scheme.base01;
-            selection-foreground = config.scheme.base05;
+            cursor-color = palette.base05;
+            selection-background = palette.base01;
+            selection-foreground = palette.base05;
 
-            palette = with config.scheme; [
+            palette = with palette; [
               "0=#${base00}"
               "1=#${base08}"
               "2=#${base0B}"

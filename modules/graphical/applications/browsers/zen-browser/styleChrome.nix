@@ -1,6 +1,5 @@
-{ theme }:
-with theme;
-''
+{palette}:
+with palette; ''
   :root {
     --zen-colors-primary: #${base02} !important;
     --zen-primary-color: #${base0D} !important;
