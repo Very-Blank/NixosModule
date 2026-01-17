@@ -39,7 +39,10 @@
 
         enableCompletion = true;
         autosuggestion.enable = true;
-        autosuggestion.highlight = let palette = config.colors.palette; in "fg=#${palette.base0E},bg=#${palette.base01},bold,underline";
+        # FIXME: This causes buggy behaviour: <https://github.com/zsh-users/zsh-autosuggestions/issues/698>
+        #        Raise this as an issue to home-manager.
+        # autosuggestion.highlight = let palette = config.colors.palette; in "fg=#${palette.base0E},bg=#${palette.base01},bold,underline";
+        autosuggestion.highlight = let palette = config.colors.palette; in "fg=#${palette.base0E},bg=#${palette.base01},bold";
         syntaxHighlighting.enable = true;
 
         defaultKeymap = "viins";
