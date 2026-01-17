@@ -18,12 +18,15 @@
   in
     lib.mkIf cfg.enable {
       hardware = {
-        tuxedo-drivers.enable = true;
+        # FIXME: Waiting for: <https://github.com/NixOS/nixpkgs/pull/479580>
+        #        For now it's disabled.
 
-        tuxedo-rs = {
-          enable = true;
-          tailor-gui.enable = true;
-        };
+        # tuxedo-drivers.enable = true;
+
+        # tuxedo-rs = {
+        #   enable = true;
+        #   tailor-gui.enable = true;
+        # };
       };
     };
 }
