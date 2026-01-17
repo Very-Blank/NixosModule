@@ -103,7 +103,7 @@
               leechblock-ng
               bitwarden
             ];
-
+            # https://search.nixos.org/packages?channel=25.11&query=something
             search = {
               force = true;
               default = "ddg";
@@ -123,7 +123,25 @@
                   ];
 
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                  definedAliases = ["@mn"]; # Keep in mind that aliases defined here only work if they start with "@"
+                  definedAliases = ["@mnx"]; # Keep in mind that aliases defined here only work if they start with "@"
+                };
+
+                nixospkgs = {
+                  name = "Nixos Packages";
+                  urls = [
+                    {
+                      template = "https://search.nixos.org/packages?channel=25.11&query={searchTerms}";
+                      params = [
+                        {
+                          name = "query";
+                          value = "searchTerms";
+                        }
+                      ];
+                    }
+                  ];
+
+                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                  definedAliases = ["@pkgs"]; # Keep in mind that aliases defined here only work if they start with "@"
                 };
               };
             };
