@@ -15,10 +15,6 @@
   };
 
   config = {
-    programs.zsh = {
-      enable = true;
-    };
-
     modules.home.user.shell = {
       path = "${pkgs.zsh}/bin/zsh";
       package = pkgs.zsh;
@@ -29,16 +25,24 @@
       cmd = lib.mkOverride 100 config.modules.home.user.shell;
     };
 
+    programs.zsh = {
+      enable = true;
+    };
+
+    environment.pathsToLink = ["/share/zsh"]; # For completions to work
+
     userHome = {
       home.packages = [pkgs.pure-prompt];
 
       programs.zsh = {
         enable = true;
 
+        enableCompletion = true;
         autosuggestion.enable = true;
         autosuggestion.highlight = let palette = config.colors.palette; in "fg=#${palette.base0E},bg=#${palette.base01},bold,underline";
-
         syntaxHighlighting.enable = true;
+
+        defaultKeymap = "vicmd";
 
         shellAliases = {
           ns = "nix-shell --run zsh";
@@ -63,13 +67,13 @@
           fpath+=(${pkgs.pure-prompt}/share/zsh/site-functions)
           autoload -U promptinit && promptinit
           prompt pure
-
-          bindkey -v
-          bindkey -M vicmd ':' vi-cmd-mode
-          bindkey "^H" backward-delete-char
-          bindkey "^?" backward-delete-char
-          bindkey '^Y' autosuggest-accept
         '';
+
+        # bindkey -v
+        # bindkey -M vicmd ':' vi-cmd-mode
+        # bindkey "^H" backward-delete-char
+        # bindkey "^?" backward-delete-char
+        # bindkey '^Y' autosuggest-accept
       };
     };
   };
