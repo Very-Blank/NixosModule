@@ -42,7 +42,7 @@
         autosuggestion.highlight = let palette = config.colors.palette; in "fg=#${palette.base0E},bg=#${palette.base01},bold,underline";
         syntaxHighlighting.enable = true;
 
-        defaultKeymap = "vicmd";
+        defaultKeymap = "viins";
 
         shellAliases = {
           ns = "nix-shell --run zsh";
@@ -67,13 +67,9 @@
           fpath+=(${pkgs.pure-prompt}/share/zsh/site-functions)
           autoload -U promptinit && promptinit
           prompt pure
-        '';
 
-        # bindkey -v
-        # bindkey -M vicmd ':' vi-cmd-mode
-        # bindkey "^H" backward-delete-char
-        # bindkey "^?" backward-delete-char
-        # bindkey '^Y' autosuggest-accept
+          bindkey '^Y' autosuggest-accept
+        '';
       };
     };
   };
