@@ -225,7 +225,7 @@
 
           sessionVariables = {
             XCURSOR_THEME = cursorName;
-            XCURSOR_SIZE = builtins.toString cursorSize;
+            XCURSOR_SIZE = toString cursorSize;
           };
         };
 

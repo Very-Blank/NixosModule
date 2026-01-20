@@ -39,8 +39,7 @@
 
         enableCompletion = true;
         autosuggestion.enable = true;
-        # FIXME: This causes buggy behaviour sadly: <https://github.com/zsh-users/zsh-autosuggestions/issues/698>
-        autosuggestion.highlight = let palette = config.colors.palette; in "fg=#${palette.base0E},bg=#${palette.base01}";
+        autosuggestion.highlight = "fg=magenta";
 
         syntaxHighlighting.enable = true;
 
