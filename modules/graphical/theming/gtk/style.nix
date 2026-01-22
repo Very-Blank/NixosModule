@@ -71,7 +71,16 @@ in ''
   @define-color view_fg_color #${theme.base05};
   @define-color headerbar_bg_color #${theme.base01};
   @define-color headerbar_fg_color #${theme.base05};
-  @define-color headerbar_border_color rgba(${toString (hexColorToFloat red theme.base01)}, ${toString (hexColorToFloat green theme.base01)}, ${toString (hexColorToFloat blue theme.base01)}, 0.7);
+  @define-color headerbar_border_color rgba(${toString (hexColorToFloat {
+    color = red;
+    hex = theme.base01;
+  })}, ${toString (hexColorToFloat {
+    color = green;
+    hex = theme.base01;
+  })}, ${toString (hexColorToFloat {
+    color = blue;
+    hex = theme.base01;
+  })}, 0.7);
   @define-color headerbar_backdrop_color @window_bg_color;
   @define-color headerbar_shade_color rgba(0, 0, 0, 0.07);
   @define-color headerbar_darker_shade_color rgba(0, 0, 0, 0.07);

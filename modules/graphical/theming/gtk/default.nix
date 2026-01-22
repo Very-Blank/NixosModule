@@ -23,14 +23,18 @@
       programs.dconf.enable = true;
 
       userHome = {
-        gtk.theme = {
-          package = pkgs.adw-gtk3;
-          name = "adw-gtk3";
-        };
+        gtk = let
+          style = import ./style.nix {
+            theme = config.colors.palette;
+          };
+        in {
+          theme = {
+            package = pkgs.adw-gtk3;
+            name = "adw-gtk3";
+          };
 
-        xdg.configFile = {
-          "gtk-3.0/gtk.css".source = ./style.css;
-          "gtk-4.0/gtk.css".source = ./style.css;
+          gtk3.extraCss = style;
+          gtk4.extraCss = style;
         };
       };
     };
