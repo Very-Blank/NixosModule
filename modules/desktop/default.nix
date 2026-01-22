@@ -102,6 +102,7 @@
           notifications.mako.enable = lib.mkForce true;
 
           theming.swaybg.enable = lib.mkForce true;
+          theming.gtk.enable = lib.mkForce true;
 
           launchers.${cfg.launcher}.enable = true;
           terminalEmulators.${cfg.terminal}.enable = lib.mkForce true;
