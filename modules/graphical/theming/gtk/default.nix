@@ -29,8 +29,8 @@
         };
 
         xdg.configFile = {
-          "gtk-3.0/gtk.css".source = finalCss;
-          "gtk-4.0/gtk.css".source = finalCss;
+          "gtk-3.0/gtk.css".source = ./style.css;
+          "gtk-4.0/gtk.css".source = ./style.css;
         };
       };
     };

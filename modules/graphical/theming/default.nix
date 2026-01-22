@@ -3,6 +3,6 @@
     inputs.colors.nixosModules.default
     ./icons
     ./swaybg
-    ./theming
+    ./gtk
   ];
 }
