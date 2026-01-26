@@ -59,7 +59,7 @@
         };
 
         browser = lib.mkOption {
-          default = "librewolf";
+          default = "zen-browser";
           description = "The enabled browser.";
           type = lib.types.enum [
             "firefox"
