@@ -144,6 +144,8 @@
                 })
               ];
 
+              #"å"
+
               "Mod+T".action = spawn "${pkgs.ghostty}/bin/ghostty";
             };
           };
