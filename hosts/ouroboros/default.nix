@@ -24,7 +24,11 @@
       };
 
       developer = {
-        enable = true;
+        nvim.enable = true;
+        nvim.defaultEditor = true;
+        git.enable = true;
+        ssh.enable = true;
+
         ssh.keys = [
           {
             match = "github.com";
