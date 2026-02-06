@@ -20,8 +20,6 @@
     lib.mkIf cfg.enable {
       sops.secrets."vaultwarden/env".sopsFile = ../../../secrets/other/. + "/${config.hostname}.yaml";
 
-      modules.server.domain.subs = [subdomainName];
-
       services.vaultwarden = {
         enable = true;
         environmentFile = config.sops.secrets."vaultwarden/env".path;

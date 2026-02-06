@@ -25,11 +25,10 @@
         enable = true;
         apiTokenFile = config.sops.secrets."dns/token".path;
 
-        domains =
-          [
-            config.modules.server.domain.main
-          ]
-          ++ map (subdomain: subdomain + "." + config.modules.server.domain.main) config.modules.server.domain.subs;
+        domains = [
+          config.modules.server.domain.main
+          ("*." + config.modules.server.domain.main)
+        ];
       };
     };
 }
