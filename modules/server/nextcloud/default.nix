@@ -32,7 +32,7 @@
         maxUploadSize = "1G";
 
         config = {
-          adminuser = config.hostName;
+          adminuser = config.hostname;
           adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
           dbtype = "pgsql";
         };
