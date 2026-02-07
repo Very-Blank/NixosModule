@@ -38,10 +38,6 @@
         };
       };
 
-      systemd.services.nextcloud-setup = {
-        after = ["sops-nix.service"];
-      };
-
       services.fail2ban = {
         enable = true;
         # The jail file defines how to handle the failed authentication attempts found by the Nextcloud filter
