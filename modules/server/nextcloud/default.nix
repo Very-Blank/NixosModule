@@ -21,7 +21,7 @@
     lib.mkIf cfg.enable {
       sops.secrets."nextcloud/adminpass".sopsFile = ../../../secrets/other/. + "/${config.hostname}.yaml";
 
-      services.nextcould = {
+      services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud32;
 
