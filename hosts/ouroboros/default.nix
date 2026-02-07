@@ -57,6 +57,7 @@
 
         domain.main = "taildevourer.com";
         vaultwarden.enable = true;
+        nextcloud.enable = true;
         ddclient.enable = true;
 
         nginx = {
