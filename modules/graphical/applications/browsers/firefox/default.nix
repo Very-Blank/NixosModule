@@ -18,6 +18,9 @@
     };
   };
 
+  # browser.toolbarbuttons.introduced.sidebar-button
+  # browser.engagement.sidebar-button.has-used
+
   config = let
     cfg = config.modules.graphical.applications.browsers.firefox;
   in
@@ -33,6 +36,15 @@
         programs.firefox = {
           enable = true;
           policies = {
+            FirefoxHome = {
+              Search = true;
+              TopSites = false;
+              SponsoredTopSites = false;
+              Highlights = false;
+              Pocket = false;
+              Snippets = false;
+            };
+
             AppAutoUpdate = false;
             BackgroundAppUpdate = false;
 
@@ -184,12 +196,16 @@
                     ];
 
                     nav-bar = [
-                      "sidebar-button"
-                      "privatebrowsing-button"
-                      "urlbar-container"
-                      "vertical-spacer"
                       "back-button"
                       "forward-button"
+                      "stop-reload-button"
+                      "sidebar-button"
+                      "privatebrowsing-button"
+                      "customizableui-special-spring1"
+                      "urlbar-container"
+                      "customizableui-special-spring2"
+                      "downloads-button"
+                      "vertical-spacer"
                       "_73a6fe31-595d-460b-a920-fcc0f8843232_-browser-action"
                       "ublock0_raymondhill_net-browser-action"
                       "unified-extensions-button"
@@ -209,24 +225,27 @@
                       "personal-bookmarks"
                     ];
                   };
-                  # seen = [
-                  #   "developer-button"
-                  #   "leechblockng_proginosko_com-browser-action"
-                  #   "_73a6fe31-595d-460b-a920-fcc0f8843232_-browser-action"
-                  #   "ublock0_raymondhill_net-browser-action"
-                  #   "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action"
-                  # ];
-                  #
-                  # dirtyAreaCache = [
-                  #   "nav-bar"
-                  #   "TabsToolbar"
-                  #   "vertical-tabs"
-                  #   "unified-extensions-area"
-                  #   "toolbar-menubar"
-                  #   "PersonalToolbar"
-                  # ];
-                  # currentVersion = 23;
-                  # newElementCount = 2;
+
+                  seen = [
+                    "addon_darkreader_org-browser-action"
+                    "leechblockng_proginosko_com-browser-action"
+                    "ublock0_raymondhill_net-browser-action"
+                    "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action"
+                    "_73a6fe31-595d-460b-a920-fcc0f8843232_-browser-action"
+                    "developer-button"
+                  ];
+
+                  dirtyAreaCache = [
+                    "unified-extensions-area"
+                    "nav-bar"
+                    "toolbar-menubar"
+                    "TabsToolbar"
+                    "vertical-tabs"
+                    "PersonalToolbar"
+                  ];
+
+                  currentVersion = 23;
+                  newElementCount = 2;
                 };
               };
 
