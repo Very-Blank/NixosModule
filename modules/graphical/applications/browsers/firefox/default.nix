@@ -114,6 +114,12 @@
                 installation_mode = "force_installed";
                 updates_disabled = true;
               };
+
+              "addon@darkreader.org" = {
+                install_url = moz "darkreader";
+                installation_mode = "force_installed";
+                updates_disabled = true;
+              };
             };
 
             Preferences = let
@@ -166,6 +172,62 @@
                 "sidebar.revamp" = true;
                 "sidebar.verticalTabs" = true;
                 "sidebar.verticalTabs.dragToPinPromo.dismissed" = true;
+                "sidebar.main.tools" = "bookmarks,{446900e4-71c2-419f-a6a7-df9c091e268b}";
+
+                "browser.uiCustomization.state" = {
+                  placements = {
+                    widget-overflow-fixed-list = [];
+
+                    unified-extensions-area = [
+                      "leechblockng_proginosko_com-browser-action"
+                      "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action"
+                    ];
+
+                    nav-bar = [
+                      "sidebar-button"
+                      "privatebrowsing-button"
+                      "urlbar-container"
+                      "vertical-spacer"
+                      "back-button"
+                      "forward-button"
+                      "_73a6fe31-595d-460b-a920-fcc0f8843232_-browser-action"
+                      "ublock0_raymondhill_net-browser-action"
+                      "unified-extensions-button"
+                    ];
+
+                    toolbar-menubar = [
+                      "menubar-items"
+                    ];
+
+                    TabsToolbar = [];
+
+                    vertical-tabs = [
+                      "tabbrowser-tabs"
+                    ];
+
+                    PersonalToolbar = [
+                      "personal-bookmarks"
+                    ];
+                  };
+                  # seen = [
+                  #   "developer-button"
+                  #   "leechblockng_proginosko_com-browser-action"
+                  #   "_73a6fe31-595d-460b-a920-fcc0f8843232_-browser-action"
+                  #   "ublock0_raymondhill_net-browser-action"
+                  #   "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action"
+                  # ];
+                  #
+                  # dirtyAreaCache = [
+                  #   "nav-bar"
+                  #   "TabsToolbar"
+                  #   "vertical-tabs"
+                  #   "unified-extensions-area"
+                  #   "toolbar-menubar"
+                  #   "PersonalToolbar"
+                  # ];
+                  # currentVersion = 23;
+                  # newElementCount = 2;
+                };
               };
 
               search = {
