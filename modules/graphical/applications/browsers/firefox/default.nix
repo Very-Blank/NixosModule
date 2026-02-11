@@ -172,6 +172,8 @@
               "browser.urlbar.suggest.searches" = lock-false;
               "browser.urlbar.showSearchSuggestionsFirst" = lock-false;
 
+              "browser.urlbar.update2.engineAliasRefresh" = lock-true;
+
               "browser.newtabpage.activity-stream.feeds.section.topstories" = lock-false;
               "browser.newtabpage.activity-stream.feeds.snippets" = lock-false;
               "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
@@ -262,10 +264,46 @@
 
               search = {
                 force = true;
-                default = "google";
-                privateDefault = "ddg";
+                default = "Mojeek";
+                privateDefault = "Mojeek";
 
                 engines = {
+                  "Mojeek" = {
+                    urls = [
+                      {
+                        template = "https://www.mojeek.com/search?";
+                        params = [
+                          {
+                            name = "theme";
+                            value = "dark";
+                          }
+                          {
+                            name = "hp";
+                            value = "minimal";
+                          }
+                          {
+                            name = "sumt";
+                            value = "0";
+                          }
+                          {
+                            name = "sumb";
+                            value = "0";
+                          }
+                          {
+                            name = "dlen";
+                            value = "250";
+                          }
+                          {
+                            name = "q";
+                            value = "{searchTerms}";
+                          }
+                        ];
+                      }
+                    ];
+                    icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                    definedAliases = ["@mj"];
+                  };
+
                   "Nix Packages" = {
                     urls = [
                       {
