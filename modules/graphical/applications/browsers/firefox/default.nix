@@ -32,11 +32,41 @@
       userHome = {
         programs.firefox = {
           enable = true;
-
           policies = {
-            DisableTelemetry = true;
-            DisableFirefoxStudies = true;
+            AppAutoUpdate = false;
+            BackgroundAppUpdate = false;
 
+            # Feature Disabling
+            DisableFirefoxStudies = true;
+            DisableFirefoxAccounts = true;
+            DisableFirefoxScreenshots = true;
+            DisableForgetButton = true;
+            DisableMasterPasswordCreation = true;
+            DisableProfileImport = true;
+            DisableProfileRefresh = true;
+            DisableSetDesktopBackground = true;
+            DisablePocket = true;
+            DisableTelemetry = true;
+            DisableFormHistory = true;
+            DisablePasswordReveal = true;
+
+            # Access Restrictions
+            BlockAboutConfig = false;
+            BlockAboutProfiles = true;
+            BlockAboutSupport = true;
+
+            # UI and Behavior
+            DisplayMenuBar = "never";
+            DontCheckDefaultBrowser = true;
+            HardwareAcceleration = false;
+            OfferToSaveLogins = false;
+            # DefaultDownloadDirectory = "${home}/Downloads";
+
+            # AI
+            GenerativeAI = false;
+
+            # Security
+            AutofillCreditCardEnabled = false;
             EnableTrackingProtection = {
               Value = true;
               Locked = true;
@@ -44,90 +74,108 @@
               Fingerprinting = true;
             };
 
-            DisablePocket = true;
-            DisableFirefoxAccounts = true;
-            DisableAccounts = true;
-            DisableFirefoxScreenshots = true;
-            OverrideFirstRunPage = "";
-            OverridePostUpdatePage = "";
-            DontCheckDefaultBrowser = true;
-            DisplayBookmarksToolbar = "never";
-            DisplayMenuBar = "default-off";
-            SearchBar = "unified";
-
-            ExtensionSettings = {
+            ExtensionSettings = let
+              moz = short: "https://addons.mozilla.org/firefox/downloads/latest/${short}/latest.xpi";
+            in {
               "*".installation_mode = "blocked";
-              # uBlock Origin:
+
               "uBlock0@raymondhill.net" = {
-                install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+                install_url = moz "ublock-origin";
                 installation_mode = "force_installed";
+                updates_disabled = true;
               };
 
-              # Privacy badger:
-              "jid1-MnnxcxisBPnSXQ@jetpack" = {
-                install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
-                installation_mode = "force_installed";
-              };
-
-              # Bitwarden:
               "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-                install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+                install_url = moz "bitwarden-password-manager";
                 installation_mode = "force_installed";
+                updates_disabled = true;
+              };
+
+              "{22b0eca1-8c02-4c0d-a5d7-6604ddd9836e}" = {
+                install_url = moz "nicothin-space";
+                installation_mode = "force_installed";
+                updates_disabled = true;
+              };
+
+              "{73a6fe31-595d-460b-a920-fcc0f8843232}" = {
+                install_url = moz "noscript";
+                installation_mode = "force_installed";
+                updates_disabled = true;
+              };
+
+              "leechblockng@proginosko.com" = {
+                install_url = moz "leechblock-ng";
+                installation_mode = "force_installed";
+                updates_disabled = true;
               };
             };
+          };
 
-            Preferences = let
-              lock-false = {
-                Value = false;
-                Status = "locked";
+          profiles = {
+            default = {
+              search = {
+                force = true;
+                default = "google";
+                privateDefault = "ddg";
+
+                engines = {
+                  "Nix Packages" = {
+                    urls = [
+                      {
+                        template = "https://search.nixos.org/packages";
+                        params = [
+                          {
+                            name = "channel";
+                            value = "unstable";
+                          }
+                          {
+                            name = "query";
+                            value = "{searchTerms}";
+                          }
+                        ];
+                      }
+                    ];
+                    icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                    definedAliases = ["@np"];
+                  };
+
+                  "Nix Options" = {
+                    urls = [
+                      {
+                        template = "https://search.nixos.org/options";
+                        params = [
+                          {
+                            name = "channel";
+                            value = "unstable";
+                          }
+                          {
+                            name = "query";
+                            value = "{searchTerms}";
+                          }
+                        ];
+                      }
+                    ];
+                    icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                    definedAliases = ["@no"];
+                  };
+
+                  "NixOS Wiki" = {
+                    urls = [
+                      {
+                        template = "https://wiki.nixos.org/w/index.php";
+                        params = [
+                          {
+                            name = "search";
+                            value = "{searchTerms}";
+                          }
+                        ];
+                      }
+                    ];
+                    icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                    definedAliases = ["@nw"];
+                  };
+                };
               };
-              lock-true = {
-                Value = true;
-                Status = "locked";
-              };
-            in {
-              "browser.contentblocking.category" = {
-                Value = "strict";
-                Status = "locked";
-              };
-
-              "extensions.pocket.enabled" = lock-false;
-              "extensions.screenshots.disabled" = lock-true;
-              "browser.topsites.contile.enabled" = lock-false;
-              "browser.formfill.enable" = lock-false;
-              "browser.search.suggest.enabled" = lock-false;
-              "browser.search.suggest.enabled.private" = lock-false;
-              "browser.urlbar.suggest.searches" = lock-false;
-              "browser.urlbar.showSearchSuggestionsFirst" = lock-false;
-
-              "sidebar.main.tools" = {
-                Value = "bookmarks";
-                Status = "locked";
-              };
-
-              "sidebar.revamp" = lock-true;
-              "sidebar.verticalTabs" = lock-true;
-              "browser.layout.showSideBar" = lock-true;
-              "sidebar.verticalTabs.dragToPinPromo.dismissed" = lock-true;
-
-              "browser.newtabpage.activity-stream.feeds.section.topstories" = lock-false;
-              "browser.newtabpage.activity-stream.feeds.snippets" = lock-false;
-              "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
-              "browser.newtabpage.activity-stream.section.highlights.includeBookmarks" = lock-false;
-              "browser.newtabpage.activity-stream.section.highlights.includeDownloads" = lock-false;
-              "browser.newtabpage.activity-stream.section.highlights.includeVisited" = lock-false;
-              "browser.newtabpage.activity-stream.showSponsored" = lock-false;
-              "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
-              "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
-
-              "signon.rememberSignons" = lock-false;
-              "signon.autofillForms" = lock-false;
-              "signon.autofillForms.autocompleteOff" = lock-false;
-              "signon.generation.enabled" = lock-false;
-              "signon.generation.available" = lock-false;
-              "signon.management.page.breach-alerts.enabled" = lock-false;
-              "signon.management.page.vulnerable-passwords.enabled" = lock-false;
-              "signon.backup.enabled" = lock-false;
             };
           };
         };
