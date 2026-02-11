@@ -152,6 +152,11 @@
               "browser.newtabpage.activity-stream.showSponsored" = lock-false;
               "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
               "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
+
+              "browser.toolbars.bookmarks.visibility" = {
+                Value = "never";
+                Locked = "locked";
+              };
             };
           };
 
