@@ -134,6 +134,17 @@
               };
             };
 
+            "3rdparty".Extensions = {
+              "uBlock0@raymondhill.net".adminSettings = {
+                userSettings = {
+                  uiTheme = "dark";
+                  uiAccentCustom = true;
+                  uiAccentCustom0 = "#8300ff";
+                  cloudStorageEnabled = lib.mkForce false;
+                };
+              };
+            };
+
             Preferences = let
               lock-false = {
                 Value = false;
