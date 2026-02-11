@@ -139,7 +139,7 @@
                 userSettings = {
                   uiTheme = "dark";
                   uiAccentCustom = true;
-                  uiAccentCustom0 = "#8300ff";
+                  uiAccentCustom0 = "#${config.colors.palette.base00}";
                   cloudStorageEnabled = lib.mkForce false;
                 };
               };
