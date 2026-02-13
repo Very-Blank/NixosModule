@@ -160,8 +160,6 @@
                 Status = "locked";
               };
 
-              "middlemouse.paste" = lock-false;
-
               "extensions.pocket.enabled" = lock-false;
               "extensions.screenshots.disabled" = lock-true;
 
@@ -196,6 +194,7 @@
           profiles = {
             default = {
               settings = {
+                "middlemouse.paste" = false;
                 "sidebar.revamp" = true;
                 "sidebar.verticalTabs" = true;
                 "sidebar.verticalTabs.dragToPinPromo.dismissed" = true;
