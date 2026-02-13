@@ -160,6 +160,8 @@
                 Status = "locked";
               };
 
+              "middlemouse.paste" = lock-false;
+
               "extensions.pocket.enabled" = lock-false;
               "extensions.screenshots.disabled" = lock-true;
 
