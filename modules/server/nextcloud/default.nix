@@ -59,15 +59,15 @@
         };
       };
 
-      environment.etc = {
-        # Adapted failregex for syslogs
-        "fail2ban/filter.d/nextcloud.local".text = pkgs.lib.mkDefault (pkgs.lib.mkAfter ''
-          [Definition]
-          failregex = ^.*"remoteAddr":"&lt;HOST&gt;".*"message":"Login failed:
-                      ^.*"remoteAddr":"&lt;HOST&gt;".*"message":"Two-factor challenge failed:
-                      ^.*"remoteAddr":"&lt;HOST&gt;".*"message":"Trusted domain error.
-        '');
-      };
+      # environment.etc = {
+      #   # Adapted failregex for syslogs
+      #   "fail2ban/filter.d/nextcloud.local".text = pkgs.lib.mkDefault (pkgs.lib.mkAfter ''
+      #     [Definition]
+      #     failregex = ^.*"remoteAddr":"&lt;HOST&gt;".*"message":"Login failed:
+      #                 ^.*"remoteAddr":"&lt;HOST&gt;".*"message":"Two-factor challenge failed:
+      #                 ^.*"remoteAddr":"&lt;HOST&gt;".*"message":"Trusted domain error.
+      #   '');
+      # };
 
       services.nginx.virtualHosts.${"${subdomainName}.${config.modules.server.domain.main}"} = {
         enableACME = true;
