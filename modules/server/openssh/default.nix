@@ -35,6 +35,18 @@
           ports = [cfg.port];
           openFirewall = false;
 
+          banner = ''
+             ██████╗ ██╗   ██╗██████╗  ██████╗ ██████╗  ██████╗ ██████╗  ██████╗ ███████╗
+            ██╔═══██╗██║   ██║██╔══██╗██╔═══██╗██╔══██╗██╔═══██╗██╔══██╗██╔═══██╗██╔════╝
+            ██║   ██║██║   ██║██████╔╝██║   ██║██████╔╝██║   ██║██████╔╝██║   ██║███████╗
+            ██║   ██║██║   ██║██╔══██╗██║   ██║██╔══██╗██║   ██║██╔══██╗██║   ██║╚════██║
+            ╚██████╔╝╚██████╔╝██║  ██║╚██████╔╝██████╔╝╚██████╔╝██║  ██║╚██████╔╝███████║
+             ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+                                       A private ssh service.
+                                       Authorized users only,
+                                             thank you.
+          '';
+
           settings = {
             PermitRootLogin = "no";
 
@@ -51,11 +63,14 @@
           maxretry = 3;
           bantime = "2h";
           jails = {
-            sshd.settings = {
-              enable = true;
-              backend = "systemd";
-              bantime = "2h";
-              maxretry = 5;
+            sshd = {
+              settings = {
+                enable = true;
+                backend = "systemd";
+                mode = "aggressive";
+                bantime = "2h";
+                maxretry = 3;
+              };
             };
           };
 
