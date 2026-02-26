@@ -45,7 +45,22 @@
           };
         };
 
-        fail2ban.enable = true;
+        fail2ban = {
+          enable = true;
+
+          maxretry = 3;
+          bantime = "2h";
+          jails = {
+            sshd.settings = {
+              enable = true;
+              backend = "systemd";
+              bantime = "2h";
+              maxretry = 5;
+            };
+          };
+
+          bantime-increment.enable = true;
+        };
       };
 
       users.users.${config.modules.home.user.name}.openssh.authorizedKeys.keys = cfg.keys;
