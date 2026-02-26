@@ -26,7 +26,10 @@
       };
 
       tty = {
-        greetd.autoLogin = true;
+        greetd = {
+          enable = true;
+          autoLogin = true;
+        };
       };
 
       developer = {
