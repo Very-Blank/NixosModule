@@ -57,7 +57,7 @@
 
             Macs = lib.mkForce ["hmac-sha2-512-etm@openssh.com"];
             Ciphers = lib.mkForce ["chacha20-poly1305@openssh.com"];
-            KexAlgorithms = lib.mkForce ["mlkem768x25519‑sha256"];
+            KexAlgorithms = lib.mkForce ["mlkem768x25519-sha256"];
 
             AllowUsers = [config.modules.home.user.name];
           };
