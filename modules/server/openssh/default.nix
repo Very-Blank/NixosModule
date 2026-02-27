@@ -61,9 +61,15 @@
 
         fail2ban = {
           enable = true;
+          maxretry = 2;
 
-          maxretry = 3;
           bantime = "2h";
+          bantime-increment = {
+            enable = true;
+            multipliers = "1 2 4 8 16 32 64";
+            rndtime = "1h";
+          };
+
           jails = {
             sshd = {
               settings = {
@@ -75,8 +81,6 @@
               };
             };
           };
-
-          bantime-increment.enable = true;
         };
       };
 
