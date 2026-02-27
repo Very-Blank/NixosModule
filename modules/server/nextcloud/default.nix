@@ -42,8 +42,9 @@
         enable = true;
       };
 
-      # systemd.services."nextcloud-setup".requires = ["postgresql.service"];
-      # systemd.services."nextcloud-setup".after = ["postgresql.service"];
+      systemd.services."nextcloud-setup".requires = ["postgresql.service"];
+      systemd.services."nextcloud-setup".after = ["postgresql.service"];
+
       # services.fail2ban = {
       #   enable = true;
       #   # The jail file defines how to handle the failed authentication attempts found by the Nextcloud filter
