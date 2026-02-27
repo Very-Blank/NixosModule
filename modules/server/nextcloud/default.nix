@@ -34,13 +34,13 @@
         config = {
           adminuser = config.hostname;
           adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
-          dbtype = "pgsql";
+          dbtype = "sqlite";
         };
       };
 
-      services.postgresql = {
-        enable = true;
-      };
+      # services.postgresql = {
+      #   enable = true;
+      # };
 
       # services.fail2ban = {
       #   enable = true;
