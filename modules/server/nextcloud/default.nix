@@ -34,14 +34,16 @@
         config = {
           adminuser = config.hostname;
           adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
-          dbtype = "sqlite";
+          dbtype = "pgsql";
         };
       };
 
-      # services.postgresql = {
-      #   enable = true;
-      # };
+      services.postgresql = {
+        enable = true;
+      };
 
+      # systemd.services."nextcloud-setup".requires = ["postgresql.service"];
+      # systemd.services."nextcloud-setup".after = ["postgresql.service"];
       # services.fail2ban = {
       #   enable = true;
       #   # The jail file defines how to handle the failed authentication attempts found by the Nextcloud filter
