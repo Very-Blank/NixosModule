@@ -77,7 +77,7 @@
                 backend = "systemd";
                 mode = "aggressive";
                 bantime = "2h";
-                maxretry = 3;
+                maxretry = 2;
               };
             };
           };
