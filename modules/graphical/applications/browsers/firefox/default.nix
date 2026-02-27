@@ -265,34 +265,18 @@
 
               search = {
                 force = true;
-                default = "Mojeek";
-                privateDefault = "Mojeek";
+                default = "NonAIGoogle";
+                privateDefault = "NonAIGoogle";
 
                 engines = {
-                  "Mojeek" = {
+                  "NonAIGoogle" = {
                     urls = [
                       {
-                        template = "https://www.mojeek.com/search?";
+                        template = "https://www.google.com/search?";
                         params = [
                           {
-                            name = "theme";
-                            value = "dark";
-                          }
-                          {
-                            name = "hp";
-                            value = "minimal";
-                          }
-                          {
-                            name = "sumt";
-                            value = "0";
-                          }
-                          {
-                            name = "sumb";
-                            value = "0";
-                          }
-                          {
-                            name = "dlen";
-                            value = "250";
+                            name = "udm";
+                            value = "14";
                           }
                           {
                             name = "q";
@@ -302,7 +286,7 @@
                       }
                     ];
                     icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                    definedAliases = ["@mj"];
+                    definedAliases = ["@gg"];
                   };
 
                   "Nix Packages" = {
