@@ -34,7 +34,7 @@
         config = {
           adminuser = config.hostname;
           adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
-          dbtype = "pgsql";
+          # dbtype = "pgsql";
         };
       };
 
