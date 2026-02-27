@@ -38,6 +38,10 @@
         };
       };
 
+      services.postgresql = {
+        enable = true;
+      };
+
       # services.fail2ban = {
       #   enable = true;
       #   # The jail file defines how to handle the failed authentication attempts found by the Nextcloud filter
