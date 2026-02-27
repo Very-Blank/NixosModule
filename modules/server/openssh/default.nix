@@ -55,6 +55,10 @@
             PasswordAuthentication = false;
             KbdInteractiveAuthentication = false;
 
+            Macs = lib.mkForce ["hmac-sha2-512-etm@openssh.com"];
+            Ciphers = lib.mkForce ["chacha20-poly1305@openssh.com"];
+            KexAlgorithms = lib.mkForce ["mlkem768x25519‑sha256"];
+
             AllowUsers = [config.modules.home.user.name];
           };
         };
@@ -67,7 +71,7 @@
           bantime-increment = {
             enable = true;
             multipliers = "1 2 4 8 16 32 64";
-            rndtime = "1h";
+            rndtime = "2h";
           };
 
           jails = {
