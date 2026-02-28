@@ -308,7 +308,28 @@
         "niri": "niri",
         "nixnvim": "nixnvim",
         "nixpkgs": "nixpkgs_2",
+        "sefirah": "sefirah",
         "sops-nix": "sops-nix"
+      }
+    },
+    "sefirah": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772288058,
+        "narHash": "sha256-zVGl8sJ5e2OWxzJYIKpwjQb8kGa5/foLCXkKf0jRstU=",
+        "owner": "Very-Blank",
+        "repo": "Sefirah",
+        "rev": "00aaafd2b8542c58599bec2e2a7f03228238c1bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Very-Blank",
+        "repo": "Sefirah",
+        "type": "github"
       }
     },
     "sops-nix": {
