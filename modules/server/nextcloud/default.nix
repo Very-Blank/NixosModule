@@ -82,7 +82,7 @@
       };
 
       services.nginx.virtualHosts.${"${subdomainName}.${config.modules.server.domain.main}"} = {
-        enableACME = true;
+        useACMEHost = config.modules.server.domain.main;
         forceSSL = true;
       };
     };

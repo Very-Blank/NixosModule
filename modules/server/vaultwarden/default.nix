@@ -35,8 +35,9 @@
       };
 
       services.nginx.virtualHosts.${"${subdomainName}.${config.modules.server.domain.main}"} = {
-        enableACME = true;
+        useACMEHost = config.modules.server.domain.main;
         forceSSL = true;
+
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
           proxyWebsockets = true;

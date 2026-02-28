@@ -25,14 +25,23 @@
     cfg = config.modules.server.nginx;
   in
     lib.mkIf cfg.enable {
+      sops.secrets."acme/token" = {
+        sopsFile = ../../../secrets/other/. + "/${config.hostname}.yaml";
+      };
+
       security.acme = {
         acceptTerms = true;
         defaults.email = cfg.acme.email;
+
+        certs.${config.modules.server.domain.main} = {
+          extraDomainNames = ["*.${config.modules.server.domain.main}"];
+          dnsProvider = "cloudflare";
+          credentialsFile = config.sops.secrets."acme/token".path;
+        };
       };
 
       services.nginx = {
         enable = true;
-
         serverTokens = false;
 
         recommendedGzipSettings = true;
@@ -47,8 +56,9 @@
         '';
 
         virtualHosts.${config.modules.server.domain.main} = {
+          useACMEHost = config.modules.server.domain.main;
+
           forceSSL = true;
-          enableACME = true;
           reuseport = true;
 
           root = inputs.sefirah.packages.${pkgs.stdenv.system}.default;
@@ -66,7 +76,14 @@
 
           locations."/" = {
             index = "index.html";
+            tryFiles = "$uri $uri/ /index.html";
           };
+        };
+
+        virtualHosts."*.${config.modules.server.domain.main}" = {
+          forceSSL = true;
+          useACMEHost = config.modules.server.domain.main;
+          globalRedirect = config.modules.server.domain.main;
         };
       };
 
