@@ -70,6 +70,7 @@
         };
 
         applications = [
+          "nextcloud"
           "steam"
           "obsidian"
           "obs"

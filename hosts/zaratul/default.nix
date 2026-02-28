@@ -56,6 +56,7 @@
           "steam"
           "obsidian"
           "obs"
+          "nextcloud"
         ];
       };
 
