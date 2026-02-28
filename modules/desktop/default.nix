@@ -72,6 +72,7 @@
           type = with lib.types;
             listOf (enum [
               "obsidian"
+              "nextcloud"
               "obs"
               "steam"
             ]);
