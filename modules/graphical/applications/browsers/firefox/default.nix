@@ -304,21 +304,21 @@
                     definedAliases = ["@yt"];
                   };
 
-                  # "" = {
-                  #   urls = [
-                  #     {
-                  #       template = "https://www.youtube.com/results?";
-                  #       params = [
-                  #         {
-                  #           name = "search_query";
-                  #           value = "{searchTerms}";
-                  #         }
-                  #       ];
-                  #     }
-                  #   ];
-                  #   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                  #   definedAliases = ["@yt"];
-                  # };
+                  "Claude" = {
+                    urls = [
+                      {
+                        template = "https://claude.ai/new";
+                        params = [
+                          {
+                            name = "q";
+                            value = "{searchTerms}";
+                          }
+                        ];
+                      }
+                    ];
+                    icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                    definedAliases = ["@cl"];
+                  };
 
                   "Nix Packages" = {
                     urls = [
