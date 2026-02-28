@@ -38,6 +38,10 @@
 
         sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
 
+        appendHttpConfig = ''
+          limit_req_zone $binary_remote_addr zone=general:10m rate=10r/s;
+        '';
+
         virtualHosts.${config.modules.server.domain.main} = {
           forceSSL = true;
           enableACME = true;
@@ -46,7 +50,10 @@
           root = ./sefirah;
 
           extraConfig = ''
-            add_header Content-Security-Policy "script-src 'self'; object-src 'none'; base-uri 'none';" always;
+            limit_req zone=general burst=10 nodelay;
+            limit_req_status 429;
+            add_header Strict-Transport-Security "max-age=31536000" always;
+            add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none';" always;
             add_header 'Referrer-Policy' 'origin-when-cross-origin';
             add_header X-Frame-Options DENY;
             add_header X-Content-Type-Options nosniff;
