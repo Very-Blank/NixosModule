@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }: {
@@ -23,7 +22,7 @@
   in
     lib.mkIf cfg.enable {
       userHome = {
-        home.packages = [pkgs.nextcloud-client];
+        services.nextcloud-client.enable = true;
       };
     };
 }
