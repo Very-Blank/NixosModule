@@ -31,6 +31,8 @@
       services.nginx = {
         enable = true;
 
+        serverTokens = false;
+
         recommendedGzipSettings = true;
         recommendedOptimisation = true;
         recommendedProxySettings = true;
