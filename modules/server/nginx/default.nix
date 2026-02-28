@@ -1,6 +1,8 @@
 {
   lib,
+  pkgs,
   config,
+  inputs,
   ...
 }: {
   options = {
@@ -49,7 +51,7 @@
           enableACME = true;
           reuseport = true;
 
-          root = ./sefirah;
+          root = inputs.sefirah.packages.${pkgs.stdenv.system}.default;
 
           extraConfig = ''
             limit_req zone=general burst=10 nodelay;
